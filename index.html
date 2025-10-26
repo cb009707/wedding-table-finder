@@ -3,12 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your Table</title>
+    <title>Find Your Table - Fiona & Gerard Wedding</title>
     <style>
-        /* Wedding Theme Colors: Blush Pink (#FFC0CB), Gold (#FFD700), Ivory/White (#FFFFF0) */
-
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap'); /* More elegant font */
-
         * {
             margin: 0;
             padding: 0;
@@ -16,9 +12,8 @@
         }
 
         body {
-            font-family: 'Playfair Display', serif; /* Elegant font */
-            background: #f8f8f8; /* Soft Off-White Background */
-            /* Subtle texture or pattern could be added here */
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            background: linear-gradient(135deg, #f5e6d3 0%, #d4c4b0 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -27,39 +22,87 @@
         }
 
         .container {
-            background: #FFFFF0; /* Ivory container */
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            padding: 40px;
-            max-width: 500px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            max-width: 600px;
             width: 100%;
-            animation: fadeIn 0.5s ease;
-            border: 3px solid #FFD700; /* Gold border for elegance */
+            overflow: hidden;
+            animation: fadeIn 0.8s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h1 {
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400"><rect fill="%23a89f91" width="800" height="400"/><circle cx="400" cy="200" r="150" fill="%23c4b5a0" opacity="0.3"/></svg>');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            color: white;
             text-align: center;
-            color: #FFC0CB; /* Blush Pink Heading */
-            font-size: 36px;
-            margin-bottom: 5px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            padding: 40px;
         }
 
-        .subtitle {
-            text-align: center;
-            color: #555;
-            margin-bottom: 30px;
-            font-size: 18px;
+        .arch-border {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 280px;
+            height: 260px;
+            border: 3px solid #d4af7a;
+            border-radius: 140px 140px 0 0;
+            pointer-events: none;
+        }
+
+        .couple-names {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            z-index: 1;
+        }
+
+        .plus {
+            font-size: 32px;
+            margin: 0 10px;
+        }
+
+        .wedding-date {
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 10px;
             font-style: italic;
-            border-bottom: 1px dashed #FFC0CB;
-            padding-bottom: 15px;
+            z-index: 1;
+        }
+
+        .content-section {
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .welcome-text {
+            font-size: 22px;
+            color: #6b5d52;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .instruction-text {
+            font-size: 16px;
+            color: #8a7a6a;
+            margin-bottom: 35px;
+            line-height: 1.6;
         }
 
         .search-box {
@@ -69,38 +112,73 @@
 
         input {
             width: 100%;
-            padding: 15px 20px;
+            padding: 18px 25px;
             font-size: 18px;
-            font-family: 'Georgia', serif;
-            border: 2px solid #FFC0CB; /* Blush Pink Border */
-            border-radius: 5px;
+            border: 2px solid #d4af7a;
+            border-radius: 0;
             outline: none;
             transition: all 0.3s;
-            color: #333;
-        }
-
-        input::placeholder {
-            color: #aaa;
+            background: #fefefe;
+            font-family: 'Georgia', serif;
+            text-align: center;
+            letter-spacing: 1px;
         }
 
         input:focus {
-            border-color: #FFD700; /* Gold focus effect */
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+            border-color: #b8935f;
+            box-shadow: 0 0 0 3px rgba(212, 175, 122, 0.1);
+            background: white;
+        }
+
+        input::placeholder {
+            color: #c4b5a0;
+            font-style: italic;
+        }
+
+        .suggestions {
+            margin-top: 15px;
+            max-height: 250px;
+            overflow-y: auto;
+            border: 2px solid #e8dcc8;
+            background: white;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .suggestions.show {
+            display: block;
+        }
+
+        .suggestion-item {
+            padding: 16px 25px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid #f5ede0;
+            text-align: left;
+            color: #6b5d52;
+            font-size: 16px;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background: #faf7f2;
         }
 
         .result {
             text-align: center;
-            padding: 30px;
-            background: linear-gradient(145deg, #FFC0CB 0%, #FFD700 100%); /* Pink to Gold Gradient */
-            border-radius: 10px;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, #d4af7a 0%, #b8935f 100%);
             color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             display: none;
-            animation: slideIn 0.4s ease;
+            animation: slideIn 0.5s ease;
+            margin-top: 30px;
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: scale(0.9); }
+            from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
 
@@ -108,40 +186,43 @@
             display: block;
         }
 
-        .table-number {
-            font-size: 72px;
-            font-weight: bold;
-            margin: 20px 0;
-            color: #ffffff; /* White number */
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
         .guest-name {
             font-size: 28px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        .result > div:first-of-type {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        
-        .result > div:last-of-type {
-            font-size: 20px;
-            margin-top: 15px;
-            font-style: italic;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            font-weight: 300;
         }
 
+        .table-label {
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .table-number {
+            font-size: 72px;
+            font-weight: 300;
+            margin: 15px 0;
+            letter-spacing: 4px;
+        }
+
+        .enjoy-text {
+            font-size: 18px;
+            font-style: italic;
+            margin-top: 20px;
+            opacity: 0.95;
+        }
 
         .not-found {
-            background: #ff7f7f;
-            padding: 20px;
-            border-radius: 5px;
+            background: #c9a882;
+            padding: 25px;
             color: white;
             text-align: center;
             display: none;
             animation: shake 0.5s;
+            margin-top: 20px;
         }
 
         @keyframes shake {
@@ -154,70 +235,54 @@
             display: block;
         }
 
-        .suggestions {
-            margin-top: 15px;
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid #FFC0CB; /* Blush border for suggestions */
-            border-radius: 5px;
-            background: white;
-            display: none;
+        .decorative-line {
+            width: 60px;
+            height: 2px;
+            background: #d4af7a;
+            margin: 20px auto;
         }
 
-        .suggestions.show {
-            display: block;
-        }
-
-        .suggestion-item {
-            padding: 12px 20px;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-            border-bottom: 1px solid #f0f0f0;
-            color: #333;
-        }
-
-        .suggestion-item:last-child {
-            border-bottom: none;
-        }
-
-        .suggestion-item:hover {
-            background: #fff5e8; /* Light gold/ivory hover */
-            color: #FFC0CB; /* Blush pink text on hover */
-        }
-
-        .loading {
-            text-align: center;
-            color: #FFC0CB; /* Blush pink loading text */
+        .footer-note {
+            font-size: 13px;
+            color: #a89f91;
+            margin-top: 30px;
             font-style: italic;
-            display: none;
-        }
-
-        .loading.show {
-            display: block;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>💍 Welcome, Dear Guest! 🥂</h1> 
-        <p class="subtitle">Please enter your full name to find your seat for the celebration.</p>
-        
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search by your name (e.g., Tania Thomas)" autocomplete="off">
+        <div class="hero-section">
+            <div class="arch-border"></div>
+            <div class="couple-names">
+                FIONA <span class="plus">+</span> GERARD
+            </div>
+            <div class="wedding-date">Saturday, September 16th, 2025</div>
         </div>
 
-        <div class="suggestions" id="suggestions"></div>
-        <div class="loading" id="loading">Searching...</div>
-        
-        <div class="result" id="result"></div>
-        
-        <div class="not-found" id="notFound">
-            <p>**Oh no!** We couldn't find your name. Please check the spelling or contact the wedding party.</p>
+        <div class="content-section">
+            <div class="welcome-text">Welcome to our celebration</div>
+            <div class="decorative-line"></div>
+            <div class="instruction-text">
+                Please enter your name below to find your table assignment
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Enter your full name" autocomplete="off">
+            </div>
+
+            <div class="suggestions" id="suggestions"></div>
+            <div class="result" id="result"></div>
+            <div class="not-found" id="notFound">
+                <p>We couldn't find your name. Please check the spelling or speak with our coordinator.</p>
+            </div>
+
+            <div class="footer-note">We look forward to celebrating with you</div>
         </div>
     </div>
 
     <script>
-        // Guest data (kept the same)
+        // Guest data
         const guests = {
             // Table 1
             "tania thomas": { name: "Tania Thomas", table: 1 },
@@ -240,7 +305,7 @@
             "andrew barnett": { name: "Andrew Barnett", table: 3 },
             "winifred barnett": { name: "Winifred Barnett", table: 3 },
             
-            // Tables 4-10 (Sample guests - replace with your actual guests later)
+            // Tables 4-10 (Sample guests)
             "michael silva": { name: "Michael Silva", table: 4 },
             "priya fernando": { name: "Priya Fernando", table: 4 },
             "rajesh kumar": { name: "Rajesh Kumar", table: 4 },
@@ -323,7 +388,6 @@
         const suggestions = document.getElementById('suggestions');
         const result = document.getElementById('result');
         const notFound = document.getElementById('notFound');
-        const loading = document.getElementById('loading');
 
         let debounceTimer;
 
@@ -374,7 +438,7 @@
                 } else {
                     result.classList.remove('show');
                     notFound.classList.add('show');
-                    setTimeout(() => notFound.classList.remove('show'), 3000);
+                    setTimeout(() => notFound.classList.remove('show'), 4000);
                 }
             }
         });
@@ -382,9 +446,9 @@
         function showResult(guest) {
             result.innerHTML = `
                 <div class="guest-name">${guest.name}</div>
-                <div>Your assigned seating area is</div>
-                <div class="table-number">${guest.table}</div>
-                <div>Enjoy the celebration! 🥂</div>
+                <div class="table-label">You are seated at</div>
+                <div class="table-number">Table ${guest.table}</div>
+                <div class="enjoy-text">We can't wait to celebrate with you</div>
             `;
             result.classList.add('show');
         }
