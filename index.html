@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Your Table</title>
     <style>
+        /* Wedding Theme Colors: Blush Pink (#FFC0CB), Gold (#FFD700), Ivory/White (#FFFFF0) */
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap'); /* More elegant font */
+
         * {
             margin: 0;
             padding: 0;
@@ -12,8 +16,9 @@
         }
 
         body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Playfair Display', serif; /* Elegant font */
+            background: #f8f8f8; /* Soft Off-White Background */
+            /* Subtle texture or pattern could be added here */
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,13 +27,14 @@
         }
 
         .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: #FFFFF0; /* Ivory container */
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             padding: 40px;
             max-width: 500px;
             width: 100%;
             animation: fadeIn 0.5s ease;
+            border: 3px solid #FFD700; /* Gold border for elegance */
         }
 
         @keyframes fadeIn {
@@ -38,16 +44,22 @@
 
         h1 {
             text-align: center;
-            color: #667eea;
-            font-size: 32px;
-            margin-bottom: 10px;
+            color: #FFC0CB; /* Blush Pink Heading */
+            font-size: 36px;
+            margin-bottom: 5px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
 
         .subtitle {
             text-align: center;
-            color: #666;
+            color: #555;
             margin-bottom: 30px;
-            font-size: 16px;
+            font-size: 18px;
+            font-style: italic;
+            border-bottom: 1px dashed #FFC0CB;
+            padding-bottom: 15px;
         }
 
         .search-box {
@@ -59,23 +71,30 @@
             width: 100%;
             padding: 15px 20px;
             font-size: 18px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            font-family: 'Georgia', serif;
+            border: 2px solid #FFC0CB; /* Blush Pink Border */
+            border-radius: 5px;
             outline: none;
             transition: all 0.3s;
+            color: #333;
+        }
+
+        input::placeholder {
+            color: #aaa;
         }
 
         input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #FFD700; /* Gold focus effect */
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
         }
 
         .result {
             text-align: center;
             padding: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
+            background: linear-gradient(145deg, #FFC0CB 0%, #FFD700 100%); /* Pink to Gold Gradient */
+            border-radius: 10px;
             color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             display: none;
             animation: slideIn 0.4s ease;
         }
@@ -90,20 +109,35 @@
         }
 
         .table-number {
-            font-size: 64px;
+            font-size: 72px;
             font-weight: bold;
             margin: 20px 0;
+            color: #ffffff; /* White number */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         .guest-name {
-            font-size: 24px;
+            font-size: 28px;
             margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .result > div:first-of-type {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .result > div:last-of-type {
+            font-size: 20px;
+            margin-top: 15px;
+            font-style: italic;
         }
 
+
         .not-found {
-            background: #ff6b6b;
+            background: #ff7f7f;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 5px;
             color: white;
             text-align: center;
             display: none;
@@ -124,8 +158,9 @@
             margin-top: 15px;
             max-height: 200px;
             overflow-y: auto;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            border: 1px solid #FFC0CB; /* Blush border for suggestions */
+            border-radius: 5px;
+            background: white;
             display: none;
         }
 
@@ -136,8 +171,9 @@
         .suggestion-item {
             padding: 12px 20px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background 0.2s, color 0.2s;
             border-bottom: 1px solid #f0f0f0;
+            color: #333;
         }
 
         .suggestion-item:last-child {
@@ -145,12 +181,14 @@
         }
 
         .suggestion-item:hover {
-            background: #f8f9ff;
+            background: #fff5e8; /* Light gold/ivory hover */
+            color: #FFC0CB; /* Blush pink text on hover */
         }
 
         .loading {
             text-align: center;
-            color: #666;
+            color: #FFC0CB; /* Blush pink loading text */
+            font-style: italic;
             display: none;
         }
 
@@ -161,23 +199,25 @@
 </head>
 <body>
     <div class="container">
-        <h1>🌸 Find Your Table 🌸</h1>
-        <p class="subtitle">Welcome to our celebration!</p>
+        <h1>💍 Welcome, Dear Guest! 🥂</h1> 
+        <p class="subtitle">Please enter your full name to find your seat for the celebration.</p>
         
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Enter your name..." autocomplete="off">
+            <input type="text" id="searchInput" placeholder="Search by your name (e.g., Tania Thomas)" autocomplete="off">
         </div>
 
         <div class="suggestions" id="suggestions"></div>
         <div class="loading" id="loading">Searching...</div>
+        
         <div class="result" id="result"></div>
+        
         <div class="not-found" id="notFound">
-            <p>Sorry, we couldn't find your name. Please check the spelling or contact the organizers.</p>
+            <p>**Oh no!** We couldn't find your name. Please check the spelling or contact the wedding party.</p>
         </div>
     </div>
 
     <script>
-        // Guest data
+        // Guest data (kept the same)
         const guests = {
             // Table 1
             "tania thomas": { name: "Tania Thomas", table: 1 },
@@ -342,9 +382,9 @@
         function showResult(guest) {
             result.innerHTML = `
                 <div class="guest-name">${guest.name}</div>
-                <div>Your table number is</div>
+                <div>Your assigned seating area is</div>
                 <div class="table-number">${guest.table}</div>
-                <div>Enjoy the celebration! 🎉</div>
+                <div>Enjoy the celebration! 🥂</div>
             `;
             result.classList.add('show');
         }
