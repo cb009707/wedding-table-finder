@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Table</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .result {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+            display: none;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .table-number {
+            font-size: 64px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .guest-name {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .not-found {
+            background: #ff6b6b;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            display: none;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .not-found.show {
+            display: block;
+        }
+
+        .suggestions {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .suggestions.show {
+            display: block;
+        }
+
+        .suggestion-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background: #f8f9ff;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            display: none;
+        }
+
+        .loading.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌸 Find Your Table 🌸</h1>
+        <p class="subtitle">Welcome to our celebration!</p>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Enter your name..." autocomplete="off">
+        </div>
+
+        <div class="suggestions" id="suggestions"></div>
+        <div class="loading" id="loading">Searching...</div>
+        <div class="result" id="result"></div>
+        <div class="not-found" id="notFound">
+            <p>Sorry, we couldn't find your name. Please check the spelling or contact the organizers.</p>
+        </div>
+    </div>
+
+    <script>
+        // Guest data - Table numbers from 1 to 40 (400 guests / 10 per table)
+        const guests = {};
+        
+        // Generate sample guest list for demonstration
+        const firstNames = ['John', 'Emma', 'Michael', 'Sophia', 'William', 'Olivia', 'James', 'Ava', 'Robert', 'Isabella', 'David', 'Mia', 'Richard', 'Charlotte', 'Joseph', 'Amelia', 'Thomas', 'Harper', 'Daniel', 'Evelyn'];
+        const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin'];
+        
+        for (let i = 0; i < 400; i++) {
+            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+            const fullName = `${firstName} ${lastName}`;
+            const tableNumber = Math.floor(i / 10) + 1;
+            guests[fullName.toLowerCase()] = { name: fullName, table: tableNumber };
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        const suggestions = document.getElementById('suggestions');
+        const result = document.getElementById('result');
+        const notFound = document.getElementById('notFound');
+        const loading = document.getElementById('loading');
+
+        let debounceTimer;
+
+        searchInput.addEventListener('input', function(e) {
+            clearTimeout(debounceTimer);
+            const query = e.target.value.toLowerCase().trim();
+            
+            result.classList.remove('show');
+            notFound.classList.remove('show');
+            
+            if (query.length < 2) {
+                suggestions.classList.remove('show');
+                return;
+            }
+
+            debounceTimer = setTimeout(() => {
+                const matches = Object.keys(guests)
+                    .filter(name => name.includes(query))
+                    .slice(0, 5);
+
+                if (matches.length > 0) {
+                    suggestions.innerHTML = matches.map(name => 
+                        `<div class="suggestion-item" onclick="selectGuest('${name}')">${guests[name].name}</div>`
+                    ).join('');
+                    suggestions.classList.add('show');
+                } else {
+                    suggestions.classList.remove('show');
+                }
+            }, 200);
+        });
+
+        function selectGuest(guestKey) {
+            const guest = guests[guestKey];
+            searchInput.value = guest.name;
+            suggestions.classList.remove('show');
+            showResult(guest);
+        }
+
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = e.target.value.toLowerCase().trim();
+                const guest = guests[query];
+                
+                suggestions.classList.remove('show');
+                
+                if (guest) {
+                    showResult(guest);
+                } else {
+                    result.classList.remove('show');
+                    notFound.classList.add('show');
+                    setTimeout(() => notFound.classList.remove('show'), 3000);
+                }
+            }
+        });
+
+        function showResult(guest) {
+            result.innerHTML = `
+                <div class="guest-name">${guest.name}</div>
+                <div>Your table number is</div>
+                <div class="table-number">${guest.table}</div>
+                <div>Enjoy the celebration! 🎉</div>
+            `;
+            result.classList.add('show');
+        }
+    </script>
+</body>
+</html>
