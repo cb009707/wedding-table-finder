@@ -177,20 +177,107 @@
     </div>
 
     <script>
-        // Guest data - Table numbers from 1 to 40 (400 guests / 10 per table)
-        const guests = {};
-        
-        // Generate sample guest list for demonstration
-        const firstNames = ['John', 'Emma', 'Michael', 'Sophia', 'William', 'Olivia', 'James', 'Ava', 'Robert', 'Isabella', 'David', 'Mia', 'Richard', 'Charlotte', 'Joseph', 'Amelia', 'Thomas', 'Harper', 'Daniel', 'Evelyn'];
-        const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin'];
-        
-        for (let i = 0; i < 400; i++) {
-            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-            const fullName = `${firstName} ${lastName}`;
-            const tableNumber = Math.floor(i / 10) + 1;
-            guests[fullName.toLowerCase()] = { name: fullName, table: tableNumber };
-        }
+        // Guest data
+        const guests = {
+            // Table 1
+            "tania thomas": { name: "Tania Thomas", table: 1 },
+            "romesh thomas": { name: "Romesh Thomas", table: 1 },
+            "noni mama": { name: "Noni Mama", table: 1 },
+            "appen thomas": { name: "Appen Thomas", table: 1 },
+            
+            // Table 2
+            "sachin maddumage": { name: "Sachin Maddumage", table: 2 },
+            "che maddumage": { name: "Che Maddumage", table: 2 },
+            "sharmain maddumage": { name: "Sharmain Maddumage", table: 2 },
+            "manjula maddumage": { name: "Manjula Maddumage", table: 2 },
+            "shirley maddumage": { name: "Shirley Maddumage", table: 2 },
+            
+            // Table 3
+            "thenula pieris": { name: "Thenula Pieris", table: 3 },
+            "sandra barnett": { name: "Sandra Barnett", table: 3 },
+            "asela pathirana": { name: "Asela Pathirana", table: 3 },
+            "hasuni vishudaya": { name: "Hasuni Vishudaya", table: 3 },
+            "andrew barnett": { name: "Andrew Barnett", table: 3 },
+            "winifred barnett": { name: "Winifred Barnett", table: 3 },
+            
+            // Tables 4-10 (Sample guests - replace with your actual guests later)
+            "michael silva": { name: "Michael Silva", table: 4 },
+            "priya fernando": { name: "Priya Fernando", table: 4 },
+            "rajesh kumar": { name: "Rajesh Kumar", table: 4 },
+            "ananya perera": { name: "Ananya Perera", table: 4 },
+            "david wijesinghe": { name: "David Wijesinghe", table: 4 },
+            "sarah jayawardena": { name: "Sarah Jayawardena", table: 4 },
+            "nimal dias": { name: "Nimal Dias", table: 4 },
+            "ishara mendis": { name: "Ishara Mendis", table: 4 },
+            "rohan gunawardena": { name: "Rohan Gunawardena", table: 4 },
+            "kavitha rodrigo": { name: "Kavitha Rodrigo", table: 4 },
+            
+            "anil dissanayake": { name: "Anil Dissanayake", table: 5 },
+            "chamari wickramasinghe": { name: "Chamari Wickramasinghe", table: 5 },
+            "dinesh ranasinghe": { name: "Dinesh Ranasinghe", table: 5 },
+            "malini rajapakse": { name: "Malini Rajapakse", table: 5 },
+            "suneth bandara": { name: "Suneth Bandara", table: 5 },
+            "yasmin jayasuriya": { name: "Yasmin Jayasuriya", table: 5 },
+            "prasad amarasinghe": { name: "Prasad Amarasinghe", table: 5 },
+            "niluka senanayake": { name: "Niluka Senanayake", table: 5 },
+            "buddhika silva": { name: "Buddhika Silva", table: 5 },
+            "thilini de silva": { name: "Thilini De Silva", table: 5 },
+            
+            "sanjeewa perera": { name: "Sanjeewa Perera", table: 6 },
+            "ruvini fernando": { name: "Ruvini Fernando", table: 6 },
+            "kumara jayasinghe": { name: "Kumara Jayasinghe", table: 6 },
+            "madhavi wickremasinghe": { name: "Madhavi Wickremasinghe", table: 6 },
+            "lakshan de alwis": { name: "Lakshan De Alwis", table: 6 },
+            "sanduni wickramanayake": { name: "Sanduni Wickramanayake", table: 6 },
+            "ruwan ekanayake": { name: "Ruwan Ekanayake", table: 6 },
+            "dilini samaraweera": { name: "Dilini Samaraweera", table: 6 },
+            "chathura gunasekara": { name: "Chathura Gunasekara", table: 6 },
+            "anusha liyanage": { name: "Anusha Liyanage", table: 6 },
+            
+            "kasun rathnayake": { name: "Kasun Rathnayake", table: 7 },
+            "nimali cooray": { name: "Nimali Cooray", table: 7 },
+            "indika wijesuriya": { name: "Indika Wijesuriya", table: 7 },
+            "oshadi fernando": { name: "Oshadi Fernando", table: 7 },
+            "chandana dissanayake": { name: "Chandana Dissanayake", table: 7 },
+            "harini perera": { name: "Harini Perera", table: 7 },
+            "ajith mendis": { name: "Ajith Mendis", table: 7 },
+            "shashika jayakody": { name: "Shashika Jayakody", table: 7 },
+            "mahesh bandara": { name: "Mahesh Bandara", table: 7 },
+            "samanthi rodrigo": { name: "Samanthi Rodrigo", table: 7 },
+            
+            "gayan wijeratne": { name: "Gayan Wijeratne", table: 8 },
+            "rashmi silva": { name: "Rashmi Silva", table: 8 },
+            "nuwan jayawardena": { name: "Nuwan Jayawardena", table: 8 },
+            "piyumi gunaratne": { name: "Piyumi Gunaratne", table: 8 },
+            "shaminda perera": { name: "Shaminda Perera", table: 8 },
+            "dulani fernando": { name: "Dulani Fernando", table: 8 },
+            "sachith de silva": { name: "Sachith De Silva", table: 8 },
+            "kaushalya wickramasinghe": { name: "Kaushalya Wickramasinghe", table: 8 },
+            "saman rajapakse": { name: "Saman Rajapakse", table: 8 },
+            "nethmi jayasinghe": { name: "Nethmi Jayasinghe", table: 8 },
+            
+            "thilak senanayake": { name: "Thilak Senanayake", table: 9 },
+            "chathurika amarasinghe": { name: "Chathurika Amarasinghe", table: 9 },
+            "pradeep ranatunga": { name: "Pradeep Ranatunga", table: 9 },
+            "sulochana dissanayake": { name: "Sulochana Dissanayake", table: 9 },
+            "nalin fernando": { name: "Nalin Fernando", table: 9 },
+            "janaki wickramanayake": { name: "Janaki Wickramanayake", table: 9 },
+            "tharindu liyanage": { name: "Tharindu Liyanage", table: 9 },
+            "dilshi perera": { name: "Dilshi Perera", table: 9 },
+            "ranil jayasuriya": { name: "Ranil Jayasuriya", table: 9 },
+            "nadeeka gunasekara": { name: "Nadeeka Gunasekara", table: 9 },
+            
+            "sunil wijesekara": { name: "Sunil Wijesekara", table: 10 },
+            "kamala mendis": { name: "Kamala Mendis", table: 10 },
+            "asanka rathnayake": { name: "Asanka Rathnayake", table: 10 },
+            "ishani cooray": { name: "Ishani Cooray", table: 10 },
+            "nishantha silva": { name: "Nishantha Silva", table: 10 },
+            "menaka fernando": { name: "Menaka Fernando", table: 10 },
+            "upul jayawardena": { name: "Upul Jayawardena", table: 10 },
+            "manori perera": { name: "Manori Perera", table: 10 },
+            "ranjith wickramasinghe": { name: "Ranjith Wickramasinghe", table: 10 },
+            "hashini de alwis": { name: "Hashini De Alwis", table: 10 }
+        };
 
         const searchInput = document.getElementById('searchInput');
         const suggestions = document.getElementById('suggestions');
