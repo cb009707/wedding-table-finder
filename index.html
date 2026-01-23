@@ -734,22 +734,26 @@
 
 /* Envelope flap */
 .envelope-top {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 50%;
-    background: linear-gradient(135deg, #d9ede2, #b7d5c7);
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-    z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;              /* was too tall before */
+  background: linear-gradient(135deg, #d9ede2, #b7d5c7);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  z-index: 2;
 }
 
 .cover-content {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    padding: 140px 20px 20px;
-    color: #6b5d52;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 110px 20px 0;
+  color: #6b5d52;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
 }
 
 .cover-names {
@@ -1085,10 +1089,9 @@
   transform: rotateX(160deg);
 }
 
-/* Wax seal */
 .wax-seal {
   position: absolute;
-  bottom: 95px;
+  top: 225px;        /* controls vertical placement */
   left: 50%;
   transform: translateX(-50%);
   width: 70px;
@@ -1104,6 +1107,7 @@
   z-index: 4;
   animation: sealPulse 2s infinite;
 }
+
 
 @keyframes sealPulse {
   0%, 100% { transform: translateX(-50%) scale(1); }
@@ -1145,20 +1149,25 @@
 
 <div class="cover-screen" id="coverScreen">
   <div class="cover-card" id="coverCard">
+
     <div class="envelope-back"></div>
     <div class="envelope-top" id="flap"></div>
-
-    <div class="wax-seal" id="waxSeal">💍</div>
 
     <div class="cover-content">
       <h1 class="cover-names">Romesh & Wife</h1>
       <p class="cover-date">Saturday, September 16th, 2025</p>
-      <button class="open-btn" id="openBtn" onclick="openInvitation()">Open Invitation</button>
+
+      <button class="open-btn" id="openBtn" onclick="openInvitation()">
+        OPEN INVITATION
+      </button>
     </div>
 
+    <div class="wax-seal" id="waxSeal">💍</div>
     <div class="sparkles" id="sparkles"></div>
+
   </div>
 </div>
+
 
 
     <div class="hearts-container" id="heartsContainer"></div>
