@@ -748,13 +748,15 @@
   position: relative;
   z-index: 3;
   text-align: center;
-  padding: 110px 20px 0;
+  padding: 90px 20px 0;   /* ⬅ reduced */
   color: #6b5d52;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 14px;
 }
+
+
 
 .cover-names {
     font-family: 'Cormorant Garamond', serif;
@@ -1091,7 +1093,7 @@
 
 .wax-seal {
   position: absolute;
-  top: 225px;        /* controls vertical placement */
+  top: 69%;                 /* push clearly below button */
   left: 50%;
   transform: translateX(-50%);
   width: 70px;
@@ -1106,7 +1108,10 @@
   color: #fff;
   z-index: 4;
   animation: sealPulse 2s infinite;
+  cursor: pointer;
 }
+
+
 
 
 @keyframes sealPulse {
@@ -1294,9 +1299,13 @@
         </div>
     </div>
 
+        <audio id="openSound">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_30b7a8c8a1.mp3?filename=magic-chime-02-232892.mp3" type="audio/mpeg">
+</audio>
+
     <script>
-        // Guest data
-        const guests = {
+
+const guests = {
             "tania thomas": { name: "Tania Thomas", table: 1 },
             "romesh thomas": { name: "Romesh Thomas", table: 1 },
             "noni mama": { name: "Noni Mama", table: 1 },
@@ -1496,9 +1505,17 @@ function openInvitation() {
   const flap = document.getElementById("flap");
   const sparkles = document.getElementById("sparkles");
   const btn = document.getElementById("openBtn");
-  const app = document.getElementById("appWrapper");
+  const app = document.querySelector(".container");
+
 
   btn.disabled = true;
+
+const sound = document.getElementById("openSound");
+
+// 🔊 Play sound
+sound.currentTime = 0;
+sound.play().catch(() => {});
+
 
   // Open envelope flap
   flap.classList.add("open");
@@ -1526,7 +1543,10 @@ function openInvitation() {
   }, 1400);
 }
 
+document.getElementById("waxSeal").onclick = openInvitation;
+
 
     </script>
+
 </body>
 </html>
