@@ -700,9 +700,467 @@
                 transform: translateX(3px);
             }
         }
+
+/* COVER SCREEN */
+.cover-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #f5e6d3 0%, #d4c4b0 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.cover-card {
+    width: min(90%, 420px);
+    height: 320px;
+    background: linear-gradient(135deg, #e6f2ea, #cfe3d8);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    position: relative;
+    overflow: hidden;
+    animation: floatIn 1.2s ease;
+}
+
+/* Placeholder background image feel */
+.cover-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(212,175,122,0.2), rgba(184,147,95,0.2));
+    z-index: 0;
+}
+
+/* Envelope flap */
+.envelope-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(135deg, #d9ede2, #b7d5c7);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    z-index: 2;
+}
+
+.cover-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 140px 20px 20px;
+    color: #6b5d52;
+}
+
+.cover-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+}
+
+.cover-date {
+    font-style: italic;
+    margin-bottom: 20px;
+    color: #8a7a6a;
+}
+
+.open-btn {
+    background: linear-gradient(135deg, #d4af7a, #b8935f);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+}
+
+.open-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+}
+
+/* App wrapper hidden initially */
+.app-wrapper {
+    display: none;
+}
+
+/* Transitions */
+.fade-out {
+    animation: fadeOut 0.8s ease forwards;
+}
+
+.fade-in {
+    animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: scale(0.95); }
+}
+
+/* COVER SCREEN */
+.cover-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #f5e6d3 0%, #d4c4b0 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+/* Floating petals in background */
+.cover-screen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(212,175,122,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(184,147,95,0.1) 0%, transparent 50%);
+    animation: slowFloat 20s ease-in-out infinite;
+}
+
+@keyframes slowFloat {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(20px, -20px) rotate(5deg); }
+}
+
+.cover-card {
+    width: min(90%, 420px);
+    height: 380px;
+    background: linear-gradient(135deg, #fdfbf7, #f5f0e8);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    position: relative;
+    overflow: hidden;
+    animation: floatIn 1.2s ease;
+    border: 1px solid rgba(212,175,122,0.3);
+}
+
+/* Decorative corner flourishes */
+.cover-card::before,
+.cover-card::after {
+    content: '✦';
+    position: absolute;
+    font-size: 24px;
+    color: rgba(212,175,122,0.4);
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+.cover-card::before {
+    top: 20px;
+    left: 20px;
+}
+
+.cover-card::after {
+    bottom: 20px;
+    right: 20px;
+    animation-delay: 1.5s;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.4; transform: scale(1) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.2) rotate(90deg); }
+}
+
+/* Decorative border */
+.invitation-border {
+    position: absolute;
+    inset: 15px;
+    border: 2px solid;
+    border-image: linear-gradient(135deg, #d4af7a, #b8935f, #d4af7a) 1;
+    border-radius: 15px;
+    pointer-events: none;
+    animation: borderGlow 4s ease-in-out infinite;
+}
+
+@keyframes borderGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+.cover-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 60px 30px 30px;
+    color: #6b5d52;
+}
+
+/* Decorative top element */
+.cover-flourish {
+    font-size: 48px;
+    margin-bottom: 15px;
+    animation: flourishBounce 2s ease-in-out infinite;
+}
+
+@keyframes flourishBounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.1); }
+}
+
+.invitation-label {
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #b8935f;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeInDown 1s ease 0.3s forwards;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.cover-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #6b5d52, #8a7a6a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeInScale 1s ease 0.6s forwards;
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.cover-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4af7a, transparent);
+    margin: 15px auto;
+    opacity: 0;
+    animation: expandWidth 1s ease 0.9s forwards;
+}
+
+@keyframes expandWidth {
+    from { opacity: 0; width: 0; }
+    to { opacity: 1; width: 80px; }
+}
+
+.cover-date {
+    font-style: italic;
+    margin-bottom: 25px;
+    color: #8a7a6a;
+    font-size: 15px;
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.2s forwards;
+}
+
+.open-btn {
+    background: linear-gradient(135deg, #d4af7a, #b8935f);
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeInUp 1s ease 1.5s forwards;
+}
+
+.open-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.open-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.open-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+}
+
+.open-btn:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* App wrapper hidden initially */
+.app-wrapper {
+    display: none;
+}
+
+/* Enhanced transitions */
+.fade-out {
+    animation: fadeOutExpand 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.fade-in {
+    animation: fadeInBloom 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes fadeOutExpand {
+    0% { 
+        opacity: 1; 
+        transform: scale(1) rotate(0deg);
+        filter: blur(0);
+    }
+    100% { 
+        opacity: 0; 
+        transform: scale(1.3) rotate(5deg);
+        filter: blur(10px);
+    }
+}
+
+@keyframes fadeInBloom {
+    0% { 
+        opacity: 0; 
+        transform: scale(0.8);
+        filter: blur(10px);
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Particle effects on click */
+.petal {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: #d4af7a;
+    border-radius: 50% 0 50% 0;
+    pointer-events: none;
+    z-index: 10000;
+    animation: petalFall 2s ease-out forwards;
+}
+
+@keyframes petalFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg) scale(0.5);
+    }
+}
+/* Enhanced Envelope */
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #f3e9dc, #e2d1b8);
+  z-index: 1;
+}
+
+/* Flap animation */
+.envelope-top {
+  transform-origin: top center;
+  transition: transform 1s ease-in-out;
+}
+
+.envelope-top.open {
+  transform: rotateX(160deg);
+}
+
+/* Wax seal */
+.wax-seal {
+  position: absolute;
+  bottom: 95px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, #b8935f, #8a6b3f);
+  border-radius: 50%;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  color: #fff;
+  z-index: 4;
+  animation: sealPulse 2s infinite;
+}
+
+@keyframes sealPulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.1); }
+}
+
+/* Sparkles */
+.sparkles span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: gold;
+  border-radius: 50%;
+  opacity: 0;
+  animation: sparkle 1.2s ease forwards;
+}
+
+@keyframes sparkle {
+  0% { transform: scale(0) translateY(0); opacity: 1; }
+  100% { transform: scale(1.5) translateY(-80px); opacity: 0; }
+}
+
+/* Invitation slide out */
+.cover-card.opened {
+  animation: slideOut 1.2s ease forwards;
+}
+
+@keyframes slideOut {
+  to {
+    transform: translateY(-120vh) scale(0.9);
+    opacity: 0;
+  }
+}
+
     </style>
 </head>
 <body>
+
+
+<div class="cover-screen" id="coverScreen">
+  <div class="cover-card" id="coverCard">
+    <div class="envelope-back"></div>
+    <div class="envelope-top" id="flap"></div>
+
+    <div class="wax-seal" id="waxSeal">💍</div>
+
+    <div class="cover-content">
+      <h1 class="cover-names">Romesh & Wife</h1>
+      <p class="cover-date">Saturday, September 16th, 2025</p>
+      <button class="open-btn" id="openBtn" onclick="openInvitation()">Open Invitation</button>
+    </div>
+
+    <div class="sparkles" id="sparkles"></div>
+  </div>
+</div>
+
+
     <div class="hearts-container" id="heartsContainer"></div>
     
     <div class="container">
@@ -1022,6 +1480,44 @@
             `;
             result.classList.add('show');
         }
+
+function openInvitation() {
+  const cover = document.getElementById("coverScreen");
+  const card = document.getElementById("coverCard");
+  const flap = document.getElementById("flap");
+  const sparkles = document.getElementById("sparkles");
+  const btn = document.getElementById("openBtn");
+  const app = document.getElementById("appWrapper");
+
+  btn.disabled = true;
+
+  // Open envelope flap
+  flap.classList.add("open");
+
+  // Create sparkle burst
+  for (let i = 0; i < 20; i++) {
+    const s = document.createElement("span");
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = "60%";
+    s.style.animationDelay = Math.random() * 0.3 + "s";
+    sparkles.appendChild(s);
+    setTimeout(() => s.remove(), 1200);
+  }
+
+  // Slide card away
+  setTimeout(() => {
+    card.classList.add("opened");
+  }, 600);
+
+  // Reveal main app
+  setTimeout(() => {
+    cover.style.display = "none";
+    app.style.display = "block";
+    app.classList.add("fade-in");
+  }, 1400);
+}
+
+
     </script>
 </body>
 </html>
