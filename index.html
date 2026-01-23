@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,104 +19,208 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 0;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
             max-width: 600px;
             width: 100%;
             overflow: hidden;
-            animation: fadeIn 0.8s ease;
+            animation: fadeIn 1s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .hero-section {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400"><rect fill="%23a89f91" width="800" height="400"/><circle cx="400" cy="200" r="150" fill="%23c4b5a0" opacity="0.3"/></svg>');
+        /* Image Slideshow */
+        .slideshow-container {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
             background-size: cover;
             background-position: center;
-            height: 300px;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+        }
+
+        /* Placeholder wedding images */
+        .slide:nth-child(1) {
+            background: linear-gradient(135deg, #d4af7a 0%, #b8935f 100%);
+        }
+        .slide:nth-child(2) {
+            background: linear-gradient(135deg, #c9a882 0%, #a89f91 100%);
+        }
+        .slide:nth-child(3) {
+            background: linear-gradient(135deg, #b8935f 0%, #8a7a6a 100%);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
             color: white;
             text-align: center;
-            padding: 40px;
+            padding: 20px;
+            z-index: 2;
         }
 
         .arch-border {
             position: absolute;
-            top: 20px;
+            top: 30px;
             left: 50%;
             transform: translateX(-50%);
-            width: 280px;
+            width: min(280px, 80%);
             height: 260px;
-            border: 3px solid #d4af7a;
+            border: 3px solid rgba(212, 175, 122, 0.8);
             border-radius: 140px 140px 0 0;
             pointer-events: none;
+            animation: archGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes archGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 122, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(212, 175, 122, 0.6); }
         }
 
         .couple-names {
-            font-size: 48px;
+            font-size: clamp(32px, 8vw, 48px);
             font-weight: 300;
-            letter-spacing: 8px;
+            letter-spacing: clamp(4px, 2vw, 8px);
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
             z-index: 1;
+            animation: floatIn 1.2s ease-out;
+        }
+
+        @keyframes floatIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(-30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
         }
 
         .plus {
-            font-size: 32px;
-            margin: 0 10px;
+            font-size: clamp(24px, 6vw, 32px);
+            margin: 0 8px;
+            display: inline-block;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(1.15); }
+            20%, 40% { transform: scale(1); }
         }
 
         .wedding-date {
-            font-size: 14px;
-            letter-spacing: 3px;
+            font-size: clamp(12px, 3vw, 14px);
+            letter-spacing: clamp(2px, 1vw, 3px);
             text-transform: uppercase;
             margin-top: 10px;
             font-style: italic;
             z-index: 1;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; }
+        }
+
+        .slideshow-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 3;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .indicator.active {
+            background: white;
+            width: 30px;
+            border-radius: 5px;
         }
 
         .content-section {
-            padding: 50px 40px;
+            padding: clamp(30px, 8vw, 50px) clamp(20px, 6vw, 40px);
             text-align: center;
         }
 
         .welcome-text {
-            font-size: 22px;
+            font-size: clamp(20px, 5vw, 24px);
             color: #6b5d52;
             margin-bottom: 10px;
             font-style: italic;
+            animation: fadeIn 1s ease-out 0.8s backwards;
         }
 
         .instruction-text {
-            font-size: 16px;
+            font-size: clamp(14px, 4vw, 16px);
             color: #8a7a6a;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             line-height: 1.6;
+            animation: fadeIn 1s ease-out 1s backwards;
         }
 
         .search-box {
             position: relative;
             margin-bottom: 20px;
+            animation: fadeIn 1s ease-out 1.2s backwards;
         }
 
         input {
             width: 100%;
-            padding: 18px 25px;
-            font-size: 18px;
+            padding: clamp(14px, 4vw, 18px) clamp(20px, 5vw, 25px);
+            font-size: clamp(16px, 4vw, 18px);
             border: 2px solid #d4af7a;
-            border-radius: 0;
+            border-radius: 12px;
             outline: none;
             transition: all 0.3s;
             background: #fefefe;
@@ -126,8 +231,9 @@
 
         input:focus {
             border-color: #b8935f;
-            box-shadow: 0 0 0 3px rgba(212, 175, 122, 0.1);
+            box-shadow: 0 0 0 4px rgba(212, 175, 122, 0.15);
             background: white;
+            transform: translateY(-2px);
         }
 
         input::placeholder {
@@ -142,7 +248,20 @@
             border: 2px solid #e8dcc8;
             background: white;
             display: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-radius: 12px;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .suggestions.show {
@@ -150,13 +269,13 @@
         }
 
         .suggestion-item {
-            padding: 16px 25px;
+            padding: clamp(12px, 3vw, 16px) clamp(20px, 5vw, 25px);
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
             border-bottom: 1px solid #f5ede0;
             text-align: left;
             color: #6b5d52;
-            font-size: 16px;
+            font-size: clamp(14px, 3.5vw, 16px);
         }
 
         .suggestion-item:last-child {
@@ -164,22 +283,50 @@
         }
 
         .suggestion-item:hover {
-            background: #faf7f2;
+            background: linear-gradient(90deg, #faf7f2, #ffffff);
+            transform: translateX(5px);
+            padding-left: clamp(25px, 6vw, 30px);
         }
 
         .result {
             text-align: center;
-            padding: 40px 30px;
+            padding: clamp(30px, 8vw, 40px) clamp(20px, 5vw, 30px);
             background: linear-gradient(135deg, #d4af7a 0%, #b8935f 100%);
             color: white;
             display: none;
-            animation: slideIn 0.5s ease;
+            animation: scaleIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             margin-top: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+        .result::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes scaleIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.8);
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1);
+            }
         }
 
         .result.show {
@@ -187,42 +334,58 @@
         }
 
         .guest-name {
-            font-size: 28px;
+            font-size: clamp(22px, 6vw, 28px);
             margin-bottom: 20px;
             letter-spacing: 2px;
             font-weight: 300;
+            position: relative;
+            z-index: 1;
         }
 
         .table-label {
-            font-size: 16px;
+            font-size: clamp(14px, 3.5vw, 16px);
             letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 10px;
             opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
 
         .table-number {
-            font-size: 72px;
+            font-size: clamp(56px, 15vw, 72px);
             font-weight: 300;
             margin: 15px 0;
             letter-spacing: 4px;
+            position: relative;
+            z-index: 1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .enjoy-text {
-            font-size: 18px;
+            font-size: clamp(16px, 4vw, 18px);
             font-style: italic;
             margin-top: 20px;
             opacity: 0.95;
+            position: relative;
+            z-index: 1;
         }
 
         .not-found {
-            background: #c9a882;
-            padding: 25px;
+            background: linear-gradient(135deg, #c9a882, #b8935f);
+            padding: clamp(20px, 5vw, 25px);
             color: white;
             text-align: center;
             display: none;
             animation: shake 0.5s;
             margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
 
         @keyframes shake {
@@ -238,26 +401,329 @@
         .decorative-line {
             width: 60px;
             height: 2px;
-            background: #d4af7a;
+            background: linear-gradient(90deg, transparent, #d4af7a, transparent);
             margin: 20px auto;
+            animation: expandLine 1.5s ease-out 1.5s backwards;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 60px; opacity: 1; }
         }
 
         .footer-note {
-            font-size: 13px;
+            font-size: clamp(12px, 3vw, 13px);
             color: #a89f91;
             margin-top: 30px;
             font-style: italic;
+            animation: fadeIn 1s ease-out 1.8s backwards;
+        }
+
+        /* Floating hearts decoration */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: floatHeart 8s infinite;
+            color: #d4af7a;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 0.6;
+                transform: translateY(90vh) scale(1);
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-10vh) scale(0.5);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .slideshow-container {
+                height: 280px;
+            }
+
+            .arch-border {
+                top: 20px;
+                height: 220px;
+            }
+
+            body {
+                padding: 5px;
+            }
+
+            .container {
+                border-radius: 15px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .slideshow-container {
+                height: 250px;
+            }
+        }
+
+        /* Smooth scrolling for suggestions */
+        .suggestions::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .suggestions::-webkit-scrollbar-track {
+            background: #f5ede0;
+            border-radius: 4px;
+        }
+
+        .suggestions::-webkit-scrollbar-thumb {
+            background: #d4af7a;
+            border-radius: 4px;
+        }
+
+        .suggestions::-webkit-scrollbar-thumb:hover {
+            background: #b8935f;
+        }
+
+        /* Schedule Section Styles */
+        .schedule-section {
+            background: linear-gradient(135deg, #f8f5f0 0%, #faf7f2 100%);
+            padding: clamp(40px, 10vw, 60px) clamp(20px, 6vw, 40px);
+            border-top: 3px solid #d4af7a;
+        }
+
+        .schedule-title {
+            font-size: clamp(28px, 7vw, 36px);
+            color: #6b5d52;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            max-width: 500px;
+            margin: 40px auto 50px;
+            padding: 0 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, #d4af7a, #b8935f);
+            z-index: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            opacity: 0;
+            animation: slideInTimeline 0.6s ease-out forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(7) { animation-delay: 0.7s; }
+
+        @keyframes slideInTimeline {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-time {
+            text-align: right;
+            font-size: clamp(14px, 3.5vw, 16px);
+            color: #b8935f;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid #d4af7a;
+            border-radius: 50%;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 0 4px rgba(212, 175, 122, 0.2);
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.3);
+            box-shadow: 0 0 0 8px rgba(212, 175, 122, 0.3);
+            background: #d4af7a;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: clamp(15px, 4vw, 20px);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-left: 4px solid #d4af7a;
+        }
+
+        .timeline-content:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .timeline-content h3 {
+            font-size: clamp(16px, 4vw, 18px);
+            color: #6b5d52;
+            margin-bottom: 5px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .timeline-content p {
+            font-size: clamp(13px, 3vw, 14px);
+            color: #8a7a6a;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        /* Venue Info */
+        .venue-info {
+            background: linear-gradient(135deg, #d4af7a 0%, #b8935f 100%);
+            padding: clamp(25px, 6vw, 35px);
+            border-radius: 16px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            max-width: 500px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out 0.8s backwards;
+        }
+
+        .venue-icon {
+            font-size: clamp(36px, 8vw, 48px);
+            margin-bottom: 15px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .venue-details h4 {
+            font-size: clamp(18px, 5vw, 22px);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+
+        .venue-details p {
+            font-size: clamp(14px, 4vw, 16px);
+            margin-bottom: 5px;
+            opacity: 0.95;
+        }
+
+        .venue-address {
+            font-size: clamp(13px, 3.5vw, 14px);
+            font-style: italic;
+            opacity: 0.85;
+        }
+
+        /* Mobile Timeline Adjustments */
+        @media (max-width: 600px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                grid-template-columns: auto 1fr;
+                gap: 15px;
+                padding-left: 0;
+            }
+
+            .timeline-time {
+                grid-column: 2;
+                grid-row: 1;
+                text-align: left;
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+
+            .timeline-dot {
+                grid-column: 1;
+                grid-row: 1 / 3;
+            }
+
+            .timeline-content {
+                grid-column: 2;
+                grid-row: 2;
+            }
+
+            .timeline-content:hover {
+                transform: translateX(3px);
+            }
         }
     </style>
 </head>
 <body>
+    <div class="hearts-container" id="heartsContainer"></div>
+    
     <div class="container">
-        <div class="hero-section">
-            <div class="arch-border"></div>
-            <div class="couple-names">
-                Romesh <span class="plus">+</span> Wife
+        <div class="slideshow-container">
+            <div class="slide active"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            
+            <div class="hero-overlay">
+                <div class="arch-border"></div>
+                <div class="couple-names">
+                    Romesh <span class="plus">+</span> Wife
+                </div>
+                <div class="wedding-date">Saturday, September 16th, 2025</div>
             </div>
-            <div class="wedding-date">Saturday, September 16th, 2025</div>
+
+            <div class="slideshow-indicators">
+                <div class="indicator active" onclick="goToSlide(0)"></div>
+                <div class="indicator" onclick="goToSlide(1)"></div>
+                <div class="indicator" onclick="goToSlide(2)"></div>
+            </div>
         </div>
 
         <div class="content-section">
@@ -279,33 +745,106 @@
 
             <div class="footer-note">We look forward to celebrating with you</div>
         </div>
+
+        <!-- Schedule Section -->
+        <div class="schedule-section">
+            <h2 class="schedule-title">Celebration Schedule</h2>
+            <div class="decorative-line"></div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">3:00 PM</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Guest Arrival</h3>
+                        <p>Welcome drinks & light refreshments</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">4:00 PM</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Ceremony Begins</h3>
+                        <p>Please be seated for the wedding ceremony</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">5:00 PM</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Cocktail Hour</h3>
+                        <p>Mingle with guests & enjoy canapés</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">6:30 PM</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Reception Dinner</h3>
+                        <p>Find your table and enjoy the feast</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">8:00 PM</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>First Dance & Toasts</h3>
+                        <p>Speeches and cake cutting ceremony</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">9:00 PM</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Dancing & Celebration</h3>
+                        <p>Dance the night away!</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">11:30 PM</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Grand Farewell</h3>
+                        <p>Send-off with sparklers</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="venue-info">
+                <div class="venue-icon">📍</div>
+                <div class="venue-details">
+                    <h4>Venue Location</h4>
+                    <p>The Grand Ballroom, Colombo</p>
+                    <p class="venue-address">123 Galle Road, Colombo 03</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
         // Guest data
         const guests = {
-            // Table 1
             "tania thomas": { name: "Tania Thomas", table: 1 },
             "romesh thomas": { name: "Romesh Thomas", table: 1 },
             "noni mama": { name: "Noni Mama", table: 1 },
             "appen thomas": { name: "Appen Thomas", table: 1 },
-            
-            // Table 2
             "sachin maddumage": { name: "Sachin Maddumage", table: 2 },
             "che maddumage": { name: "Che Maddumage", table: 2 },
             "sharmain maddumage": { name: "Sharmain Maddumage", table: 2 },
             "manjula maddumage": { name: "Manjula Maddumage", table: 2 },
             "shirley maddumage": { name: "Shirley Maddumage", table: 2 },
-            
-            // Table 3
             "thenula pieris": { name: "Thenula Pieris", table: 3 },
             "sandra barnett": { name: "Sandra Barnett", table: 3 },
             "asela pathirana": { name: "Asela Pathirana", table: 3 },
             "hasuni vishudaya": { name: "Hasuni Vishudaya", table: 3 },
             "andrew barnett": { name: "Andrew Barnett", table: 3 },
             "winifred barnett": { name: "Winifred Barnett", table: 3 },
-            
-            // Tables 4-10 (Sample guests)
             "michael silva": { name: "Michael Silva", table: 4 },
             "priya fernando": { name: "Priya Fernando", table: 4 },
             "rajesh kumar": { name: "Rajesh Kumar", table: 4 },
@@ -316,7 +855,6 @@
             "ishara mendis": { name: "Ishara Mendis", table: 4 },
             "rohan gunawardena": { name: "Rohan Gunawardena", table: 4 },
             "kavitha rodrigo": { name: "Kavitha Rodrigo", table: 4 },
-            
             "anil dissanayake": { name: "Anil Dissanayake", table: 5 },
             "chamari wickramasinghe": { name: "Chamari Wickramasinghe", table: 5 },
             "dinesh ranasinghe": { name: "Dinesh Ranasinghe", table: 5 },
@@ -327,7 +865,6 @@
             "niluka senanayake": { name: "Niluka Senanayake", table: 5 },
             "buddhika silva": { name: "Buddhika Silva", table: 5 },
             "thilini de silva": { name: "Thilini De Silva", table: 5 },
-            
             "sanjeewa perera": { name: "Sanjeewa Perera", table: 6 },
             "ruvini fernando": { name: "Ruvini Fernando", table: 6 },
             "kumara jayasinghe": { name: "Kumara Jayasinghe", table: 6 },
@@ -338,7 +875,6 @@
             "dilini samaraweera": { name: "Dilini Samaraweera", table: 6 },
             "chathura gunasekara": { name: "Chathura Gunasekara", table: 6 },
             "anusha liyanage": { name: "Anusha Liyanage", table: 6 },
-            
             "kasun rathnayake": { name: "Kasun Rathnayake", table: 7 },
             "nimali cooray": { name: "Nimali Cooray", table: 7 },
             "indika wijesuriya": { name: "Indika Wijesuriya", table: 7 },
@@ -349,7 +885,6 @@
             "shashika jayakody": { name: "Shashika Jayakody", table: 7 },
             "mahesh bandara": { name: "Mahesh Bandara", table: 7 },
             "samanthi rodrigo": { name: "Samanthi Rodrigo", table: 7 },
-            
             "gayan wijeratne": { name: "Gayan Wijeratne", table: 8 },
             "rashmi silva": { name: "Rashmi Silva", table: 8 },
             "nuwan jayawardena": { name: "Nuwan Jayawardena", table: 8 },
@@ -360,7 +895,6 @@
             "kaushalya wickramasinghe": { name: "Kaushalya Wickramasinghe", table: 8 },
             "saman rajapakse": { name: "Saman Rajapakse", table: 8 },
             "nethmi jayasinghe": { name: "Nethmi Jayasinghe", table: 8 },
-            
             "thilak senanayake": { name: "Thilak Senanayake", table: 9 },
             "chathurika amarasinghe": { name: "Chathurika Amarasinghe", table: 9 },
             "pradeep ranatunga": { name: "Pradeep Ranatunga", table: 9 },
@@ -371,7 +905,6 @@
             "dilshi perera": { name: "Dilshi Perera", table: 9 },
             "ranil jayasuriya": { name: "Ranil Jayasuriya", table: 9 },
             "nadeeka gunasekara": { name: "Nadeeka Gunasekara", table: 9 },
-            
             "sunil wijesekara": { name: "Sunil Wijesekara", table: 10 },
             "kamala mendis": { name: "Kamala Mendis", table: 10 },
             "asanka rathnayake": { name: "Asanka Rathnayake", table: 10 },
@@ -391,6 +924,43 @@
 
         let debounceTimer;
 
+        // Slideshow functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+
+        function showSlide(n) {
+            slides.forEach(s => s.classList.remove('active'));
+            indicators.forEach(i => i.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+
+        // Floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '♥';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            document.getElementById('heartsContainer').appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 8000);
+        }
+
+        setInterval(createHeart, 3000);
+
+        // Search functionality
         searchInput.addEventListener('input', function(e) {
             clearTimeout(debounceTimer);
             const query = e.target.value.toLowerCase().trim();
