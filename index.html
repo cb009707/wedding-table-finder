@@ -701,27 +701,7 @@
             }
         }
 
-/* COVER SCREEN */
-.cover-screen {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(135deg, #f5e6d3 0%, #d4c4b0 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
 
-.cover-card {
-    width: min(90%, 420px);
-    height: 320px;
-    background: linear-gradient(135deg, #e6f2ea, #cfe3d8);
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    position: relative;
-    overflow: hidden;
-    animation: floatIn 1.2s ease;
-}
 
 /* Placeholder background image feel */
 .cover-card::before {
@@ -732,30 +712,18 @@
     z-index: 0;
 }
 
-/* Envelope flap */
 .envelope-top {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 40%;              /* was too tall before */
+  height: 32%;
   background: linear-gradient(135deg, #d9ede2, #b7d5c7);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   z-index: 2;
+  transform-origin: top center;
+  transition: transform 1s ease-in-out;
 }
-
-.cover-content {
-  position: relative;
-  z-index: 3;
-  text-align: center;
-  padding: 90px 20px 0;   /* ⬅ reduced */
-  color: #6b5d52;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-}
-
 
 
 .cover-names {
@@ -775,13 +743,22 @@
     background: linear-gradient(135deg, #d4af7a, #b8935f);
     color: white;
     border: none;
-    padding: 14px 28px;
+    padding: 16px 36px;
     border-radius: 30px;
     font-size: 16px;
     cursor: pointer;
     box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    transition: all 0.3s;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeInUp 1s ease 1.5s forwards;
 }
+
+
 
 .open-btn:hover {
     transform: translateY(-3px);
@@ -836,7 +813,8 @@
 
 .cover-card {
     width: min(90%, 420px);
-    height: 380px;
+    min-height: 360px;
+    padding-bottom: 90px; /* space for wax seal */
     background: linear-gradient(135deg, #fdfbf7, #f5f0e8);
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.25);
@@ -845,6 +823,7 @@
     animation: floatIn 1.2s ease;
     border: 1px solid rgba(212,175,122,0.3);
 }
+
 
 /* Decorative corner flourishes */
 .cover-card::before,
@@ -965,24 +944,10 @@
     animation: fadeIn 1s ease 1.2s forwards;
 }
 
-.open-btn {
-    background: linear-gradient(135deg, #d4af7a, #b8935f);
-    color: white;
-    border: none;
-    padding: 16px 36px;
-    border-radius: 30px;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    font-family: 'Cormorant Garamond', serif;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    position: relative;
-    overflow: hidden;
-    opacity: 0;
-    animation: fadeInUp 1s ease 1.5s forwards;
+.container {
+  display: none;
 }
+
 
 .open-btn::before {
     content: '';
@@ -1093,23 +1058,24 @@
 
 .wax-seal {
   position: absolute;
-  top: 69%;                 /* push clearly below button */
+  bottom: 18px;      /* ✅ key fix */
   left: 50%;
   transform: translateX(-50%);
-  width: 70px;
-  height: 70px;
+  width: 64px;
+  height: 64px;
   background: radial-gradient(circle, #b8935f, #8a6b3f);
   border-radius: 50%;
   box-shadow: 0 8px 18px rgba(0,0,0,0.35);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 28px;
+  font-size: 26px;
   color: #fff;
   z-index: 4;
   animation: sealPulse 2s infinite;
   cursor: pointer;
 }
+
 
 
 
@@ -1146,6 +1112,45 @@
     opacity: 0;
   }
 }
+@media (max-height: 740px) {
+  .cover-card {
+    min-height: 330px;
+    padding-bottom: 80px;
+  }
+
+  .cover-content {
+    padding-top: 50px;
+    gap: 10px;
+  }
+
+  .cover-names {
+    font-size: 32px;
+  }
+
+  .open-btn {
+    padding: 12px 26px;
+    font-size: 14px;
+  }
+
+  .wax-seal {
+    width: 58px;
+    height: 58px;
+    font-size: 24px;
+    bottom: 14px;
+  }
+}
+
+@media (max-height: 640px) {
+  .cover-card {
+    min-height: 300px;
+    padding-bottom: 70px;
+  }
+
+  .cover-content {
+    padding-top: 42px;
+  }
+}
+
 
     </style>
 </head>
