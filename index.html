@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Your Table - Romesh & Wife</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,27 +14,413 @@
 
         body {
             font-family: 'Cormorant Garamond', 'Georgia', serif;
-            background: linear-gradient(135deg, #f5e6d3 0%, #d4c4b0 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 50%, #16213e 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 10px;
+            overflow-x: hidden;
         }
 
-        .container {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 20px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
-            max-width: 600px;
+        /* Animated background stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* COVER SCREEN - ENVELOPE */
+        .cover-screen {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at center, #2d3561 0%, #1a1a2e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
             overflow: hidden;
-            animation: fadeIn 1s ease;
+        }
+
+        .cover-screen::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212,175,122,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(184,147,95,0.05) 0%, transparent 50%);
+            animation: slowFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes slowFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, -20px) rotate(5deg); }
+        }
+
+        /* Enhanced Envelope */
+        .envelope-wrapper {
+            position: relative;
+            width: min(90%, 480px);
+            height: 320px;
+            perspective: 1000px;
+            animation: floatIn 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes floatIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(100px) scale(0.8);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        /* Envelope body */
+        .envelope-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f9f6f0 0%, #f0e8dc 100%);
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            border: 1px solid rgba(212,175,122,0.3);
+        }
+
+        /* Envelope back flap (bottom triangle) */
+        .envelope-back-flap {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(135deg, #e8dcc8 0%, #d9cdb8 100%);
+            clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        /* Envelope top flap */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 52%;
+            background: linear-gradient(135deg, #d4af7a 0%, #c9a86f 100%);
+            clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+            transform-origin: top center;
+            transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            z-index: 3;
+        }
+
+        .envelope-flap.open {
+            transform: rotateX(-180deg);
+        }
+
+        /* Letter inside */
+        .letter {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            height: 70%;
+            background: linear-gradient(135deg, #fdfbf7 0%, #f5f0e8 100%);
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 30px 25px;
+            text-align: center;
+            transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 2;
+            border: 2px solid rgba(212,175,122,0.2);
+        }
+
+        .letter.reveal {
+            top: -20%;
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        /* Decorative corner flourishes */
+        .letter::before,
+        .letter::after {
+            content: '✦';
+            position: absolute;
+            font-size: 20px;
+            color: rgba(212,175,122,0.5);
+            animation: twinkleGold 3s ease-in-out infinite;
+        }
+
+        .letter::before {
+            top: 15px;
+            left: 15px;
+        }
+
+        .letter::after {
+            bottom: 15px;
+            right: 15px;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes twinkleGold {
+            0%, 100% { opacity: 0.5; transform: scale(1) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(90deg); }
+        }
+
+        /* Letter content */
+        .invitation-label {
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #b8935f;
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+            opacity: 0;
+            animation: fadeInDown 1s ease 0.3s forwards;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cover-flourish {
+            font-size: 36px;
+            margin-bottom: 12px;
+            animation: flourishBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes flourishBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-6px) scale(1.1); }
+        }
+
+        .cover-names {
+            font-size: clamp(28px, 7vw, 38px);
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #6b5d52, #8a7a6a, #6b5d52);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: fadeInScale 1s ease 0.6s forwards;
+            font-weight: 300;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .cover-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af7a, transparent);
+            margin: 12px auto;
+            opacity: 0;
+            animation: expandWidth 1s ease 0.9s forwards;
+        }
+
+        @keyframes expandWidth {
+            from { opacity: 0; width: 0; }
+            to { opacity: 1; width: 60px; }
+        }
+
+        .cover-date {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #8a7a6a;
+            font-size: 14px;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.2s forwards;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(40px); }
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .open-btn {
+            background: linear-gradient(135deg, #d4af7a, #b8935f);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(212,175,122,0.4);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        .open-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .open-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .open-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(212,175,122,0.5);
+        }
+
+        .open-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Wax seal */
+        .wax-seal {
+            position: absolute;
+            bottom: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, #b8935f 0%, #8a6b3f 100%);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 0 4px rgba(139,107,63,0.3),
+                0 8px 20px rgba(0,0,0,0.4),
+                inset 0 2px 8px rgba(255,255,255,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            color: #fff;
+            z-index: 4;
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: sealPulse 2s infinite;
+        }
+
+        @keyframes sealPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); box-shadow: 0 0 0 8px rgba(139,107,63,0.4), 0 12px 30px rgba(0,0,0,0.5); }
+        }
+
+        .wax-seal:hover {
+            transform: translateX(-50%) scale(1.15) rotate(5deg);
+        }
+
+        /* Sparkles */
+        .sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .sparkles span {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #ffd700, #ffed4e);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffd700;
+            opacity: 0;
+        }
+
+        @keyframes sparkle {
+            0% { 
+                transform: scale(0) translateY(0); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: scale(2) translateY(-100px); 
+                opacity: 0; 
+            }
+        }
+
+        /* Envelope opened state */
+        .envelope-wrapper.opened {
+            animation: slideOut 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        @keyframes slideOut {
+            to {
+                transform: translateY(-150vh) scale(0.7) rotate(-10deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+            display: none;
+            animation: fadeInBloom 1.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes fadeInBloom {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.8);
+                filter: blur(10px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1);
+                filter: blur(0);
+            }
         }
 
         /* Image Slideshow */
@@ -50,7 +436,7 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 1.5s ease-in-out;
+            transition: opacity 2s ease-in-out;
             background-size: cover;
             background-position: center;
         }
@@ -69,15 +455,15 @@
             background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
         }
 
-        /* Placeholder wedding images */
+        /* Elegant gradient backgrounds */
         .slide:nth-child(1) {
-            background: linear-gradient(135deg, #d4af7a 0%, #b8935f 100%);
+            background: linear-gradient(135deg, #d4af7a 0%, #b8935f 50%, #8a6b3f 100%);
         }
         .slide:nth-child(2) {
-            background: linear-gradient(135deg, #c9a882 0%, #a89f91 100%);
+            background: linear-gradient(135deg, #c9a882 0%, #a89f91 50%, #8a7a6a 100%);
         }
         .slide:nth-child(3) {
-            background: linear-gradient(135deg, #b8935f 0%, #8a7a6a 100%);
+            background: linear-gradient(135deg, #b8935f 0%, #8a7a6a 50%, #6b5d52 100%);
         }
 
         .hero-overlay {
@@ -103,15 +489,15 @@
             transform: translateX(-50%);
             width: min(280px, 80%);
             height: 260px;
-            border: 3px solid rgba(212, 175, 122, 0.8);
+            border: 3px solid rgba(255, 255, 255, 0.6);
             border-radius: 140px 140px 0 0;
             pointer-events: none;
             animation: archGlow 3s ease-in-out infinite;
         }
 
         @keyframes archGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 122, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(212, 175, 122, 0.6); }
+            0%, 100% { box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+            50% { box-shadow: 0 0 40px rgba(255,255,255,0.6); }
         }
 
         .couple-names {
@@ -121,10 +507,10 @@
             margin-bottom: 10px;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
             z-index: 1;
-            animation: floatIn 1.2s ease-out;
+            animation: floatInHero 1.2s ease-out;
         }
 
-        @keyframes floatIn {
+        @keyframes floatInHero {
             from { 
                 opacity: 0; 
                 transform: translateY(-30px);
@@ -156,11 +542,7 @@
             font-style: italic;
             z-index: 1;
             opacity: 0;
-            animation: fadeInUp 1.5s ease-out 0.5s forwards;
-        }
-
-        @keyframes fadeInUp {
-            to { opacity: 1; }
+            animation: fadeIn 1.5s ease-out 0.5s forwards;
         }
 
         .slideshow-indicators {
@@ -419,90 +801,7 @@
             animation: fadeIn 1s ease-out 1.8s backwards;
         }
 
-        /* Floating hearts decoration */
-        .hearts-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .heart {
-            position: absolute;
-            font-size: 20px;
-            opacity: 0;
-            animation: floatHeart 8s infinite;
-            color: #d4af7a;
-        }
-
-        @keyframes floatHeart {
-            0% {
-                opacity: 0;
-                transform: translateY(100vh) scale(0);
-            }
-            10% {
-                opacity: 0.6;
-                transform: translateY(90vh) scale(1);
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-10vh) scale(0.5);
-            }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            .slideshow-container {
-                height: 280px;
-            }
-
-            .arch-border {
-                top: 20px;
-                height: 220px;
-            }
-
-            body {
-                padding: 5px;
-            }
-
-            .container {
-                border-radius: 15px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .slideshow-container {
-                height: 250px;
-            }
-        }
-
-        /* Smooth scrolling for suggestions */
-        .suggestions::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .suggestions::-webkit-scrollbar-track {
-            background: #f5ede0;
-            border-radius: 4px;
-        }
-
-        .suggestions::-webkit-scrollbar-thumb {
-            background: #d4af7a;
-            border-radius: 4px;
-        }
-
-        .suggestions::-webkit-scrollbar-thumb:hover {
-            background: #b8935f;
-        }
-
-        /* Schedule Section Styles */
+        /* Schedule Section */
         .schedule-section {
             background: linear-gradient(135deg, #f8f5f0 0%, #faf7f2 100%);
             padding: clamp(40px, 10vw, 60px) clamp(20px, 6vw, 40px);
@@ -519,7 +818,6 @@
             animation: fadeIn 1s ease-out;
         }
 
-        /* Timeline Styles */
         .timeline {
             position: relative;
             max-width: 500px;
@@ -623,7 +921,6 @@
             font-style: italic;
         }
 
-        /* Venue Info */
         .venue-info {
             background: linear-gradient(135deg, #d4af7a 0%, #b8935f 100%);
             padding: clamp(25px, 6vw, 35px);
@@ -666,7 +963,7 @@
             opacity: 0.85;
         }
 
-        /* Mobile Timeline Adjustments */
+        /* Responsive */
         @media (max-width: 600px) {
             .timeline::before {
                 left: 30px;
@@ -696,493 +993,68 @@
                 grid-row: 2;
             }
 
-            .timeline-content:hover {
-                transform: translateX(3px);
+            .envelope-wrapper {
+                height: 280px;
             }
         }
 
-
-
-/* Placeholder background image feel */
-.cover-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(212,175,122,0.2), rgba(184,147,95,0.2));
-    z-index: 0;
-}
-
-.envelope-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 32%;
-  background: linear-gradient(135deg, #d9ede2, #b7d5c7);
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  z-index: 2;
-  transform-origin: top center;
-  transition: transform 1s ease-in-out;
-}
-
-
-.cover-names {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px;
-    letter-spacing: 3px;
-    margin-bottom: 10px;
-}
-
-.cover-date {
-    font-style: italic;
-    margin-bottom: 20px;
-    color: #8a7a6a;
-}
-
-.open-btn {
-    background: linear-gradient(135deg, #d4af7a, #b8935f);
-    color: white;
-    border: none;
-    padding: 16px 36px;
-    border-radius: 30px;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    font-family: 'Cormorant Garamond', serif;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    position: relative;
-    overflow: hidden;
-    opacity: 0;
-    animation: fadeInUp 1s ease 1.5s forwards;
-}
-
-
-
-.open-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-}
-
-/* App wrapper hidden initially */
-.app-wrapper {
-    display: none;
-}
-
-/* Transitions */
-.fade-out {
-    animation: fadeOut 0.8s ease forwards;
-}
-
-.fade-in {
-    animation: fadeIn 1s ease forwards;
-}
-
-@keyframes fadeOut {
-    to { opacity: 0; transform: scale(0.95); }
-}
-
-/* COVER SCREEN */
-.cover-screen {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(135deg, #f5e6d3 0%, #d4c4b0 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    overflow: hidden;
-}
-
-/* Floating petals in background */
-.cover-screen::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: 
-        radial-gradient(circle at 20% 30%, rgba(212,175,122,0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(184,147,95,0.1) 0%, transparent 50%);
-    animation: slowFloat 20s ease-in-out infinite;
-}
-
-@keyframes slowFloat {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    50% { transform: translate(20px, -20px) rotate(5deg); }
-}
-
-.cover-card {
-    width: min(90%, 420px);
-    min-height: 360px;
-    padding-bottom: 90px; /* space for wax seal */
-    background: linear-gradient(135deg, #fdfbf7, #f5f0e8);
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    position: relative;
-    overflow: hidden;
-    animation: floatIn 1.2s ease;
-    border: 1px solid rgba(212,175,122,0.3);
-}
-
-
-/* Decorative corner flourishes */
-.cover-card::before,
-.cover-card::after {
-    content: '✦';
-    position: absolute;
-    font-size: 24px;
-    color: rgba(212,175,122,0.4);
-    animation: twinkle 3s ease-in-out infinite;
-}
-
-.cover-card::before {
-    top: 20px;
-    left: 20px;
-}
-
-.cover-card::after {
-    bottom: 20px;
-    right: 20px;
-    animation-delay: 1.5s;
-}
-
-@keyframes twinkle {
-    0%, 100% { opacity: 0.4; transform: scale(1) rotate(0deg); }
-    50% { opacity: 1; transform: scale(1.2) rotate(90deg); }
-}
-
-/* Decorative border */
-.invitation-border {
-    position: absolute;
-    inset: 15px;
-    border: 2px solid;
-    border-image: linear-gradient(135deg, #d4af7a, #b8935f, #d4af7a) 1;
-    border-radius: 15px;
-    pointer-events: none;
-    animation: borderGlow 4s ease-in-out infinite;
-}
-
-@keyframes borderGlow {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-}
-
-.cover-content {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    padding: 60px 30px 30px;
-    color: #6b5d52;
-}
-
-/* Decorative top element */
-.cover-flourish {
-    font-size: 48px;
-    margin-bottom: 15px;
-    animation: flourishBounce 2s ease-in-out infinite;
-}
-
-@keyframes flourishBounce {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-8px) scale(1.1); }
-}
-
-.invitation-label {
-    font-size: 14px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #b8935f;
-    margin-bottom: 20px;
-    opacity: 0;
-    animation: fadeInDown 1s ease 0.3s forwards;
-}
-
-@keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.cover-names {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 38px;
-    letter-spacing: 4px;
-    margin-bottom: 15px;
-    background: linear-gradient(135deg, #6b5d52, #8a7a6a);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    opacity: 0;
-    animation: fadeInScale 1s ease 0.6s forwards;
-}
-
-@keyframes fadeInScale {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-.cover-divider {
-    width: 80px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #d4af7a, transparent);
-    margin: 15px auto;
-    opacity: 0;
-    animation: expandWidth 1s ease 0.9s forwards;
-}
-
-@keyframes expandWidth {
-    from { opacity: 0; width: 0; }
-    to { opacity: 1; width: 80px; }
-}
-
-.cover-date {
-    font-style: italic;
-    margin-bottom: 25px;
-    color: #8a7a6a;
-    font-size: 15px;
-    letter-spacing: 1px;
-    opacity: 0;
-    animation: fadeIn 1s ease 1.2s forwards;
-}
-
-.container {
-  display: none;
-}
-
-
-.open-btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-}
-
-.open-btn:hover::before {
-    width: 300px;
-    height: 300px;
-}
-
-.open-btn:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.3);
-}
-
-.open-btn:active {
-    transform: translateY(-2px) scale(1.02);
-}
-
-/* App wrapper hidden initially */
-.app-wrapper {
-    display: none;
-}
-
-/* Enhanced transitions */
-.fade-out {
-    animation: fadeOutExpand 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-}
-
-.fade-in {
-    animation: fadeInBloom 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-@keyframes fadeOutExpand {
-    0% { 
-        opacity: 1; 
-        transform: scale(1) rotate(0deg);
-        filter: blur(0);
-    }
-    100% { 
-        opacity: 0; 
-        transform: scale(1.3) rotate(5deg);
-        filter: blur(10px);
-    }
-}
-
-@keyframes fadeInBloom {
-    0% { 
-        opacity: 0; 
-        transform: scale(0.8);
-        filter: blur(10px);
-    }
-    100% { 
-        opacity: 1; 
-        transform: scale(1);
-        filter: blur(0);
-    }
-}
-
-/* Particle effects on click */
-.petal {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    background: #d4af7a;
-    border-radius: 50% 0 50% 0;
-    pointer-events: none;
-    z-index: 10000;
-    animation: petalFall 2s ease-out forwards;
-}
-
-@keyframes petalFall {
-    0% {
-        opacity: 1;
-        transform: translateY(0) rotate(0deg) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(100vh) rotate(720deg) scale(0.5);
-    }
-}
-/* Enhanced Envelope */
-.envelope-back {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #f3e9dc, #e2d1b8);
-  z-index: 1;
-}
-
-/* Flap animation */
-.envelope-top {
-  transform-origin: top center;
-  transition: transform 1s ease-in-out;
-}
-
-.envelope-top.open {
-  transform: rotateX(160deg);
-}
-
-.wax-seal {
-  position: absolute;
-  bottom: 58px;      /* ✅ key fix */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 64px;
-  height: 64px;
-  background: radial-gradient(circle, #b8935f, #8a6b3f);
-  border-radius: 50%;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.35);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 26px;
-  color: #fff;
-  z-index: 4;
-  animation: sealPulse 2s infinite;
-  cursor: pointer;
-}
-
-
-
-
-
-@keyframes sealPulse {
-  0%, 100% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.1); }
-}
-
-/* Sparkles */
-.sparkles span {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: gold;
-  border-radius: 50%;
-  opacity: 0;
-  animation: sparkle 1.2s ease forwards;
-}
-
-@keyframes sparkle {
-  0% { transform: scale(0) translateY(0); opacity: 1; }
-  100% { transform: scale(1.5) translateY(-80px); opacity: 0; }
-}
-
-/* Invitation slide out */
-.cover-card.opened {
-  animation: slideOut 1.2s ease forwards;
-}
-
-@keyframes slideOut {
-  to {
-    transform: translateY(-120vh) scale(0.9);
-    opacity: 0;
-  }
-}
-@media (max-height: 740px) {
-  .cover-card {
-    min-height: 330px;
-    padding-bottom: 80px;
-  }
-
-  .cover-content {
-    padding-top: 50px;
-    gap: 10px;
-  }
-
-  .cover-names {
-    font-size: 32px;
-  }
-
-  .open-btn {
-    padding: 12px 26px;
-    font-size: 14px;
-  }
-
-  .wax-seal {
-    width: 58px;
-    height: 58px;
-    font-size: 24px;
-    bottom: 14px;
-  }
-}
-
-@media (max-height: 640px) {
-  .cover-card {
-    min-height: 300px;
-    padding-bottom: 70px;
-  }
-
-  .cover-content {
-    padding-top: 42px;
-  }
-}
-
-
+        @media (max-width: 480px) {
+            .slideshow-container {
+                height: 280px;
+            }
+
+            .arch-border {
+                top: 20px;
+                height: 220px;
+            }
+        }
+
+        .suggestions::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .suggestions::-webkit-scrollbar-track {
+            background: #f5ede0;
+            border-radius: 4px;
+        }
+
+        .suggestions::-webkit-scrollbar-thumb {
+            background: #d4af7a;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
+    <!-- Animated stars background -->
+    <div class="stars" id="stars"></div>
 
+    <!-- COVER SCREEN -->
+    <div class="cover-screen" id="coverScreen">
+        <div class="envelope-wrapper" id="envelopeWrapper">
+            <div class="envelope">
+                <div class="envelope-body"></div>
+                <div class="envelope-back-flap"></div>
+                
+                <div class="letter" id="letter">
+                    <div class="invitation-label">You Are Invited To</div>
+                    <div class="cover-flourish">💐</div>
+                    <h1 class="cover-names">Romesh & Wife</h1>
+                    <div class="cover-divider"></div>
+                    <p class="cover-date">Saturday, September 16th, 2025</p>
+                    <button class="open-btn" id="openBtn" onclick="openInvitation()">
+                        OPEN INVITATION
+                    </button>
+                </div>
 
-<div class="cover-screen" id="coverScreen">
-  <div class="cover-card" id="coverCard">
-
-    <div class="envelope-back"></div>
-    <div class="envelope-top" id="flap"></div>
-
-    <div class="cover-content">
-      <h1 class="cover-names">Romesh & Wife</h1>
-      <p class="cover-date">Saturday, September 16th, 2025</p>
-
-      <button class="open-btn" id="openBtn" onclick="openInvitation()">
-        OPEN INVITATION
-      </button>
+                <div class="envelope-flap" id="flap"></div>
+                <div class="wax-seal" id="waxSeal" onclick="openInvitation()">💍</div>
+                <div class="sparkles" id="sparkles"></div>
+            </div>
+        </div>
     </div>
 
-    <div class="wax-seal" id="waxSeal">💍</div>
-    <div class="sparkles" id="sparkles"></div>
-
-  </div>
-</div>
-
-
-
-    <div class="hearts-container" id="heartsContainer"></div>
-    
-    <div class="container">
+    <!-- MAIN APP -->
+    <div class="container" id="mainApp">
         <div class="slideshow-container">
             <div class="slide active"></div>
             <div class="slide"></div>
@@ -1304,13 +1176,10 @@
         </div>
     </div>
 
-        <audio id="openSound">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_30b7a8c8a1.mp3?filename=magic-chime-02-232892.mp3" type="audio/mpeg">
-</audio>
+    <audio id="openSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_30b7a8c8a1.mp3?filename=magic-chime-02-232892.mp3"></audio>
 
     <script>
-
-const guests = {
+        const guests = {
             "tania thomas": { name: "Tania Thomas", table: 1 },
             "romesh thomas": { name: "Romesh Thomas", table: 1 },
             "noni mama": { name: "Noni Mama", table: 1 },
@@ -1398,14 +1267,73 @@ const guests = {
             "hashini de alwis": { name: "Hashini De Alwis", table: 10 }
         };
 
-        const searchInput = document.getElementById('searchInput');
-        const suggestions = document.getElementById('suggestions');
-        const result = document.getElementById('result');
-        const notFound = document.getElementById('notFound');
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        createStars();
 
-        let debounceTimer;
+        // Envelope opening animation
+        function openInvitation() {
+            const flap = document.getElementById('flap');
+            const letter = document.getElementById('letter');
+            const sparkles = document.getElementById('sparkles');
+            const envelopeWrapper = document.getElementById('envelopeWrapper');
+            const coverScreen = document.getElementById('coverScreen');
+            const mainApp = document.getElementById('mainApp');
+            const btn = document.getElementById('openBtn');
+            const sound = document.getElementById('openSound');
 
-        // Slideshow functionality
+            btn.disabled = true;
+
+            // Play sound
+            sound.currentTime = 0;
+            sound.play().catch(() => {});
+
+            // Open flap
+            flap.classList.add('open');
+
+            // Reveal letter
+            setTimeout(() => {
+                letter.classList.add('reveal');
+            }, 400);
+
+            // Create sparkle burst
+            setTimeout(() => {
+                for (let i = 0; i < 30; i++) {
+                    const sparkle = document.createElement('span');
+                    const angle = (Math.PI * 2 * i) / 30;
+                    sparkle.style.left = '50%';
+                    sparkle.style.top = '50%';
+                    sparkle.style.animation = `sparkle 1.5s ease-out ${i * 0.02}s forwards`;
+                    sparkle.style.setProperty('--tx', Math.cos(angle) * 100 + 'px');
+                    sparkle.style.setProperty('--ty', Math.sin(angle) * 100 + 'px');
+                    sparkles.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 1500);
+                }
+            }, 800);
+
+            // Slide envelope away and show main app
+            setTimeout(() => {
+                envelopeWrapper.classList.add('opened');
+            }, 2000);
+
+            setTimeout(() => {
+                coverScreen.style.display = 'none';
+                mainApp.style.display = 'block';
+            }, 3200);
+        }
+
+        // Slideshow
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const indicators = document.querySelectorAll('.indicator');
@@ -1426,22 +1354,13 @@ const guests = {
             showSlide(currentSlide + 1);
         }, 5000);
 
-        // Floating hearts
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.textContent = '♥';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDelay = Math.random() * 5 + 's';
-            heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
-            document.getElementById('heartsContainer').appendChild(heart);
-            
-            setTimeout(() => heart.remove(), 8000);
-        }
-
-        setInterval(createHeart, 3000);
-
         // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const suggestions = document.getElementById('suggestions');
+        const result = document.getElementById('result');
+        const notFound = document.getElementById('notFound');
+        let debounceTimer;
+
         searchInput.addEventListener('input', function(e) {
             clearTimeout(debounceTimer);
             const query = e.target.value.toLowerCase().trim();
@@ -1503,55 +1422,6 @@ const guests = {
             `;
             result.classList.add('show');
         }
-
-function openInvitation() {
-  const cover = document.getElementById("coverScreen");
-  const card = document.getElementById("coverCard");
-  const flap = document.getElementById("flap");
-  const sparkles = document.getElementById("sparkles");
-  const btn = document.getElementById("openBtn");
-  const app = document.querySelector(".container");
-
-
-  btn.disabled = true;
-
-const sound = document.getElementById("openSound");
-
-// 🔊 Play sound
-sound.currentTime = 0;
-sound.play().catch(() => {});
-
-
-  // Open envelope flap
-  flap.classList.add("open");
-
-  // Create sparkle burst
-  for (let i = 0; i < 20; i++) {
-    const s = document.createElement("span");
-    s.style.left = Math.random() * 100 + "%";
-    s.style.top = "60%";
-    s.style.animationDelay = Math.random() * 0.3 + "s";
-    sparkles.appendChild(s);
-    setTimeout(() => s.remove(), 1200);
-  }
-
-  // Slide card away
-  setTimeout(() => {
-    card.classList.add("opened");
-  }, 600);
-
-  // Reveal main app
-  setTimeout(() => {
-    cover.style.display = "none";
-    app.style.display = "block";
-    app.classList.add("fade-in");
-  }, 1400);
-}
-
-document.getElementById("waxSeal").onclick = openInvitation;
-
-
     </script>
-
 </body>
 </html>
