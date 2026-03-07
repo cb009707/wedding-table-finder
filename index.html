@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -28,6 +29,7 @@
             --brown-text: #5a4a42;
             --brown-light: #8a7a6a;
             --navy: #1a1a2e;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
 
         body {
@@ -106,14 +108,37 @@
             position: absolute;
             inset: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(232,178,152,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(212,165,165,0.08) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(232,178,152,0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212,165,165,0.12) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(212,175,122,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 60% 20%, rgba(252,228,224,0.08) 0%, transparent 50%);
             animation: slowPulse 20s ease-in-out infinite;
         }
 
         @keyframes slowPulse {
             0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
+            50% { opacity: 0.9; transform: scale(1.05); }
+        }
+
+        .cover-screen::after {
+            content: '❀ ✿ ❀';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: clamp(16px, 4vw, 24px);
+            color: rgba(232,178,152,0.3);
+            letter-spacing: clamp(20px, 6vw, 40px);
+            animation: floralFloat 15s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes floralFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(5deg); }
+            50% { transform: translateY(5px) rotate(-5deg); }
+            75% { transform: translateY(-5px) rotate(3deg); }
         }
 
         .envelope-wrapper {
@@ -123,7 +148,15 @@
             max-width: 500px;
             max-height: 340px;
             perspective: 1200px;
-            animation: floatIn 1.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: floatIn 1.8s cubic-bezier(0.34, 1.56, 0.64, 1), gentleFloat 8s ease-in-out 2s infinite;
+            z-index: 1;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(-1deg); }
+            50% { transform: translateY(-4px) rotate(1deg); }
+            75% { transform: translateY(-6px) rotate(-0.5deg); }
         }
 
         @media (max-width: 480px) {
@@ -150,6 +183,12 @@
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
+            animation: envelopeGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes envelopeGlow {
+            0%, 100% { filter: drop-shadow(0 15px 40px rgba(0,0,0,0.3)); }
+            50% { filter: drop-shadow(0 15px 50px rgba(232,178,152,0.4)); }
         }
 
         .envelope-body {
@@ -158,8 +197,33 @@
             height: 100%;
             background: linear-gradient(135deg, var(--ivory) 0%, var(--cream) 100%);
             border-radius: 8px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-            border: 1px solid rgba(232,178,152,0.4);
+            box-shadow: 
+                inset 0 0 30px rgba(255,255,255,0.8),
+                0 15px 40px rgba(0,0,0,0.3);
+            border: 2px solid rgba(232,178,152,0.6);
+            overflow: hidden;
+        }
+
+        .envelope-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(135deg, rgba(232,178,152,0.1) 0%, transparent 100%);
+            z-index: 1;
+        }
+
+        .envelope-body::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(135deg, transparent 0%, rgba(212,165,165,0.1) 100%);
+            z-index: 1;
         }
 
         .envelope-back-flap {
@@ -172,6 +236,7 @@
             clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
             border-bottom-left-radius: 8px;
             border-bottom-right-radius: 8px;
+            box-shadow: inset 0 10px 20px rgba(212,175,122,0.2);
         }
 
         .envelope-flap {
@@ -183,15 +248,40 @@
             background: linear-gradient(135deg, var(--rose-gold) 0%, var(--gold-primary) 100%);
             clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
             transform-origin: top center;
-            transition: transform 1.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 
+                0 4px 25px rgba(0,0,0,0.3),
+                inset 0 -10px 20px rgba(255,255,255,0.2);
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
             z-index: 3;
+            animation: flapShimmer 4s infinite;
+        }
+
+        @keyframes flapShimmer {
+            0%, 100% { background: linear-gradient(135deg, var(--rose-gold) 0%, var(--gold-primary) 100%); }
+            50% { background: linear-gradient(135deg, #edbea6 0%, #dbb788 100%); }
         }
 
         .envelope-flap.open {
             transform: rotateX(-180deg);
+        }
+
+        .envelope-flap::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+            animation: shine 3s infinite;
+            z-index: 1;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .letter {
@@ -203,12 +293,14 @@
             height: 70%;
             background: linear-gradient(135deg, var(--ivory) 0%, var(--cream) 100%);
             border-radius: 6px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            box-shadow: 
+                0 8px 25px rgba(0,0,0,0.2),
+                inset 0 0 20px rgba(255,255,255,0.8);
             padding: 25px 20px;
             text-align: center;
-            transition: all 1.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             z-index: 2;
-            border: 2px solid rgba(232,178,152,0.3);
+            border: 2px solid rgba(232,178,152,0.4);
             overflow: hidden;
         }
 
@@ -221,6 +313,13 @@
         .letter.reveal {
             top: -22%;
             transform: translateX(-50%) scale(1.06);
+            animation: letterGlow 2s ease-in-out;
+        }
+
+        @keyframes letterGlow {
+            0% { box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+            50% { box-shadow: 0 8px 35px rgba(232,178,152,0.4); }
+            100% { box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
         }
 
         .letter::before,
@@ -230,6 +329,7 @@
             font-size: 18px;
             color: var(--dusty-rose);
             animation: petalGlow 3s ease-in-out infinite;
+            z-index: 1;
         }
 
         .letter::before {
@@ -296,6 +396,7 @@
             animation: fadeInScale 1s ease 0.6s forwards;
             font-weight: 600;
             line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         @keyframes fadeInScale {
@@ -310,6 +411,7 @@
             margin: 10px auto;
             opacity: 0;
             animation: expandWidth 1s ease 0.9s forwards;
+            box-shadow: 0 1px 2px rgba(212,165,165,0.3);
         }
 
         @keyframes expandWidth {
@@ -340,8 +442,10 @@
             border-radius: 30px;
             font-size: clamp(12px, 2.8vw, 14px);
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(232,178,152,0.4);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 
+                0 6px 20px rgba(232,178,152,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+            transition: var(--transition);
             font-family: 'Quicksand', sans-serif;
             letter-spacing: clamp(1.5px, 0.8vw, 2.5px);
             text-transform: uppercase;
@@ -351,7 +455,8 @@
             opacity: 0;
             animation: fadeInUp 1s ease 1.5s forwards;
             touch-action: manipulation;
-            min-height: 44px; /* Minimum touch target size */
+            min-height: 44px;
+            z-index: 1;
         }
 
         @keyframes fadeInUp {
@@ -362,26 +467,25 @@
         .open-btn::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.4);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.7s;
         }
 
         .open-btn:hover::before,
         .open-btn:active::before {
-            width: 200px;
-            height: 200px;
+            left: 100%;
         }
 
         .open-btn:hover,
         .open-btn:active {
             transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 10px 25px rgba(232,178,152,0.5);
+            box-shadow: 
+                0 10px 25px rgba(232,178,152,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.3);
         }
 
         .wax-seal {
@@ -395,8 +499,9 @@
             border-radius: 50%;
             box-shadow: 
                 0 0 0 4px rgba(212,165,165,0.4),
-                0 6px 15px rgba(0,0,0,0.3),
-                inset 0 2px 6px rgba(255,255,255,0.3);
+                0 6px 25px rgba(0,0,0,0.4),
+                inset 0 2px 6px rgba(255,255,255,0.3),
+                inset 0 -2px 6px rgba(0,0,0,0.2);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -404,11 +509,12 @@
             color: #fff;
             z-index: 4;
             cursor: pointer;
-            transition: all 0.3s;
-            animation: sealBreath 2.5s infinite;
+            transition: var(--transition);
+            animation: sealBreath 2.5s infinite, sealRotate 10s linear infinite;
             touch-action: manipulation;
-            min-height: 44px; /* Minimum touch target size */
+            min-height: 44px;
             min-width: 44px;
+            border: 2px solid rgba(255,255,255,0.2);
         }
 
         @keyframes sealBreath {
@@ -416,9 +522,33 @@
             50% { transform: translateX(-50%) scale(1.08); }
         }
 
+        @keyframes sealRotate {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            100% { transform: translateX(-50%) rotate(360deg); }
+        }
+
         .wax-seal:hover,
         .wax-seal:active {
-            transform: translateX(-50%) scale(1.15) rotate(8deg);
+            transform: translateX(-50%) scale(1.15) rotate(15deg);
+            animation-play-state: paused;
+        }
+
+        .wax-seal::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            background: radial-gradient(circle, transparent 30%, rgba(212,165,165,0.3) 70%);
+            z-index: -1;
+            animation: sealGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes sealGlow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
         }
 
         .envelope-wrapper.opened {
@@ -450,11 +580,11 @@
             100% { opacity: 1; transform: scale(1); filter: blur(0); }
         }
 
-        /* Navigation - Responsive */
+        /* Enhanced Navigation */
         .nav-bar {
             display: flex;
             justify-content: center;
-            gap: clamp(2px, 1vw, 0px);
+            gap: 0;
             background: linear-gradient(135deg, var(--blush) 0%, var(--ivory) 100%);
             padding: 0;
             border-bottom: 3px solid var(--rose-gold);
@@ -462,7 +592,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
@@ -475,69 +605,95 @@
         .nav-btn {
             background: transparent;
             border: none;
-            padding: clamp(12px, 3.5vw, 18px) clamp(8px, 2.5vw, 28px);
-            font-size: clamp(11px, 2.5vw, 15px);
+            padding: clamp(14px, 4vw, 20px) clamp(12px, 3vw, 25px);
+            font-size: clamp(12px, 3vw, 16px);
             font-family: 'Quicksand', sans-serif;
-            font-weight: 500;
-            color: var(--brown-light);
+            font-weight: 600;
+            color: var(--brown-text);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             position: relative;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            gap: clamp(4px, 1vw, 8px);
+            gap: clamp(6px, 1.5vw, 10px);
             text-transform: uppercase;
             white-space: nowrap;
             touch-action: manipulation;
-            min-height: 44px;
+            min-height: 50px;
             flex: 1;
             min-width: fit-content;
             justify-content: center;
+            overflow: hidden;
         }
 
         @media (max-width: 480px) {
             .nav-btn {
                 padding: 12px 8px;
-                font-size: 10px;
+                font-size: 11px;
+                gap: 4px;
             }
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--rose-gold), var(--dusty-rose));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
 
         .nav-btn::after {
             content: '';
             position: absolute;
-            bottom: -3px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--rose-gold), var(--dusty-rose));
-            transition: width 0.3s;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(232,178,152,0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .nav-btn:hover::after,
+        .nav-btn:active::after {
+            left: 100%;
         }
 
         .nav-btn:hover,
         .nav-btn:active {
             color: var(--brown-text);
-            background: rgba(232,178,152,0.1);
+            background: rgba(232,178,152,0.08);
+            transform: translateY(-2px);
         }
 
-        .nav-btn:hover::after,
-        .nav-btn:active::after {
-            width: 70%;
+        .nav-btn:hover::before,
+        .nav-btn:active::before {
+            transform: scaleX(1);
         }
 
         .nav-btn.active {
             color: var(--dusty-rose);
-            font-weight: 600;
-            background: rgba(232,178,152,0.15);
+            font-weight: 700;
+            background: rgba(232,178,152,0.12);
         }
 
-        .nav-btn.active::after {
-            width: 70%;
+        .nav-btn.active::before {
+            transform: scaleX(1);
         }
 
         .nav-icon {
-            font-size: clamp(16px, 4vw, 20px);
+            font-size: clamp(18px, 4.5vw, 22px);
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover .nav-icon,
+        .nav-btn.active .nav-icon {
+            transform: scale(1.2);
         }
 
         /* Hero slideshow - wedding themed */
@@ -767,7 +923,7 @@
             border: 2px solid var(--rose-gold);
             border-radius: 40px;
             outline: none;
-            transition: all 0.3s;
+            transition: var(--transition);
             background: white;
             font-family: 'Crimson Text', serif;
             text-align: center;
@@ -954,6 +1110,7 @@
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--rose-gold), transparent);
             margin: 20px auto;
+            box-shadow: 0 1px 2px rgba(232,178,152,0.3);
         }
 
         .footer-note {
@@ -1040,7 +1197,7 @@
             font-weight: 500;
             color: var(--brown-text);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: var(--transition);
             letter-spacing: 0.5px;
             box-shadow: 0 2px 8px rgba(232,178,152,0.15);
             touch-action: manipulation;
@@ -1079,7 +1236,7 @@
             padding: clamp(20px, 5vw, 35px);
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             border-left: 4px solid var(--rose-gold);
-            transition: all 0.3s;
+            transition: var(--transition);
             animation: slideInLeft 0.6s ease-out;
         }
 
@@ -1142,7 +1299,7 @@
             padding: 10px;
             background: var(--cream);
             border-radius: 8px;
-            transition: all 0.25s;
+            transition: var(--transition);
             border-left: 3px solid var(--blush);
         }
 
@@ -1198,7 +1355,7 @@
             overflow: hidden;
             box-shadow: 0 6px 20px rgba(0,0,0,0.1);
             cursor: pointer;
-            transition: all 0.4s;
+            transition: var(--transition);
             animation: fadeInScale 0.7s ease-out;
         }
 
@@ -1232,129 +1389,7 @@
             color: white;
         }
 
-        /* OUR STORY with images */
-        .story-section {
-            background: white;
-            padding: clamp(30px, 8vw, 70px) clamp(15px, 4vw, 50px);
-            min-height: 80vh;
-        }
-
-        .story-content {
-            max-width: 900px;
-            margin: 30px auto 0;
-            padding: 0 10px;
-        }
-
-        .story-timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .story-moment {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-            align-items: center;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @media (min-width: 768px) {
-            .story-moment {
-                grid-template-columns: 1fr 1fr;
-                gap: 30px;
-            }
-            
-            .story-moment:nth-child(even) {
-                direction: rtl;
-            }
-            
-            .story-moment:nth-child(even) > * {
-                direction: ltr;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .story-image {
-            position: relative;
-            aspect-ratio: 4/3;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-            border: 3px solid var(--cream);
-        }
-
-        .story-image-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--blush), var(--gold-light), var(--dusty-rose));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: clamp(40px, 10vw, 70px);
-            color: white;
-        }
-
-        .story-text {
-            padding: 15px;
-        }
-
-        @media (min-width: 768px) {
-            .story-text {
-                padding: 20px;
-            }
-        }
-
-        .story-title {
-            font-size: clamp(20px, 5vw, 32px);
-            font-family: 'Playfair Display', serif;
-            color: var(--brown-text);
-            margin-bottom: 12px;
-            font-weight: 700;
-            line-height: 1.3;
-        }
-
-        .story-date {
-            font-size: clamp(13px, 3.2vw, 16px);
-            color: var(--dusty-rose);
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 15px;
-        }
-
-        .story-paragraph {
-            font-size: clamp(15px, 3.8vw, 18px);
-            line-height: 1.7;
-            color: var(--brown-text);
-            text-align: left;
-        }
-
-        .story-highlight {
-            background: linear-gradient(135deg, var(--blush), var(--cream));
-            padding: clamp(25px, 6vw, 40px);
-            border-left: 4px solid var(--rose-gold);
-            border-radius: 12px;
-            margin: 40px 0;
-            text-align: center;
-            box-shadow: 0 6px 20px rgba(232,178,152,0.15);
-        }
-
-        .story-highlight-text {
-            font-size: clamp(18px, 4.5vw, 26px);
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--brown-text);
-            line-height: 1.5;
-        }
-
-        /* SCHEDULE */
+        /* Enhanced Schedule Section */
         .schedule-section {
             background: linear-gradient(135deg, var(--cream) 0%, var(--ivory) 100%);
             padding: clamp(30px, 8vw, 70px) clamp(15px, 4vw, 50px);
@@ -1452,7 +1487,7 @@
             top: 0;
             z-index: 1;
             box-shadow: 0 0 0 4px rgba(232,178,152,0.25);
-            transition: all 0.3s;
+            transition: var(--transition);
         }
 
         @media (min-width: 768px) {
@@ -1476,7 +1511,7 @@
             padding: clamp(15px, 3.5vw, 24px);
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s;
+            transition: var(--transition);
             border-left: 4px solid var(--rose-gold);
             grid-column: 2;
         }
@@ -1523,6 +1558,12 @@
             box-shadow: 0 8px 25px rgba(212,165,165,0.25);
             max-width: 600px;
             margin: 0 auto;
+            animation: venueFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes venueFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .venue-icon {
@@ -1604,7 +1645,6 @@
             .content-section,
             .guest-list-section,
             .gallery-section,
-            .story-section,
             .schedule-section {
                 padding-left: max(15px, env(safe-area-inset-left));
                 padding-right: max(15px, env(safe-area-inset-right));
@@ -1710,23 +1750,23 @@
 
     <!-- MAIN APP -->
     <div class="container" id="mainApp">
-        <!-- Navigation -->
+        <!-- Enhanced Navigation -->
         <nav class="nav-bar" role="navigation" aria-label="Main navigation">
             <button class="nav-btn active" onclick="switchSection('find-table')" aria-label="Find Your Table" aria-current="page">
                 <span class="nav-icon">🪑</span>
                 <span>Find Table</span>
             </button>
             <button class="nav-btn" onclick="switchSection('guest-list')" aria-label="Guest List">
-                <span class="nav-icon">📋</span>
-                <span>Guest List</span>
+                <span class="nav-icon">👥</span>
+                <span>Guests</span>
             </button>
             <button class="nav-btn" onclick="switchSection('gallery')" aria-label="Gallery">
                 <span class="nav-icon">🖼️</span>
                 <span>Gallery</span>
             </button>
-            <button class="nav-btn" onclick="switchSection('our-story')" aria-label="Our Story">
-                <span class="nav-icon">💝</span>
-                <span>Our Story</span>
+            <button class="nav-btn" onclick="switchSection('schedule')" aria-label="Schedule">
+                <span class="nav-icon">⏰</span>
+                <span>Schedule</span>
             </button>
         </nav>
 
@@ -1771,7 +1811,74 @@
 
                 <div class="footer-note">We look forward to celebrating with you ❀</div>
             </div>
+        </section>
 
+        <!-- GUEST LIST SECTION -->
+        <section id="guest-list" class="section" aria-label="Guest List">
+            <div class="guest-list-section">
+                <span class="section-icon" aria-hidden="true">👥</span>
+                <h2 class="section-title">Guest List</h2>
+                <div class="decorative-line" aria-hidden="true"></div>
+                <p class="guest-count">85 beloved guests across 10 tables</p>
+                
+                <input type="text" id="guestSearch" placeholder="Search by name..." aria-label="Search guests by name">
+                
+                <div class="table-filter" role="tablist" aria-label="Table filter">
+                    <button class="filter-btn active" onclick="filterTable('all')" role="tab" aria-selected="true">All Tables</button>
+                    <button class="filter-btn" onclick="filterTable(1)" role="tab" aria-selected="false">Table 1</button>
+                    <button class="filter-btn" onclick="filterTable(2)" role="tab" aria-selected="false">Table 2</button>
+                    <button class="filter-btn" onclick="filterTable(3)" role="tab" aria-selected="false">Table 3</button>
+                    <button class="filter-btn" onclick="filterTable(4)" role="tab" aria-selected="false">Table 4</button>
+                    <button class="filter-btn" onclick="filterTable(5)" role="tab" aria-selected="false">Table 5</button>
+                    <button class="filter-btn" onclick="filterTable(6)" role="tab" aria-selected="false">Table 6</button>
+                    <button class="filter-btn" onclick="filterTable(7)" role="tab" aria-selected="false">Table 7</button>
+                    <button class="filter-btn" onclick="filterTable(8)" role="tab" aria-selected="false">Table 8</button>
+                    <button class="filter-btn" onclick="filterTable(9)" role="tab" aria-selected="false">Table 9</button>
+                    <button class="filter-btn" onclick="filterTable(10)" role="tab" aria-selected="false">Table 10</button>
+                </div>
+
+                <div class="guest-tables" id="guestTables" role="tabpanel"></div>
+            </div>
+        </section>
+
+        <!-- GALLERY SECTION -->
+        <section id="gallery" class="section" aria-label="Gallery">
+            <div class="gallery-section">
+                <span class="section-icon" aria-hidden="true">📸</span>
+                <h2 class="section-title">Gallery</h2>
+                <div class="decorative-line" aria-hidden="true"></div>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Wedding photo">
+                        <div class="gallery-placeholder">📷</div>
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Couple photo">
+                        <div class="gallery-placeholder">💑</div>
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Floral decoration">
+                        <div class="gallery-placeholder">🌸</div>
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Bouquet">
+                        <div class="gallery-placeholder">💐</div>
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Wedding rings">
+                        <div class="gallery-placeholder">💍</div>
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Celebration">
+                        <div class="gallery-placeholder">🎉</div>
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Wedding venue">
+                        <div class="gallery-placeholder">💒</div>
+                    </div>
+                    <div class="gallery-item" role="button" tabindex="0" aria-label="Toast">
+                        <div class="gallery-placeholder">🥂</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCHEDULE SECTION -->
+        <section id="schedule" class="section" aria-label="Schedule">
             <div class="schedule-section">
                 <span class="section-icon" aria-hidden="true">⏰</span>
                 <h2 class="section-title">Celebration Schedule</h2>
@@ -1848,147 +1955,6 @@
                         <h4>Venue Location</h4>
                         <p>The Grand Ballroom, Colombo</p>
                         <p class="venue-address">123 Galle Road, Colombo 03</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- GUEST LIST SECTION -->
-        <section id="guest-list" class="section" aria-label="Guest List">
-            <div class="guest-list-section">
-                <span class="section-icon" aria-hidden="true">👥</span>
-                <h2 class="section-title">Guest List</h2>
-                <div class="decorative-line" aria-hidden="true"></div>
-                <p class="guest-count">85 beloved guests across 10 tables</p>
-                
-                <input type="text" id="guestSearch" placeholder="Search by name..." aria-label="Search guests by name">
-                
-                <div class="table-filter" role="tablist" aria-label="Table filter">
-                    <button class="filter-btn active" onclick="filterTable('all')" role="tab" aria-selected="true">All Tables</button>
-                    <button class="filter-btn" onclick="filterTable(1)" role="tab" aria-selected="false">Table 1</button>
-                    <button class="filter-btn" onclick="filterTable(2)" role="tab" aria-selected="false">Table 2</button>
-                    <button class="filter-btn" onclick="filterTable(3)" role="tab" aria-selected="false">Table 3</button>
-                    <button class="filter-btn" onclick="filterTable(4)" role="tab" aria-selected="false">Table 4</button>
-                    <button class="filter-btn" onclick="filterTable(5)" role="tab" aria-selected="false">Table 5</button>
-                    <button class="filter-btn" onclick="filterTable(6)" role="tab" aria-selected="false">Table 6</button>
-                    <button class="filter-btn" onclick="filterTable(7)" role="tab" aria-selected="false">Table 7</button>
-                    <button class="filter-btn" onclick="filterTable(8)" role="tab" aria-selected="false">Table 8</button>
-                    <button class="filter-btn" onclick="filterTable(9)" role="tab" aria-selected="false">Table 9</button>
-                    <button class="filter-btn" onclick="filterTable(10)" role="tab" aria-selected="false">Table 10</button>
-                </div>
-
-                <div class="guest-tables" id="guestTables" role="tabpanel"></div>
-            </div>
-        </section>
-
-        <!-- GALLERY SECTION -->
-        <section id="gallery" class="section" aria-label="Gallery">
-            <div class="gallery-section">
-                <span class="section-icon" aria-hidden="true">📸</span>
-                <h2 class="section-title">Gallery</h2>
-                <div class="decorative-line" aria-hidden="true"></div>
-                
-                <div class="gallery-grid">
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Wedding photo">
-                        <div class="gallery-placeholder">📷</div>
-                    </div>
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Couple photo">
-                        <div class="gallery-placeholder">💑</div>
-                    </div>
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Floral decoration">
-                        <div class="gallery-placeholder">🌸</div>
-                    </div>
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Bouquet">
-                        <div class="gallery-placeholder">💐</div>
-                    </div>
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Wedding rings">
-                        <div class="gallery-placeholder">💍</div>
-                    </div>
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Celebration">
-                        <div class="gallery-placeholder">🎉</div>
-                    </div>
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Wedding venue">
-                        <div class="gallery-placeholder">💒</div>
-                    </div>
-                    <div class="gallery-item" role="button" tabindex="0" aria-label="Toast">
-                        <div class="gallery-placeholder">🥂</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- OUR STORY SECTION -->
-        <section id="our-story" class="section" aria-label="Our Story">
-            <div class="story-section">
-                <span class="section-icon" aria-hidden="true">💕</span>
-                <h2 class="section-title">Our Story</h2>
-                <div class="decorative-line" aria-hidden="true"></div>
-                
-                <div class="story-content">
-                    <div class="story-timeline">
-                        <!-- First Meeting -->
-                        <article class="story-moment">
-                            <div class="story-image" aria-hidden="true">
-                                <div class="story-image-placeholder">💑</div>
-                            </div>
-                            <div class="story-text">
-                                <h3 class="story-title">The First Meeting</h3>
-                                <p class="story-date">June 2020</p>
-                                <p class="story-paragraph">
-                                    It was a warm summer afternoon when our paths first crossed at a mutual friend's gathering. What started as a simple conversation over coffee quickly turned into hours of laughter, shared stories, and an undeniable connection that neither of us expected.
-                                </p>
-                            </div>
-                        </article>
-
-                        <!-- Falling in Love -->
-                        <article class="story-moment">
-                            <div class="story-image" aria-hidden="true">
-                                <div class="story-image-placeholder">❤️</div>
-                            </div>
-                            <div class="story-text">
-                                <h3 class="story-title">Falling in Love</h3>
-                                <p class="story-date">December 2020</p>
-                                <p class="story-paragraph">
-                                    Through countless adventures, late-night conversations, and quiet moments together, we discovered that home isn't a place—it's a person. From beach sunsets to mountain hikes, every experience became more magical when shared together.
-                                </p>
-                            </div>
-                        </article>
-
-                        <!-- The Proposal -->
-                        <article class="story-moment">
-                            <div class="story-image" aria-hidden="true">
-                                <div class="story-image-placeholder">💍</div>
-                            </div>
-                            <div class="story-text">
-                                <h3 class="story-title">The Proposal</h3>
-                                <p class="story-date">March 2024</p>
-                                <p class="story-paragraph">
-                                    Under a canopy of stars on a peaceful beach, with the sound of waves in the background, one of us got down on one knee and asked the most important question of our lives. Through tears of joy, the answer was a resounding "Yes!"
-                                </p>
-                            </div>
-                        </article>
-                    </div>
-
-                    <div class="story-highlight">
-                        <p class="story-highlight-text">
-                            "In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine."
-                        </p>
-                    </div>
-
-                    <div class="story-timeline">
-                        <!-- Journey to Forever -->
-                        <article class="story-moment">
-                            <div class="story-image" aria-hidden="true">
-                                <div class="story-image-placeholder">💐</div>
-                            </div>
-                            <div class="story-text">
-                                <h3 class="story-title">Journey to Forever</h3>
-                                <p class="story-date">September 2025</p>
-                                <p class="story-paragraph">
-                                    Now, as we stand on the threshold of our greatest adventure yet, we invite you to witness our union and celebrate the love that has brought us to this beautiful moment. Your presence in our lives has made this journey even more special.
-                                </p>
-                            </div>
-                        </article>
                     </div>
                 </div>
             </div>
@@ -2100,6 +2066,8 @@
                 particle.style.top = Math.random() * 100 + '%';
                 particle.style.animationDelay = Math.random() * 15 + 's';
                 particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.width = Math.random() * 3 + 1 + 'px';
+                particle.style.height = particle.style.width;
                 fragment.appendChild(particle);
             }
             particlesContainer.appendChild(fragment);
@@ -2123,19 +2091,31 @@
             const sound = document.getElementById('openSound');
 
             btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> OPENING...';
             
             // Play sound only if user has interacted
             sound.play().catch(() => {});
 
-            flap.classList.add('open');
-            setTimeout(() => letter.classList.add('reveal'), 400);
-            setTimeout(() => envelopeWrapper.classList.add('opened'), 2000);
+            // Add extra envelope animation
+            envelopeWrapper.style.animation = 'floatIn 1.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            
+            // Add slight delay for dramatic effect
+            setTimeout(() => {
+                flap.classList.add('open');
+            }, 200);
+            
+            setTimeout(() => letter.classList.add('reveal'), 600);
+            
+            setTimeout(() => {
+                envelopeWrapper.classList.add('opened');
+            }, 2200);
+            
             setTimeout(() => {
                 coverScreen.style.display = 'none';
                 mainApp.style.display = 'block';
                 // Ensure proper focus for accessibility
                 document.querySelector('.nav-btn.active').focus();
-            }, 3500);
+            }, 3800);
         }
 
         // Touch support for wax seal
@@ -2380,6 +2360,16 @@
             if (window.innerWidth > 768) {
                 renderGuestTables();
             }
+            
+            // Add some interactive effects to envelope
+            const envelope = document.querySelector('.envelope');
+            envelope.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            
+            envelope.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
         });
     </script>
 </body>
