@@ -151,19 +151,25 @@ input{font-family:inherit}
   display:flex;
   border-bottom:1px solid rgba(201,168,76,.26);
   box-shadow:0 3px 18px rgba(0,0,0,.36);
-  overflow-x:auto;scrollbar-width:none;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+  scroll-snap-type:x proximity;
   padding-top:env(safe-area-inset-top,0px);
 }
 .nav::-webkit-scrollbar{display:none}
+.navwrap{position:sticky;top:0;z-index:200}
+.navfade{position:absolute;top:0;bottom:0;width:26px;pointer-events:none;z-index:2;opacity:0;transition:opacity .2s}
+.navfade.l{left:0;background:linear-gradient(90deg,var(--dk-m),transparent)}
+.navfade.r{right:0;background:linear-gradient(-90deg,var(--dk-m),transparent)}
+.navfade.show{opacity:1}
 .nb{
-  flex:1;min-width:0;
-  display:flex;align-items:center;justify-content:center;gap:5px;
-  padding:clamp(13px,3.2vw,18px) clamp(8px,2vw,22px);
-  font-family:var(--fu);font-size:clamp(9px,2.1vw,11px);
-  font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  flex:0 0 auto;scroll-snap-align:start;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:clamp(12px,3vw,16px) clamp(14px,3.4vw,22px);
+  font-family:var(--fu);font-size:clamp(9px,2vw,11px);
+  font-weight:600;letter-spacing:1.6px;text-transform:uppercase;
   color:rgba(232,213,163,.52);
   transition:color .22s,background .22s;
-  position:relative;min-height:50px;white-space:nowrap;touch-action:manipulation;
+  position:relative;min-height:48px;white-space:nowrap;touch-action:manipulation;
 }
 .nb::after{
   content:'';position:absolute;bottom:0;left:18%;right:18%;height:2px;
@@ -173,8 +179,9 @@ input{font-family:inherit}
 .nb:hover,.nb.a{color:var(--gold-l)}
 .nb.a::after{transform:scaleX(1)}
 .nb:hover:not(.a){background:rgba(201,168,76,.05)}
-.ni{font-size:clamp(14px,3.5vw,18px);flex-shrink:0}
-@media(max-width:320px){.nb span:last-child{display:none}}
+.ni{font-size:clamp(14px,3.2vw,17px);flex-shrink:0}
+@media(max-width:400px){.nb{padding:12px 12px}.nb span:last-child{font-size:9px}}
+@media(max-width:340px){.nb span:last-child{display:none}.nb{padding:12px 15px}}
 
 /* =====================================
    SECTION TOGGLE
@@ -434,23 +441,27 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 
 <!-- APP -->
 <div class="app" id="app" aria-hidden="true">
-  <nav class="nav" role="navigation" aria-label="Main navigation">
-    <button class="nb a" id="n0" onclick="go('s0',0)" aria-current="page">
-      <span class="ni" aria-hidden="true">🪑</span><span>Find Table</span>
-    </button>
-    <button class="nb" id="n1" onclick="go('s1',1)">
-      <span class="ni" aria-hidden="true">👥</span><span>Guests</span>
-    </button>
-    <button class="nb" id="n2" onclick="go('s2',2)">
-      <span class="ni" aria-hidden="true">🍽️</span><span>Menu</span>
-    </button>
-    <button class="nb" id="n3" onclick="go('s3',3)">
-      <span class="ni" aria-hidden="true">🕰️</span><span>Schedule</span>
-    </button>
-    <button class="nb" id="n4" onclick="go('s4',4)">
-      <span class="ni" aria-hidden="true">🗺️</span><span>Floor Plan</span>
-    </button>
-  </nav>
+  <div class="navwrap">
+    <nav class="nav" id="navEl" role="navigation" aria-label="Main navigation">
+      <button class="nb a" id="n0" onclick="go('s0',0)" aria-current="page">
+        <span class="ni" aria-hidden="true">🪑</span><span>Find Table</span>
+      </button>
+      <button class="nb" id="n1" onclick="go('s1',1)">
+        <span class="ni" aria-hidden="true">👥</span><span>Guests</span>
+      </button>
+      <button class="nb" id="n2" onclick="go('s2',2)">
+        <span class="ni" aria-hidden="true">🍽️</span><span>Menu</span>
+      </button>
+      <button class="nb" id="n3" onclick="go('s3',3)">
+        <span class="ni" aria-hidden="true">🕰️</span><span>Schedule</span>
+      </button>
+      <button class="nb" id="n4" onclick="go('s4',4)">
+        <span class="ni" aria-hidden="true">🗺️</span><span>Floor Plan</span>
+      </button>
+    </nav>
+    <div class="navfade l" id="navFadeL" aria-hidden="true"></div>
+    <div class="navfade r" id="navFadeR" aria-hidden="true"></div>
+  </div>
 
   <!-- FIND TABLE -->
   <section id="s0" class="sec a" aria-label="Find Your Table">
@@ -747,8 +758,22 @@ function go(id,i){
     b.setAttribute('aria-current',j===i?'page':'false');});
   document.getElementById(id).classList.add('a');
   NBS[i].classList.add('a');
+  NBS[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+// ── NAV SCROLL FADE CUES ─────────────────────────────────────
+const navEl=document.getElementById('navEl');
+const navFadeL=document.getElementById('navFadeL');
+const navFadeR=document.getElementById('navFadeR');
+function updateNavFades(){
+  const max=navEl.scrollWidth-navEl.clientWidth;
+  navFadeL.classList.toggle('show',navEl.scrollLeft>4);
+  navFadeR.classList.toggle('show',navEl.scrollLeft<max-4);
+}
+navEl.addEventListener('scroll',updateNavFades,{passive:true});
+window.addEventListener('resize',updateNavFades);
+updateNavFades();
 
 // ── SEARCH ─────────────────────────────────────────────────
 const siEl=document.getElementById('si');
