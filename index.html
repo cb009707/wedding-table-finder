@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1c1410">
-<meta name="description" content="Romesh & Wife Wedding Celebration — September 16, 2025">
+<meta name="description" content="Frances & Romesh Wedding Celebration — August 6, 2026">
 <!-- Non-blocking font load -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Cinzel:wght@400;600&family=Raleway:wght@400;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Cinzel:wght@400;600&family=Raleway:wght@400;600&display=swap"></noscript>
-<title>Romesh &amp; Wife — Wedding</title>
+<title>Frances &amp; Romesh — Wedding</title>
 <style>
 /* =====================================
    RESET
@@ -66,7 +66,7 @@ input{font-family:inherit}
 ===================================== */
 .cover{
   position:fixed;inset:0;
-  background:radial-gradient(ellipse 80% 80% at 40% 40%,#2a1a12 0%,var(--dk) 65%);
+  background:var(--dk);
   display:flex;justify-content:center;align-items:center;
   z-index:9000;overflow:hidden;
   padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px))
@@ -74,8 +74,17 @@ input{font-family:inherit}
   transition:opacity .65s var(--ease),transform .65s var(--ease);
   will-change:opacity,transform;
 }
+/* dummy bride & groom background photos — replace URLs with real photos later */
+.coverbg{position:absolute;inset:0;display:flex;z-index:0}
+.cbgimg{flex:1;background-size:cover;background-position:center;filter:saturate(.8) brightness(.82)}
+.cbgimg-l{background-image:url('https://placehold.co/900x1600/2a1a12/f5e6d3?text=Groom+Photo')}
+.cbgimg-r{background-image:url('https://placehold.co/900x1600/3d2416/f5e6d3?text=Bride+Photo')}
+.coverbg::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 80% at 40% 40%,rgba(42,26,18,.62) 0%,rgba(28,20,16,.84) 65%);
+}
 .cover::before,.cover::after{
-  content:'';position:absolute;
+  content:'';position:absolute;z-index:2;
   width:clamp(100px,22vw,190px);height:clamp(100px,22vw,190px);
   border:1px solid rgba(201,168,76,.2);pointer-events:none;
 }
@@ -84,11 +93,12 @@ input{font-family:inherit}
 .cover.hide{opacity:0;transform:scale(1.04);pointer-events:none}
 
 .card{
+  position:relative;z-index:1;
   width:min(420px,92vw);
   background:linear-gradient(155deg,#fffdf8 0%,#f9f2e6 55%,#f2e6d4 100%);
   border-radius:3px;
   padding:clamp(28px,7vw,56px) clamp(22px,6vw,50px);
-  text-align:center;position:relative;overflow:hidden;
+  text-align:center;overflow:hidden;
   box-shadow:0 0 0 1px rgba(201,168,76,.42),0 0 0 7px rgba(201,168,76,.07),
              0 24px 70px rgba(0,0,0,.52),inset 0 0 50px rgba(248,234,208,.3);
   animation:cdin 1.3s var(--spring) both;
@@ -175,11 +185,12 @@ input{font-family:inherit}
    HERO
 ===================================== */
 .hero{position:relative;height:clamp(290px,58vh,510px);overflow:hidden;contain:layout style}
-.sl{position:absolute;inset:0;opacity:0;transition:opacity 2s ease-in-out;will-change:opacity}
+.sl{position:absolute;inset:0;opacity:0;transition:opacity 2s ease-in-out;will-change:opacity;background-size:cover;background-position:center}
 .sl.a{opacity:1}
-.sl:nth-child(1){background:linear-gradient(135deg,#2a1a14 0%,#4a2d20 40%,#6b3d2a 100%)}
-.sl:nth-child(2){background:linear-gradient(160deg,#1a1210 0%,#3d2416 40%,#5c3525 100%)}
-.sl:nth-child(3){background:linear-gradient(135deg,#201510 0%,#422415 40%,#6a3820 100%)}
+/* dummy bride & groom photos with dark overlay for legibility — swap URLs for real photos later */
+.sl:nth-child(1){background-image:linear-gradient(135deg,rgba(24,15,10,.6),rgba(24,15,10,.78)),url('https://placehold.co/1600x900/2a1a12/f5e6d3?text=Groom+%26+Bride')}
+.sl:nth-child(2){background-image:linear-gradient(160deg,rgba(20,13,9,.6),rgba(20,13,9,.78)),url('https://placehold.co/1600x900/3d2416/f5e6d3?text=Engagement+Photo')}
+.sl:nth-child(3){background-image:linear-gradient(135deg,rgba(26,17,11,.6),rgba(26,17,11,.78)),url('https://placehold.co/1600x900/422415/f5e6d3?text=Couple+Photo')}
 .sl::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 15% 85%,rgba(201,168,76,.1) 0%,transparent 40%),radial-gradient(circle at 85% 15%,rgba(196,129,106,.1) 0%,transparent 40%)}
 .hov{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(14px,4vw,30px)}
 .ring{position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,.18);pointer-events:none;top:50%;left:50%;animation:rp 6s ease-in-out infinite;will-change:transform,opacity}
@@ -207,7 +218,8 @@ input{font-family:inherit}
 /* =====================================
    FIND TABLE
 ===================================== */
-.find{padding:clamp(32px,6.5vw,68px) clamp(14px,4vw,54px);background:linear-gradient(180deg,var(--ivory) 0%,var(--cream) 100%);text-align:center}
+.find{padding:clamp(32px,6.5vw,68px) clamp(14px,4vw,54px);background:linear-gradient(180deg,var(--ivory) 0%,var(--cream) 100%);text-align:center;position:relative}
+.find::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('https://placehold.co/1600x900/3d2416/f5e6d3?text=Bride+Photo');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
 .sh{font-family:var(--fd);font-size:clamp(19px,4.8vw,34px);color:var(--br);letter-spacing:2px;margin-bottom:5px}
 .ss{font-family:var(--fb);font-style:italic;font-size:clamp(13px,3vw,17px);color:var(--br-l);margin-bottom:clamp(18px,4.5vw,34px)}
 .odv{display:flex;align-items:center;gap:13px;max-width:240px;margin:14px auto}
@@ -270,18 +282,29 @@ input{font-family:inherit}
 /* =====================================
    GUEST LIST
 ===================================== */
-.gls{padding:clamp(32px,6.5vw,68px) clamp(12px,3.5vw,54px);background:linear-gradient(180deg,var(--cream) 0%,var(--ivory) 100%)}
-.frow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:22px 0;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
-.frow::-webkit-scrollbar{display:none}
-.fb{
-  background:#fff;border:1px solid var(--gold-l);
-  padding:7px 14px;border-radius:2px;
-  font-family:var(--fu);font-size:clamp(9px,2.1vw,10px);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--br-m);transition:all .18s;box-shadow:0 2px 6px rgba(0,0,0,.04);
-  touch-action:manipulation;white-space:nowrap;min-height:36px;
+.gls{padding:clamp(32px,6.5vw,68px) clamp(12px,3.5vw,54px);background:linear-gradient(180deg,var(--cream) 0%,var(--ivory) 100%);position:relative}
+.gls::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('https://placehold.co/1600x900/2a1a12/f5e6d3?text=Groom+Photo');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
+.frow{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:24px auto;max-width:420px}
+.tsel-wrap{position:relative;flex:1;min-width:180px;max-width:260px}
+.tsel{
+  width:100%;appearance:none;-webkit-appearance:none;
+  background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="7"><path d="M1 1l4 4 4-4" stroke="%239a7a30" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat right 16px center;
+  border:1px solid var(--gold-l);border-radius:2px;
+  padding:11px 36px 11px 18px;
+  font-family:var(--fu);font-size:clamp(10px,2.3vw,11px);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--br-m);cursor:pointer;box-shadow:0 2px 9px rgba(0,0,0,.05);
+  transition:border-color .22s,box-shadow .22s;
 }
-.fb:hover{background:var(--blush);border-color:var(--rose);color:var(--rose-d)}
-.fb.a{background:linear-gradient(135deg,var(--gold-d),var(--gold));color:#fff;border-color:var(--gold);box-shadow:0 4px 12px rgba(201,168,76,.22)}
+.tsel:hover{border-color:var(--rose)}
+.tsel:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.13)}
+.fball{
+  background:linear-gradient(135deg,var(--gold-d),var(--gold));color:#fff;border:1px solid var(--gold);
+  padding:11px 22px;border-radius:2px;font-family:var(--fu);font-size:clamp(9px,2.1vw,10px);font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 4px 12px rgba(201,168,76,.22);
+  transition:transform .18s,box-shadow .18s;touch-action:manipulation;white-space:nowrap;min-height:40px;
+}
+.fball:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(201,168,76,.3)}
+.fball.a{background:linear-gradient(135deg,var(--rose-d),var(--rose))}
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px;margin-top:18px;max-width:1100px;margin-left:auto;margin-right:auto}
 @media(min-width:768px){.tgrid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}}
 @media(min-width:1200px){.tgrid{grid-template-columns:repeat(3,1fr)}}
@@ -296,15 +319,27 @@ input{font-family:inherit}
 .gi:hover{background:var(--blush);border-left-color:var(--rose)}
 .gd{width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0}
 .gnm{font-size:clamp(11px,2.5vw,13px);color:var(--br);line-height:1.3}
+.gempty{font-family:var(--fb);font-style:italic;color:var(--br-l);text-align:center;grid-column:1/-1;padding:30px 10px}
+
+/* =====================================
+   FLOOR PLAN
+===================================== */
+.fps{padding:clamp(32px,6.5vw,68px) clamp(12px,3.5vw,54px);background:linear-gradient(180deg,var(--ivory) 0%,var(--cream) 100%);text-align:center;position:relative}
+.fps::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('https://placehold.co/1600x900/422415/f5e6d3?text=Couple+Photo');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
+.fpimg{max-width:720px;margin:26px auto;border-radius:3px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.12);border:1px solid rgba(201,168,76,.3);background:#fff}
+.fpimg img{width:100%;display:block}
+.fpnote{font-family:var(--fb);font-style:italic;color:var(--br-l);font-size:clamp(12px,2.8vw,14px);margin-top:16px}
 
 /* =====================================
    MENU
 ===================================== */
-.gals{padding:clamp(32px,6.5vw,68px) clamp(12px,3.5vw,54px);background:var(--dk)}
+.gals{padding:clamp(32px,6.5vw,68px) clamp(12px,3.5vw,54px);background:var(--dk);position:relative}
 .gals .sh{color:var(--champ)}.gals .ss{color:rgba(232,213,163,.55)}
 .gals .odv::before{background:linear-gradient(90deg,transparent,rgba(201,168,76,.45))}
 .gals .odv::after{background:linear-gradient(90deg,rgba(201,168,76,.45),transparent)}
-.menugrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:26px;max-width:1100px;margin-left:auto;margin-right:auto}
+.gals::before{content:'';position:absolute;inset:0;z-index:0;background-image:url('https://placehold.co/1600x900/3d2416/f5e6d3?text=Bride+Photo');background-size:cover;background-position:center;opacity:.06;pointer-events:none}
+.gals>div{position:relative;z-index:1}
+.menugrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:26px;max-width:1100px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
 .mcard{background:rgba(255,255,255,.035);border:1px solid rgba(201,168,76,.24);border-radius:3px;padding:clamp(18px,4.2vw,24px);box-shadow:0 4px 18px rgba(0,0,0,.28);transition:transform .25s,box-shadow .25s}
 .mcard:hover{transform:translateY(-3px);box-shadow:0 9px 28px rgba(201,168,76,.16)}
 .mcard h3{font-family:var(--fd);color:var(--gold-l);font-size:clamp(14px,3.4vw,18px);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid rgba(201,168,76,.22)}
@@ -315,7 +350,8 @@ input{font-family:inherit}
 /* =====================================
    SCHEDULE
 ===================================== */
-.schd{padding:clamp(32px,6.5vw,68px) clamp(12px,3.5vw,54px);background:linear-gradient(180deg,var(--ivory) 0%,var(--cream) 100%)}
+.schd{padding:clamp(32px,6.5vw,68px) clamp(12px,3.5vw,54px);background:linear-gradient(180deg,var(--ivory) 0%,var(--cream) 100%);position:relative}
+.schd::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('https://placehold.co/1600x900/2a1a12/f5e6d3?text=Groom+Photo');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
 .tl{position:relative;max-width:640px;margin:38px auto 46px;padding:0 14px}
 .tl::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--gold) 8%,var(--gold) 92%,transparent);transform:translateX(-50%)}
 @media(max-width:560px){.tl::before{left:17px;transform:none}}
@@ -381,13 +417,17 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 
 <!-- COVER -->
 <div class="cover" id="cover" role="dialog" aria-modal="true" aria-label="Wedding Invitation">
+  <div class="coverbg" aria-hidden="true">
+    <div class="cbgimg cbgimg-l"></div>
+    <div class="cbgimg cbgimg-r"></div>
+  </div>
   <div class="card">
     <div class="cgt"></div><div class="cgb"></div>
     <div class="cfloral" aria-hidden="true">🌸 ✿ 🌸</div>
     <div class="clbl">You Are Cordially Invited To</div>
-    <div class="cnames">Romesh<span class="camp">&amp;</span>Wife</div>
+    <div class="cnames">Frances<span class="camp">&amp;</span>Romesh</div>
     <div class="dhr"><span class="dhrd">◆</span></div>
-    <div class="cdate">Saturday, the Sixteenth of September, 2025</div>
+    <div class="cdate">Thursday, the Sixth of August, 2026</div>
     <button class="obtn" id="oBtn" aria-label="Open the wedding invitation">Open Invitation</button>
   </div>
 </div>
@@ -407,6 +447,9 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
     <button class="nb" id="n3" onclick="go('s3',3)">
       <span class="ni" aria-hidden="true">🕰️</span><span>Schedule</span>
     </button>
+    <button class="nb" id="n4" onclick="go('s4',4)">
+      <span class="ni" aria-hidden="true">🗺️</span><span>Floor Plan</span>
+    </button>
   </nav>
 
   <!-- FIND TABLE -->
@@ -417,9 +460,9 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
         <div class="ring r1" aria-hidden="true"></div>
         <div class="ring r2" aria-hidden="true"></div>
         <div class="htag">A Wedding Celebration</div>
-        <div class="hnames">Romesh <span class="hand">&amp;</span> Wife</div>
+        <div class="hnames">Frances <span class="hand">&amp;</span> Romesh</div>
         <div class="hdiv"></div>
-        <div class="hdate">Saturday · September 16th · 2025</div>
+        <div class="hdate">Thursday · August 6th · 2026</div>
       </div>
       <div class="hfade" aria-hidden="true"></div>
       <div class="sdots" role="tablist" aria-label="Slideshow">
@@ -459,23 +502,18 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
       <div style="text-align:center">
         <h2 class="sh">Guest List</h2>
         <div class="odv"><span class="odvd">◆</span></div>
-        <p class="ss">85 beloved guests · 10 tables</p>
+        <p class="ss">31 tables reserved in your honor</p>
         <input class="sinp" id="gs" type="text" placeholder="Search by name…"
           autocomplete="off" autocorrect="off" spellcheck="false"
           aria-label="Search guests" style="max-width:360px;display:block;margin:0 auto 12px">
       </div>
-      <div class="frow" id="fr" role="tablist" aria-label="Filter by table">
-        <button class="fb a" onclick="ft('all',this)" role="tab" aria-selected="true">All</button>
-        <button class="fb" onclick="ft(1,this)" role="tab">T1</button>
-        <button class="fb" onclick="ft(2,this)" role="tab">T2</button>
-        <button class="fb" onclick="ft(3,this)" role="tab">T3</button>
-        <button class="fb" onclick="ft(4,this)" role="tab">T4</button>
-        <button class="fb" onclick="ft(5,this)" role="tab">T5</button>
-        <button class="fb" onclick="ft(6,this)" role="tab">T6</button>
-        <button class="fb" onclick="ft(7,this)" role="tab">T7</button>
-        <button class="fb" onclick="ft(8,this)" role="tab">T8</button>
-        <button class="fb" onclick="ft(9,this)" role="tab">T9</button>
-        <button class="fb" onclick="ft(10,this)" role="tab">T10</button>
+      <div class="frow" role="group" aria-label="Filter by table">
+        <button class="fball a" id="fball" onclick="ft('all')" type="button">All Tables</button>
+        <div class="tsel-wrap">
+          <select class="tsel" id="tsel" aria-label="Jump to a table" onchange="ft(this.value)">
+            <option value="all">Jump to table…</option>
+          </select>
+        </div>
       </div>
       <div class="tgrid" id="tg" role="tabpanel"></div>
     </div>
@@ -583,10 +621,23 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
         <div class="tli"><div class="ttime">9:00 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Dancing &amp; Celebration</h3><p>Dance the night away!</p><div class="tmob">9:00 PM</div></div></div>
         <div class="tli"><div class="ttime">11:30 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Grand Farewell</h3><p>Send-off with sparklers &amp; rose petals</p><div class="tmob">11:30 PM</div></div></div>
       </div>
-      <div class="vc"><div class="vi">📍</div><div class="vn">The Grand Ballroom, Colombo</div><div class="va">123 Galle Road, Colombo 03</div></div>
+      <div class="vc"><div class="vi">📍</div><div class="vn">The Kingsbury Colombo</div><div class="va">48 Janadhipathi Mawatha, Colombo 01</div></div>
     </div>
   </section>
-  <footer><p>Romesh &amp; Wife · September 16, 2025 ✦ Colombo, Sri Lanka</p></footer>
+
+  <!-- FLOOR PLAN -->
+  <section id="s4" class="sec" aria-label="Floor Plan">
+    <div class="fps">
+      <h2 class="sh">Floor Plan</h2>
+      <div class="odv"><span class="odvd">◆</span></div>
+      <p class="ss">31 tables arranged for our celebration</p>
+      <div class="fpimg">
+        <img src="https://placehold.co/1000x750/f8f2ea/4a3728?text=Floor+Plan+Coming+Soon" alt="Venue floor plan placeholder — to be replaced with the final layout" loading="lazy">
+      </div>
+      <p class="fpnote">The final floor plan will be added here closer to the day ✦</p>
+    </div>
+  </section>
+  <footer><p>Frances &amp; Romesh · August 6, 2026 ✦ The Kingsbury Colombo</p></footer>
 </div>
 
 <script>
@@ -638,6 +689,17 @@ const G={
 };
 // cache keys array once
 const KS=Object.keys(G);
+const TOTAL_TABLES=31;
+
+// ── populate table dropdown (Table 1–31) ────────────────────
+(function buildFilters(){
+  const sel=document.getElementById('tsel');
+  for(let i=1;i<=TOTAL_TABLES;i++){
+    const o=document.createElement('option');
+    o.value=i;o.textContent='Table '+i;
+    sel.appendChild(o);
+  }
+})();
 
 // ── OPEN ───────────────────────────────────────────────────
 let _op=false;
@@ -677,8 +739,8 @@ function nxtS(){st=setTimeout(()=>{showS(cs+1);nxtS()},6200)}
 nxtS();
 
 // ── NAV ────────────────────────────────────────────────────
-const IDS=['s0','s1','s2','s3'];
-const NBS=[0,1,2,3].map(i=>document.getElementById('n'+i));
+const IDS=['s0','s1','s2','s3','s4'];
+const NBS=[0,1,2,3,4].map(i=>document.getElementById('n'+i));
 function go(id,i){
   IDS.forEach(s=>document.getElementById(s).classList.remove('a'));
   NBS.forEach((b,j)=>{b.classList.remove('a');b.removeAttribute('aria-current');
@@ -753,11 +815,25 @@ function renderT(f='all'){
     fr.appendChild(c);d++;
   });
   con.textContent=''; // faster than innerHTML=''
-  con.appendChild(fr);
+  if(d===0){
+    const msg=document.createElement('p');
+    msg.className='gempty';
+    msg.textContent='Guest assignments for this table will be announced soon.';
+    con.appendChild(msg);
+  }else{
+    con.appendChild(fr);
+  }
 }
-function ft(n,btn){
-  document.querySelectorAll('.fb').forEach(b=>{b.classList.remove('a');b.setAttribute('aria-selected','false')});
-  btn.classList.add('a');btn.setAttribute('aria-selected','true');
+function ft(n){
+  const allBtn=document.getElementById('fball');
+  const sel=document.getElementById('tsel');
+  if(n==='all'){
+    allBtn.classList.add('a');
+    sel.value='all';
+  }else{
+    allBtn.classList.remove('a');
+    sel.value=String(n);
+  }
   renderT(n);
 }
 
