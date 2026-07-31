@@ -335,8 +335,12 @@ input{font-family:inherit}
 ===================================== */
 .fps{padding:clamp(32px,6.5vw,68px) clamp(12px,3.5vw,54px);background:linear-gradient(180deg,var(--ivory) 0%,var(--cream) 100%);text-align:center;position:relative}
 .fps::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('https://placehold.co/1600x900/422415/f5e6d3?text=Couple+Photo');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
-.fpimg{max-width:720px;margin:26px auto;border-radius:3px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.12);border:1px solid rgba(201,168,76,.3);background:#fff}
+.fpimg{max-width:640px;margin:26px auto;border-radius:3px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.12);border:1px solid rgba(201,168,76,.3);background:#fff;padding:clamp(10px,3vw,22px)}
 .fpimg img{width:100%;display:block}
+.fpimg svg{width:100%;height:auto;display:block}
+.fplegend{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;max-width:640px;margin:16px auto 0;font-family:var(--fu);font-size:11px;letter-spacing:.5px;color:var(--br-m)}
+.fplegend span{display:inline-flex;align-items:center;gap:6px}
+.fplegend i{width:11px;height:11px;border-radius:50%;background:var(--champ);border:1.4px solid var(--gold-d);display:inline-block}
 .fpnote{font-family:var(--fb);font-style:italic;color:var(--br-l);font-size:clamp(12px,2.8vw,14px);margin-top:16px}
 
 /* =====================================
@@ -382,7 +386,9 @@ input{font-family:inherit}
 .tcont p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,13px);color:var(--br-l)}
 .tmob{display:none;font-family:var(--fu);font-size:9px;font-weight:600;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-top:5px}
 @media(max-width:560px){.tmob{display:block}}
-.vc{max-width:520px;margin:0 auto;background:linear-gradient(135deg,var(--dk-m),var(--dk));border-radius:3px;padding:clamp(26px,6vw,46px) clamp(20px,5vw,40px);text-align:center;box-shadow:0 9px 40px rgba(0,0,0,.18),0 0 0 1px rgba(201,168,76,.26);position:relative;overflow:hidden}
+.vcs{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;max-width:1080px;margin:0 auto}
+.vc{flex:1;min-width:250px;max-width:480px;background:linear-gradient(135deg,var(--dk-m),var(--dk));border-radius:3px;padding:clamp(22px,5vw,38px) clamp(20px,5vw,34px);text-align:center;box-shadow:0 9px 40px rgba(0,0,0,.18),0 0 0 1px rgba(201,168,76,.26);position:relative;overflow:hidden}
+.vlbl{font-family:var(--fu);font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold-l);opacity:.7;margin-bottom:10px;position:relative;z-index:1}
 .vc::before{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .vi{font-size:clamp(32px,7.5vw,48px);margin-bottom:13px;animation:vf 3s ease-in-out infinite;will-change:transform}
 @keyframes vf{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
@@ -626,15 +632,23 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
         <p class="ss">An evening you will always remember</p>
       </div>
       <div class="tl">
-        <div class="tli"><div class="ttime">3:00 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Guest Arrival</h3><p>Welcome drinks &amp; light refreshments</p><div class="tmob">3:00 PM</div></div></div>
-        <div class="tli"><div class="ttime">4:00 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Ceremony Begins</h3><p>Please be seated for the wedding ceremony</p><div class="tmob">4:00 PM</div></div></div>
-        <div class="tli"><div class="ttime">5:00 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Cocktail Hour</h3><p>Mingle with guests &amp; enjoy canapés</p><div class="tmob">5:00 PM</div></div></div>
-        <div class="tli"><div class="ttime">6:30 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Reception Dinner</h3><p>Find your table and enjoy the feast</p><div class="tmob">6:30 PM</div></div></div>
-        <div class="tli"><div class="ttime">8:00 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>First Dance &amp; Toasts</h3><p>Speeches and cake cutting ceremony</p><div class="tmob">8:00 PM</div></div></div>
-        <div class="tli"><div class="ttime">9:00 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Dancing &amp; Celebration</h3><p>Dance the night away!</p><div class="tmob">9:00 PM</div></div></div>
-        <div class="tli"><div class="ttime">11:30 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Grand Farewell</h3><p>Send-off with sparklers &amp; rose petals</p><div class="tmob">11:30 PM</div></div></div>
+        <div class="tli" style="animation-delay:.04s"><div class="ttime">4:00 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Sacred Vows &amp; Nuptial Blessings</h3><p>The wedding ceremony at St. Mary's Church, Bambalapitiya</p><div class="tmob">4:00 PM</div></div></div>
+        <div class="tli" style="animation-delay:.09s"><div class="ttime">5:45 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Evening Refreshments</h3><p>Drinks &amp; light bites as guests arrive at the reception</p><div class="tmob">5:45 PM</div></div></div>
+        <div class="tli" style="animation-delay:.14s"><div class="ttime">6:30 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Step Into The Celebration</h3><p>Please make your way to your seats</p><div class="tmob">6:30 PM</div></div></div>
+        <div class="tli" style="animation-delay:.19s"><div class="ttime">7:00 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>The Grand Entrance In Rhythm &amp; Tradition</h3><p>Frances &amp; Romesh make their entrance</p><div class="tmob">7:00 PM</div></div></div>
+        <div class="tli" style="animation-delay:.24s"><div class="ttime">7:20 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Shining Light Upon Our Journey</h3><p>Lighting of the traditional oil lamp</p><div class="tmob">7:20 PM</div></div></div>
+        <div class="tli" style="animation-delay:.29s"><div class="ttime">7:30 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Sharing The Sweetness</h3><p>Cutting of the wedding cake</p><div class="tmob">7:30 PM</div></div></div>
+        <div class="tli" style="animation-delay:.34s"><div class="ttime">7:40 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Pouring The Pyramid Of Joy</h3><p>The champagne pyramid pour</p><div class="tmob">7:40 PM</div></div></div>
+        <div class="tli" style="animation-delay:.39s"><div class="ttime">7:45 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Welcoming Words &amp; Warm Wishes</h3><p>Speeches from family &amp; loved ones</p><div class="tmob">7:45 PM</div></div></div>
+        <div class="tli" style="animation-delay:.44s"><div class="ttime">8:00 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>Liquid Courage &amp; Good Times</h3><p>Toasts all round</p><div class="tmob">8:00 PM</div></div></div>
+        <div class="tli" style="animation-delay:.49s"><div class="ttime">8:30 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>A Father's Embrace &amp; In Each Other's Arms</h3><p>Father-daughter dance, followed by the couple's first dance</p><div class="tmob">8:30 PM</div></div></div>
+        <div class="tli" style="animation-delay:.54s"><div class="ttime">9:00 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>The Inaugural Feast</h3><p>Dinner is served — enjoy the feast!</p><div class="tmob">9:00 PM</div></div></div>
+        <div class="tli" style="animation-delay:.59s"><div class="ttime">11:45 PM</div><div class="tdw"><div class="td"></div></div><div class="tcont"><h3>A Sparkling Send-Off</h3><p>Farewell with sparklers</p><div class="tmob">11:45 PM</div></div></div>
       </div>
-      <div class="vc"><div class="vi">📍</div><div class="vn">The Kingsbury Colombo</div><div class="va">48 Janadhipathi Mawatha, Colombo 01</div></div>
+      <div class="vcs">
+        <div class="vc"><div class="vlbl">Ceremony</div><div class="vi">⛪</div><div class="vn">St. Mary's Church</div><div class="va">Bambalapitiya</div></div>
+        <div class="vc"><div class="vlbl">Reception</div><div class="vi">📍</div><div class="vn">The Kingsbury Colombo</div><div class="va">48 Janadhipathi Mawatha, Colombo 01</div></div>
+      </div>
     </div>
   </section>
 
@@ -645,9 +659,190 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
       <div class="odv"><span class="odvd">◆</span></div>
       <p class="ss">31 tables arranged for our celebration</p>
       <div class="fpimg">
-        <img src="https://placehold.co/1000x750/f8f2ea/4a3728?text=Floor+Plan+Coming+Soon" alt="Venue floor plan placeholder — to be replaced with the final layout" loading="lazy">
+<svg viewBox="0 0 590 815" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wedding reception floor plan showing 31 numbered tables, the band, dance floor, bar, and entrances">
+<rect x="18" y="58" width="560" height="600" rx="4" fill="none" stroke="var(--gold)" stroke-width="2"/>
+<text x="298" y="30" text-anchor="middle" font-family="var(--fd)" font-size="24" letter-spacing="3" fill="var(--br)">Table Plan</text>
+<g font-family="var(--fu)" font-size="10" font-weight="600" letter-spacing="1.5" fill="var(--br-m)">
+  <text x="95" y="48" text-anchor="middle">SERVICE AREA</text>
+  <text x="500" y="48" text-anchor="middle">SERVICE AREA</text>
+</g>
+<path d="M118 58 Q140 58 140 80" fill="none" stroke="var(--gold-d)" stroke-width="1.4"/>
+<path d="M478 58 Q456 58 456 80" fill="none" stroke="var(--gold-d)" stroke-width="1.4"/>
+<rect x="24" y="120" width="52" height="185" fill="var(--blush)" fill-opacity=".35" stroke="var(--gold-d)" stroke-width="1.4"/>
+<text x="50" y="212" text-anchor="middle" font-family="var(--fu)" font-size="10.5" font-weight="600" letter-spacing=".5" fill="var(--br-m)" transform="rotate(-90 50 212)">HEAD TABLE · 6 PAX</text>
+<g>
+      <circle cx="90" cy="100" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="90" y="105" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">30</text>
+    </g>
+<rect x="188" y="68" width="180" height="54" fill="var(--blush)" fill-opacity=".35" stroke="var(--gold-d)" stroke-width="1.4"/>
+<text x="278" y="100" text-anchor="middle" font-family="var(--fb)" font-style="italic" font-size="15" fill="var(--br-m)">Settee Back</text>
+<g transform="rotate(-18 430 145)"><rect x="330" y="118" width="200" height="56" fill="var(--rose)" fill-opacity=".22" stroke="var(--gold-d)" stroke-width="1.4"/><text x="430" y="140" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">Band</text><text x="430" y="158" text-anchor="middle" font-family="var(--fu)" font-size="10" letter-spacing="1" fill="var(--br-m)">24 × 8</text></g>
+<g transform="rotate(-18 370 220)"><rect x="270" y="193" width="200" height="54" fill="var(--rose)" fill-opacity=".14" stroke="var(--gold-d)" stroke-width="1.4"/><text x="370" y="224" text-anchor="middle" font-family="var(--fb)" font-style="italic" font-size="14.5" fill="var(--br-m)">Dancing Floor</text></g>
+<g>
+      <circle cx="536" cy="300" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="536" y="305" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">31</text>
+    </g>
+<g>
+      <circle cx="70" cy="258" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="70" y="263" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">1</text>
+    </g>
+<g>
+      <circle cx="130" cy="258" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="130" y="263" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">2</text>
+    </g>
+<g>
+      <circle cx="190" cy="258" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="190" y="263" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">3</text>
+    </g>
+<g>
+      <circle cx="250" cy="258" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="250" y="263" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">4</text>
+    </g>
+<path d="M18 286 L18 314 M18 300 L40 284 M18 300 L40 316" fill="none" stroke="var(--br-l)" stroke-width="1.3"/>
+<text x="30" y="330" text-anchor="middle" font-family="var(--fu)" font-size="9" fill="var(--br-l)">×</text>
+<path d="M18 344 L18 372 M18 358 L40 342 M18 358 L40 374" fill="none" stroke="var(--br-l)" stroke-width="1.3"/>
+<text x="30" y="388" text-anchor="middle" font-family="var(--fu)" font-size="9" fill="var(--br-l)">×</text>
+<g>
+      <circle cx="70" cy="340" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="70" y="345" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">5</text>
+    </g>
+<g>
+      <circle cx="130" cy="340" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="130" y="345" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">6</text>
+    </g>
+<g>
+      <circle cx="190" cy="340" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="190" y="345" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">7</text>
+    </g>
+<g>
+      <circle cx="250" cy="340" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="250" y="345" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">8</text>
+    </g>
+<g>
+      <circle cx="70" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="70" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">9</text>
+    </g>
+<g>
+      <circle cx="130" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="130" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">10</text>
+    </g>
+<g>
+      <circle cx="190" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="190" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">11</text>
+    </g>
+<g>
+      <circle cx="250" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="250" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">12</text>
+    </g>
+<g>
+      <circle cx="340" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="340" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">23</text>
+    </g>
+<g>
+      <circle cx="400" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="400" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">24</text>
+    </g>
+<g>
+      <circle cx="460" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="460" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">25</text>
+    </g>
+<g>
+      <circle cx="520" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="520" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">26</text>
+    </g>
+<circle cx="130" cy="468" r="15" fill="none" stroke="var(--br-l)" stroke-width="1.2" stroke-dasharray="3,3"/>
+<circle cx="190" cy="468" r="15" fill="none" stroke="var(--br-l)" stroke-width="1.2" stroke-dasharray="3,3"/>
+<circle cx="250" cy="468" r="15" fill="none" stroke="var(--br-l)" stroke-width="1.2" stroke-dasharray="3,3"/>
+<circle cx="370" cy="468" r="15" fill="none" stroke="var(--br-l)" stroke-width="1.2" stroke-dasharray="3,3"/>
+<circle cx="430" cy="468" r="15" fill="none" stroke="var(--br-l)" stroke-width="1.2" stroke-dasharray="3,3"/>
+<circle cx="490" cy="468" r="15" fill="none" stroke="var(--br-l)" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="556" y="472" text-anchor="start" font-family="var(--fu)" font-size="9.5" font-weight="600" fill="var(--br-m)">← PILLARS</text>
+<g>
+  <ellipse cx="150" cy="512" rx="35" ry="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+  <text x="150" y="518" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">13</text>
+</g>
+<g>
+      <circle cx="250" cy="512" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="250" y="517" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">14</text>
+    </g>
+<g>
+      <circle cx="370" cy="512" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="370" y="517" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">27</text>
+    </g>
+<g>
+      <circle cx="430" cy="512" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="430" y="517" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">28</text>
+    </g>
+<g>
+      <circle cx="490" cy="512" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="490" y="517" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">29</text>
+    </g>
+<g>
+      <circle cx="70" cy="566" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="70" y="571" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">15</text>
+    </g>
+<g>
+      <circle cx="130" cy="566" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="130" y="571" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">16</text>
+    </g>
+<g>
+      <circle cx="190" cy="566" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="190" y="571" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">17</text>
+    </g>
+<g>
+      <circle cx="250" cy="566" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="250" y="571" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">18</text>
+    </g>
+<polygon points="351,555 369,555 360,573" fill="none" stroke="var(--gold-d)" stroke-width="1.4"/><line x1="360" y1="573" x2="360" y2="581" stroke="var(--gold-d)" stroke-width="1.4"/>
+<polygon points="391,575 409,575 400,557" fill="none" stroke="var(--gold-d)" stroke-width="1.4"/><line x1="400" y1="557" x2="400" y2="549" stroke="var(--gold-d)" stroke-width="1.4"/>
+<polygon points="431,555 449,555 440,573" fill="none" stroke="var(--gold-d)" stroke-width="1.4"/><line x1="440" y1="573" x2="440" y2="581" stroke="var(--gold-d)" stroke-width="1.4"/>
+<rect x="345" y="585" width="110" height="46" fill="var(--rose)" fill-opacity=".18" stroke="var(--gold-d)" stroke-width="1.4"/>
+<text x="400" y="613" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">Bar</text>
+<g>
+      <circle cx="70" cy="624" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="70" y="629" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">19</text>
+    </g>
+<g>
+      <circle cx="130" cy="624" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="130" y="629" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">20</text>
+    </g>
+<g>
+      <circle cx="190" cy="624" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="190" y="629" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">21</text>
+    </g>
+<g>
+      <circle cx="250" cy="624" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
+      <text x="250" y="629" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">22</text>
+    </g>
+<rect x="500" y="580" width="70" height="70" fill="none" stroke="var(--gold-d)" stroke-width="1.4"/>
+<line x1="535" y1="580" x2="535" y2="650" stroke="var(--gold-d)" stroke-width="1"/>
+<g stroke="var(--br-m)" stroke-width="1.6" fill="none" stroke-linecap="round">
+      <circle cx="518" cy="608" r="5" fill="var(--br-m)" stroke="none"/>
+      <line x1="518" y1="613" x2="518" y2="630"/>
+      <line x1="511" y1="620" x2="525" y2="620"/>
+      <line x1="518" y1="630" x2="512" y2="642"/>
+      <line x1="518" y1="630" x2="524" y2="642"/>
+    </g>
+<g stroke="var(--br-m)" stroke-width="1.6" fill="none" stroke-linecap="round">
+      <circle cx="552" cy="608" r="5" fill="var(--br-m)" stroke="none"/>
+      <line x1="552" y1="613" x2="552" y2="630"/>
+      <line x1="545" y1="620" x2="559" y2="620"/>
+      <line x1="552" y1="630" x2="546" y2="642"/>
+      <line x1="552" y1="630" x2="558" y2="642"/>
+    </g>
+<text x="535" y="662" text-anchor="middle" font-family="var(--fu)" font-size="9" font-weight="600" letter-spacing="1" fill="var(--br-m)">RESTROOMS</text>
+<line x1="230" y1="658" x2="330" y2="658" stroke="var(--gold-d)" stroke-width="1.4"/>
+<path d="M230 658 l10 -6 M230 658 l10 6" stroke="var(--gold-d)" stroke-width="1.4" fill="none"/>
+<text x="280" y="648" text-anchor="middle" font-family="var(--fu)" font-size="10.5" font-weight="600" letter-spacing="1" fill="var(--br-m)">ENTRANCE</text>
+<line x1="24" y1="658" x2="24" y2="790" stroke="var(--br-l)" stroke-width="1.3" stroke-dasharray="4,3"/>
+<text x="14" y="790" text-anchor="middle" font-family="var(--fu)" font-size="9.5" font-weight="600" letter-spacing=".5" fill="var(--br-l)" transform="rotate(-90 14 790)">ENTRANCE TO BBQ GARDEN</text>
+<line x1="60" y1="800" x2="260" y2="800" stroke="var(--gold-d)" stroke-width="1.4"/>
+<text x="160" y="792" text-anchor="middle" font-family="var(--fu)" font-size="10.5" font-weight="600" letter-spacing="1" fill="var(--br-m)">ENTRANCE</text>
+<line x1="310" y1="800" x2="510" y2="800" stroke="var(--gold-d)" stroke-width="1.4"/>
+<text x="410" y="792" text-anchor="middle" font-family="var(--fu)" font-size="10.5" font-weight="600" letter-spacing="1" fill="var(--br-m)">ENTRANCE</text>
+</svg>
       </div>
-      <p class="fpnote">The final floor plan will be added here closer to the day ✦</p>
+      <p class="fpnote">Tables are numbered to match your seating — check the Guests tab if you need a reminder ✦</p>
     </div>
   </section>
   <footer><p>Frances &amp; Romesh · August 6, 2026 ✦ The Kingsbury Colombo</p></footer>
