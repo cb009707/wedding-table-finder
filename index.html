@@ -264,6 +264,7 @@ input{font-family:inherit}
 .sgi:hover,.sgi:active{background:var(--cream);padding-left:26px}
 .sgi:hover::before{opacity:1}
 .sgi:last-child{border-bottom:none}
+.sgp{font-family:var(--fu);font-size:10px;font-weight:600;letter-spacing:.5px;color:var(--gold-d);margin-left:auto;padding-left:8px;white-space:nowrap}
 /* result */
 .rc{
   display:none;margin:26px auto 0;max-width:440px;
@@ -326,6 +327,7 @@ input{font-family:inherit}
 .gi:hover{background:var(--blush);border-left-color:var(--rose)}
 .gd{width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0}
 .gnm{font-size:clamp(11px,2.5vw,13px);color:var(--br);line-height:1.3}
+.gpx{color:var(--br-l);font-size:.9em;font-style:italic}
 .gempty{font-family:var(--fb);font-style:italic;color:var(--br-l);text-align:center;grid-column:1/-1;padding:30px 10px}
 
 /* =====================================
@@ -652,54 +654,193 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 </div>
 
 <script>
-// ── GUEST DATA ─────────────────────────────────────────────
-const G={
-"tania thomas":{n:"Tania Thomas",t:1},"romesh thomas":{n:"Romesh Thomas",t:1},
-"noni mama":{n:"Noni Mama",t:1},"appen thomas":{n:"Appen Thomas",t:1},
-"sachin maddumage":{n:"Sachin Maddumage",t:2},"che maddumage":{n:"Che Maddumage",t:2},
-"sharmain maddumage":{n:"Sharmain Maddumage",t:2},"manjula maddumage":{n:"Manjula Maddumage",t:2},
-"shirley maddumage":{n:"Shirley Maddumage",t:2},"thenula pieris":{n:"Thenula Pieris",t:3},
-"sandra barnett":{n:"Sandra Barnett",t:3},"asela pathirana":{n:"Asela Pathirana",t:3},
-"hasuni vishudaya":{n:"Hasuni Vishudaya",t:3},"andrew barnett":{n:"Andrew Barnett",t:3},
-"winifred barnett":{n:"Winifred Barnett",t:3},"michael silva":{n:"Michael Silva",t:4},
-"priya fernando":{n:"Priya Fernando",t:4},"rajesh kumar":{n:"Rajesh Kumar",t:4},
-"ananya perera":{n:"Ananya Perera",t:4},"david wijesinghe":{n:"David Wijesinghe",t:4},
-"sarah jayawardena":{n:"Sarah Jayawardena",t:4},"nimal dias":{n:"Nimal Dias",t:4},
-"ishara mendis":{n:"Ishara Mendis",t:4},"rohan gunawardena":{n:"Rohan Gunawardena",t:4},
-"kavitha rodrigo":{n:"Kavitha Rodrigo",t:4},"anil dissanayake":{n:"Anil Dissanayake",t:5},
-"chamari wickramasinghe":{n:"Chamari Wickramasinghe",t:5},"dinesh ranasinghe":{n:"Dinesh Ranasinghe",t:5},
-"malini rajapakse":{n:"Malini Rajapakse",t:5},"suneth bandara":{n:"Suneth Bandara",t:5},
-"yasmin jayasuriya":{n:"Yasmin Jayasuriya",t:5},"prasad amarasinghe":{n:"Prasad Amarasinghe",t:5},
-"niluka senanayake":{n:"Niluka Senanayake",t:5},"buddhika silva":{n:"Buddhika Silva",t:5},
-"thilini de silva":{n:"Thilini De Silva",t:5},"sanjeewa perera":{n:"Sanjeewa Perera",t:6},
-"ruvini fernando":{n:"Ruvini Fernando",t:6},"kumara jayasinghe":{n:"Kumara Jayasinghe",t:6},
-"madhavi wickremasinghe":{n:"Madhavi Wickremasinghe",t:6},"lakshan de alwis":{n:"Lakshan De Alwis",t:6},
-"sanduni wickramanayake":{n:"Sanduni Wickramanayake",t:6},"ruwan ekanayake":{n:"Ruwan Ekanayake",t:6},
-"dilini samaraweera":{n:"Dilini Samaraweera",t:6},"chathura gunasekara":{n:"Chathura Gunasekara",t:6},
-"anusha liyanage":{n:"Anusha Liyanage",t:6},"kasun rathnayake":{n:"Kasun Rathnayake",t:7},
-"nimali cooray":{n:"Nimali Cooray",t:7},"indika wijesuriya":{n:"Indika Wijesuriya",t:7},
-"oshadi fernando":{n:"Oshadi Fernando",t:7},"chandana dissanayake":{n:"Chandana Dissanayake",t:7},
-"harini perera":{n:"Harini Perera",t:7},"ajith mendis":{n:"Ajith Mendis",t:7},
-"shashika jayakody":{n:"Shashika Jayakody",t:7},"mahesh bandara":{n:"Mahesh Bandara",t:7},
-"samanthi rodrigo":{n:"Samanthi Rodrigo",t:7},"gayan wijeratne":{n:"Gayan Wijeratne",t:8},
-"rashmi silva":{n:"Rashmi Silva",t:8},"nuwan jayawardena":{n:"Nuwan Jayawardena",t:8},
-"piyumi gunaratne":{n:"Piyumi Gunaratne",t:8},"shaminda perera":{n:"Shaminda Perera",t:8},
-"dulani fernando":{n:"Dulani Fernando",t:8},"sachith de silva":{n:"Sachith De Silva",t:8},
-"kaushalya wickramasinghe":{n:"Kaushalya Wickramasinghe",t:8},"saman rajapakse":{n:"Saman Rajapakse",t:8},
-"nethmi jayasinghe":{n:"Nethmi Jayasinghe",t:8},"thilak senanayake":{n:"Thilak Senanayake",t:9},
-"chathurika amarasinghe":{n:"Chathurika Amarasinghe",t:9},"pradeep ranatunga":{n:"Pradeep Ranatunga",t:9},
-"sulochana dissanayake":{n:"Sulochana Dissanayake",t:9},"nalin fernando":{n:"Nalin Fernando",t:9},
-"janaki wickramanayake":{n:"Janaki Wickramanayake",t:9},"tharindu liyanage":{n:"Tharindu Liyanage",t:9},
-"dilshi perera":{n:"Dilshi Perera",t:9},"ranil jayasuriya":{n:"Ranil Jayasuriya",t:9},
-"nadeeka gunasekara":{n:"Nadeeka Gunasekara",t:9},"sunil wijesekara":{n:"Sunil Wijesekara",t:10},
-"kamala mendis":{n:"Kamala Mendis",t:10},"asanka rathnayake":{n:"Asanka Rathnayake",t:10},
-"ishani cooray":{n:"Ishani Cooray",t:10},"nishantha silva":{n:"Nishantha Silva",t:10},
-"menaka fernando":{n:"Menaka Fernando",t:10},"upul jayawardena":{n:"Upul Jayawardena",t:10},
-"manori perera":{n:"Manori Perera",t:10},"ranjith wickramasinghe":{n:"Ranjith Wickramasinghe",t:10},
-"hashini de alwis":{n:"Hashini De Alwis",t:10}
-};
-// cache keys array once
-const KS=Object.keys(G);
+// ── GUEST DATA (from the final table arrangement) ───────────
+const GUESTS=[
+{n:"Mrs. Maureen Thomas",t:1,p:1},
+{n:"Mr & Mrs Upul Nanayakkara & Family",t:1,p:4},
+{n:"Mr & Mrs Thilina Wanasinghe & Family",t:1,p:2},
+{n:"Mrs. Ruthi Doreen",t:1,p:1},
+{n:"Mr & Mrs Somasiri Herath",t:1,p:2},
+{n:"Mr & Mrs Christopher Thomas",t:2,p:2},
+{n:"Mr & Mrs Shaun Anthony",t:2,p:2},
+{n:"Mr & Mrs Manjula Subasinghe & Family",t:2,p:3},
+{n:"Mr. Shirley Maddumage",t:2,p:1},
+{n:"Mr & Mrs Andrew Barnett",t:2,p:2},
+{n:"Ms. Kusuma Alwis",t:3,p:1},
+{n:"Mr & Mrs Ranjan Alwis",t:3,p:2},
+{n:"Mrs. Sirima Fernando",t:3,p:1},
+{n:"Mr & Mrs Himadri Alwis",t:3,p:2},
+{n:"Mr & Mrs Mahesh De Zoysa",t:3,p:2},
+{n:"Mrs. Rajasekaram",t:3,p:1},
+{n:"Mr. Lalaka Alwis",t:3,p:1},
+{n:"Mr & Mrs Kumara Karunarathne",t:4,p:2},
+{n:"Mr & Mrs Wilfred Botheju",t:4,p:2},
+{n:"Mrs. Wardhani Karunarathne",t:4,p:1},
+{n:"Mr & Mrs Chandana Karunarathne",t:4,p:2},
+{n:"Mr & Mrs Chaminda Saparamadu",t:4,p:2},
+{n:"Mr. Sampath Karunarathne",t:4,p:1},
+{n:"Mr & Mrs Asela Pathirana & Family",t:5,p:4},
+{n:"Mr & Mrs Romel Barnett & Family",t:5,p:3},
+{n:"Mr & Mrs Prince Barnett & Family",t:5,p:3},
+{n:"Mr. Bernard James",t:6,p:1},
+{n:"Mr & Mrs Supun Seneviratne",t:6,p:2},
+{n:"Mr & Mrs Akila Lankathilaka",t:6,p:2},
+{n:"Ms. Sajani Nawanjana",t:6,p:1},
+{n:"Mrs. Nirosha Nakandala",t:6,p:1},
+{n:"Ms. Chathurika Sevwandi",t:6,p:1},
+{n:"Mr & Mrs Darshana Samarawickrama",t:6,p:2},
+{n:"Mr & Mrs Thushara Jayathilake",t:7,p:2},
+{n:"Mr & Mrs Clement Wijesuriya",t:7,p:2},
+{n:"Mr & Mrs Jayalal Lokupathirage",t:7,p:2},
+{n:"Mr & Mrs Samarappuli",t:7,p:2},
+{n:"Mr & Mrs Thirimanne",t:7,p:2},
+{n:"Mr & Mrs Migara Alwis",t:8,p:2},
+{n:"Mr & Mrs Shirley Amarasekara",t:8,p:2},
+{n:"Mr & Mrs Janaka Weththasinghe",t:8,p:2},
+{n:"Mr & Mrs Mario De Alwis",t:8,p:2},
+{n:"Mr. Arjuna Hettiarachchi",t:8,p:1},
+{n:"Mrs. Lalani Alwis",t:8,p:1},
+{n:"Mr & Mrs Sudath Kurukularachchi",t:9,p:2},
+{n:"Mr & Mrs Praneeth Kurukularachchi",t:9,p:2},
+{n:"Mr & Mrs Suraj Mudalige",t:9,p:2},
+{n:"Mr & Mrs Ignatious Perera & Family",t:9,p:4},
+{n:"Mr & Mrs Angelo Ranasinghe",t:10,p:2},
+{n:"Mr & Mrs Dilshan De Mel",t:10,p:2},
+{n:"Mr & Mrs Prabath Gomez",t:10,p:2},
+{n:"Mr. Rathith Ranathunga",t:10,p:1},
+{n:"Ms. Amila Jayasuriya",t:10,p:1},
+{n:"Ms. Nimali Jayasuriya",t:10,p:1},
+{n:"Mr. Sidney Jayawardana",t:10,p:1},
+{n:"Mr & Mrs Wimalasooriya",t:11,p:2},
+{n:"Mr. Sanjeewa Megasooriya",t:11,p:1},
+{n:"Mr. Ranesh Jayagoda",t:11,p:1},
+{n:"Mr. Saman Samarathunge",t:11,p:1},
+{n:"Mr. Fazli Rafeek",t:11,p:1},
+{n:"Mr. Gayan Gishantha",t:11,p:1},
+{n:"Mr. Himal Kolitha",t:11,p:1},
+{n:"Mr. Nuwan Weerakoon",t:11,p:1},
+{n:"Mr. Sanketha Jayaratne",t:11,p:1},
+{n:"Mr & Mrs Keerthi Pasquel",t:12,p:2},
+{n:"Mr & Mrs Thilina Mirando",t:12,p:2},
+{n:"Mr & Mrs Mohammed Anwar",t:12,p:2},
+{n:"Mr & Mrs Mohammed Fazeel",t:12,p:2},
+{n:"Mr & Mrs Lewin Samarasinghe",t:12,p:2},
+{n:"Mr & Mrs Sunil Perera",t:13,p:2},
+{n:"Mr & Mrs Akila Perera",t:13,p:2},
+{n:"Mrs. Malani Perera",t:13,p:1},
+{n:"Mrs. Aloma De Silva",t:13,p:1},
+{n:"Mrs. Chandrika Wijesinghe",t:13,p:1},
+{n:"Mrs. Nelka Gomez",t:13,p:1},
+{n:"Mr & Mrs Chaminda Senevirathne",t:13,p:2},
+{n:"Mr & Mrs Neil Karunarathne",t:14,p:2},
+{n:"Mr & Mrs Nimal Karunarathne",t:14,p:2},
+{n:"Mrs. Marita Jayasuriya",t:14,p:1},
+{n:"Mrs. Benita Wijesinghe",t:14,p:1},
+{n:"Mr & Mrs Priyantha Wijesinghe",t:14,p:2},
+{n:"Mr & Mrs Maximus Karunarathne",t:14,p:2},
+{n:"Mr & Mrs Nanayakkara",t:15,p:2},
+{n:"Mr & Mrs Henry Warnakulasuriya",t:15,p:2},
+{n:"Mr. June Samith",t:15,p:1},
+{n:"Mr. M L C Perera",t:15,p:1},
+{n:"Mr. Sudath Suwandaratne",t:15,p:1},
+{n:"Mr. Piyal Mendis",t:15,p:1},
+{n:"Mr & Mrs Mehedith Perera",t:15,p:2},
+{n:"Ms. Piyumika Kumarasiri",t:16,p:1},
+{n:"Mr. Chinthaka Abeysena",t:16,p:1},
+{n:"Mr. Sithum Mendis",t:16,p:1},
+{n:"Mr. Eron Silva",t:16,p:1},
+{n:"Mr. Rajika Perera",t:16,p:1},
+{n:"Mr. Kavindu Gimhana",t:16,p:1},
+{n:"Mr. Chamod Vimukthi",t:16,p:1},
+{n:"Mr. Sandew Fernando",t:16,p:1},
+{n:"Mr. Lasith Anuradha",t:16,p:1},
+{n:"Mr. Akash Ashok Kumar",t:16,p:1},
+{n:"Mr & Mrs Salitha Jayaweera",t:17,p:2},
+{n:"Ariyana Jayaweera",t:17,p:1},
+{n:"Ms. Jayani Botheju",t:17,p:1},
+{n:"Mr. Malintha Botheju",t:17,p:1},
+{n:"Ms. Maleena Karunaratne",t:17,p:1},
+{n:"Mr. Shamindri Alwis",t:17,p:1},
+{n:"Mr. Devaka Alwis",t:17,p:1},
+{n:"Mr. Naveen Alwis",t:17,p:1},
+{n:"Ms. Zana Rajasekaram",t:17,p:1},
+{n:"Mr. Vian Karunaratne",t:17,p:1},
+{n:"Rev. Fr Jude Nixon",t:18,p:1},
+{n:"Rev. Fr. Suren Peter",t:18,p:1},
+{n:"Mr & Mrs Jude Perera",t:18,p:2},
+{n:"Mr & Mrs Ajantha Pushpakumara",t:18,p:2},
+{n:"Mr. Sunil Witharana",t:18,p:1},
+{n:"Mr. Sampath Subasinghe",t:18,p:1},
+{n:"Mr. George Ranasinghe",t:18,p:1},
+{n:"Mr. Ravindu Perera",t:18,p:1},
+{n:"Mr & Mrs Shantha Fernando",t:19,p:2},
+{n:"Mr & Mrs Buddhika Sayakkara",t:19,p:2},
+{n:"Mrs. Mary Silva",t:19,p:1},
+{n:"Mr. Vimal Siri",t:19,p:1},
+{n:"Ms. Sithmini Fernando",t:19,p:1},
+{n:"Ms. Sasni Himansa",t:19,p:1},
+{n:"Mr & Mrs Mohammed Anfaz",t:20,p:2},
+{n:"Mr & Mrs Mithila Dissanayaka",t:20,p:2},
+{n:"Mr & Mrs Dinuth Kaushalya",t:20,p:2},
+{n:"Mr. Pathum Subasinghe",t:20,p:1},
+{n:"Mr. Vinod Gunasekara",t:20,p:1},
+{n:"Mr. Pamodh Subasinghe",t:20,p:1},
+{n:"Mr & Mrs Kasun Fonseka",t:20,p:2},
+{n:"Mr & Mrs Shalinda Liyanage",t:21,p:2},
+{n:"Miss. Chandani Kadawasagamarachchi",t:21,p:1},
+{n:"Mr & Mrs Nirosh Rajasekaram",t:21,p:2},
+{n:"Mr. Asanka Fernando",t:21,p:1},
+{n:"Mr. Ravindu Perera",t:22,p:1},
+{n:"Mr. Sawantha Jayasiri",t:22,p:1},
+{n:"Mr. Chathura Dias",t:22,p:1},
+{n:"Mr. Gehan Madanayake",t:22,p:1},
+{n:"Mr. Mishen Wilwalarachchi",t:22,p:1},
+{n:"Mr. Vishodh De Alwis",t:22,p:1},
+{n:"Mr. Thiyanga Maxwell",t:22,p:1},
+{n:"Mr. Rushanth Fernando",t:22,p:1},
+{n:"Mr. Kavishka Amarasekara",t:22,p:1},
+{n:"Mrs. Jenet Jayasinghe",t:23,p:1},
+{n:"Mrs. Perly Jayasinghe",t:23,p:1},
+{n:"Mrs. Chandrika Senevirathne",t:23,p:2},
+{n:"Mr & Mrs Upul Jayaweera",t:23,p:2},
+{n:"Mr & Mrs Amarasiri Senevirathne",t:23,p:2},
+{n:"Mr & Mrs Upali Weththasinghe",t:23,p:2},
+{n:"Mr & Mrs Kevin Schokman & Family",t:24,p:5},
+{n:"Mr & Mrs Suresh Kumar & Family",t:24,p:5},
+{n:"Mr & Mrs Justin Thomas",t:25,p:2},
+{n:"Mr & Mrs Mohammed Nawaz & Family",t:25,p:4},
+{n:"Mr & Mrs Asanka Wijayawardhane & Family",t:25,p:4},
+{n:"Mr. Ravindra Siriwardena",t:26,p:1},
+{n:"Mr & Mrs Neil Darmasena & Family",t:26,p:4},
+{n:"Mrs. Indrani Thomas",t:26,p:1},
+{n:"Mr & Mrs Viduranga Weeraman & Family",t:26,p:2},
+{n:"Mr & Mrs Shirantha Liyanage",t:26,p:2},
+{n:"Ms. Hiruni Amaya",t:27,p:1},
+{n:"Ms. Malinthi Fernando",t:27,p:1},
+{n:"Ms. Kavindi Chamathka",t:27,p:1},
+{n:"Ms. Manuli Kalutharaarachchi",t:27,p:1},
+{n:"Ms. Sarani Liyanage",t:27,p:1},
+{n:"Ms. Sithumi Fernando",t:27,p:1},
+{n:"Ms. Hirushi Bataduwarachchi",t:27,p:1},
+{n:"Ms. Nimadara Mudalige",t:27,p:1},
+{n:"Ms. Diyana Fernando",t:27,p:1},
+{n:"Ms. Sudara Liyanage",t:27,p:1},
+{n:"Mr & Mrs Ranith Perera",t:28,p:2},
+{n:"Mr & Mrs Kaushal Manawadu",t:28,p:2},
+{n:"Mr & Mrs Mihisara Lokubalasooriya",t:28,p:2},
+{n:"Mr & Mrs Asanka Perera",t:28,p:2},
+{n:"Mr & Mrs Eran Premaratne",t:28,p:2},
+{n:"Mr & Mrs Gihan Madiwela",t:29,p:2},
+{n:"Mr & Mrs Duneesh Perera",t:29,p:2},
+{n:"Mr. Rehan Jayasundara",t:29,p:1},
+{n:"Mr. Kevin Reymond",t:29,p:1},
+{n:"Mr. Dilshan Silva",t:29,p:1},
+{n:"Mr. Shehan Liyanage",t:29,p:1},
+{n:"Mr. Dimantha Seneviratne",t:29,p:1},
+{n:"Dark Room",t:30,p:6},
+{n:"DJ Artist",t:30,p:2},
+{n:"Infinity Band",t:31,p:10}
+];
 const TOTAL_TABLES=31;
 
 // ── populate table dropdown (Table 1–31) ────────────────────
@@ -775,12 +916,27 @@ navEl.addEventListener('scroll',updateNavFades,{passive:true});
 window.addEventListener('resize',updateNavFades);
 updateNavFades();
 
-// ── SEARCH ─────────────────────────────────────────────────
+// ── SEARCH — index-based (safe with duplicate names) ────────
 const siEl=document.getElementById('si');
 const sgEl=document.getElementById('sg');
 const rcEl=document.getElementById('rc');
 const nfEl=document.getElementById('nf');
 let dbt=null;
+
+function matchIdx(q){
+  const out=[];
+  for(let i=0;i<GUESTS.length;i++) if(GUESTS[i].n.toLowerCase().includes(q)) out.push(i);
+  return out;
+}
+function sgHTML(idxs){
+  return idxs.map(i=>{
+    const g=GUESTS[i];
+    return `<div class="sgi" role="option" tabindex="0"
+      onclick="pick(${i})"
+      onkeydown="if(event.key==='Enter'||event.key===' ')pick(${i})"
+    ><span>${g.n}</span><span class="sgp">Table ${g.t}</span></div>`;
+  }).join('');
+}
 
 siEl.addEventListener('input',function(){
   clearTimeout(dbt);
@@ -788,27 +944,26 @@ siEl.addEventListener('input',function(){
   const q=this.value.toLowerCase().trim();
   if(q.length<2){sgEl.classList.remove('s');return}
   dbt=setTimeout(()=>{
-    const hits=KS.filter(k=>k.includes(q)).slice(0,7);
-    if(hits.length){
-      sgEl.innerHTML=hits.map(k=>
-        `<div class="sgi" role="option" tabindex="0"
-          onclick="pick('${k}')"
-          onkeydown="if(event.key==='Enter'||event.key===' ')pick('${k}')"
-        >${G[k].n}</div>`).join('');
-      sgEl.classList.add('s');
-    }else sgEl.classList.remove('s');
+    const hits=matchIdx(q).slice(0,7);
+    if(hits.length){sgEl.innerHTML=sgHTML(hits);sgEl.classList.add('s')}
+    else sgEl.classList.remove('s');
   },180);
 },{passive:true});
 
 siEl.addEventListener('keydown',function(e){
   if(e.key!=='Enter')return;
   const q=this.value.toLowerCase().trim();
-  sgEl.classList.remove('s');
-  if(G[q])showR(G[q]);
-  else{nfEl.classList.add('s');setTimeout(()=>nfEl.classList.remove('s'),3800)}
+  if(!q){return}
+  // exact matches first (there can be more than one guest with the same name)
+  let idxs=[];
+  for(let i=0;i<GUESTS.length;i++) if(GUESTS[i].n.toLowerCase()===q) idxs.push(i);
+  if(idxs.length===0) idxs=matchIdx(q);
+  if(idxs.length===1){sgEl.classList.remove('s');showR(GUESTS[idxs[0]])}
+  else if(idxs.length>1){sgEl.innerHTML=sgHTML(idxs.slice(0,10));sgEl.classList.add('s')}
+  else{sgEl.classList.remove('s');nfEl.classList.add('s');setTimeout(()=>nfEl.classList.remove('s'),3800)}
 },{passive:true});
 
-function pick(k){siEl.value=G[k].n;sgEl.classList.remove('s');showR(G[k])}
+function pick(i){const g=GUESTS[i];siEl.value=g.n;sgEl.classList.remove('s');showR(g)}
 function showR(g){
   document.getElementById('rn').textContent=g.n;
   document.getElementById('rt').textContent='Table '+g.t;
@@ -825,18 +980,22 @@ function renderT(f='all'){
   const con=document.getElementById('tg');
   if(!TC){
     TC={};
-    Object.values(G).forEach(g=>(TC[g.t]=TC[g.t]||[]).push(g.n));
+    GUESTS.forEach(g=>{
+      if(!TC[g.t])TC[g.t]={total:0,parties:[]};
+      TC[g.t].total+=g.p;
+      TC[g.t].parties.push(g);
+    });
   }
   const keys=Object.keys(TC).sort((a,b)=>a-b);
   const fr=document.createDocumentFragment();
   let d=0;
   keys.forEach(t=>{
     if(f!=='all'&&t!=f)return;
-    const ns=TC[t];
+    const info=TC[t];
     const c=document.createElement('div');
     c.className='tc';c.style.animationDelay=(d*.055)+'s';
     // single innerHTML write per card
-    c.innerHTML=`<div class="tch"><div class="tcn">Table ${t}</div><div class="tcb">${ns.length} Guests</div></div><div class="gitms">${ns.map(n=>`<div class="gi"><div class="gd"></div><div class="gnm">${n}</div></div>`).join('')}</div>`;
+    c.innerHTML=`<div class="tch"><div class="tcn">Table ${t}</div><div class="tcb">${info.total} Guests</div></div><div class="gitms">${info.parties.map(g=>`<div class="gi"><div class="gd"></div><div class="gnm">${g.n}${g.p>1?' <span class="gpx">· '+g.p+'</span>':''}</div></div>`).join('')}</div>`;
     fr.appendChild(c);d++;
   });
   con.textContent=''; // faster than innerHTML=''
