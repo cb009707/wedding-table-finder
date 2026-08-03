@@ -295,6 +295,8 @@ input{font-family:inherit}
 .rcfp:hover{background:linear-gradient(135deg,var(--gold-d),var(--gold));color:#fff;transform:translateY(-2px)}
 /* floor-plan seat highlight */
 .tbl-hl{animation:tblpulse 1.3s ease-in-out 3;transform-box:fill-box;transform-origin:center;filter:drop-shadow(0 0 6px var(--gold)) drop-shadow(0 0 16px var(--gold-l))}
+.tbl-hl circle,.tbl-hl ellipse,.tbl-hl rect{animation:tblfill 1.3s ease-in-out 3}
+@keyframes tblfill{0%,100%{fill-opacity:1}50%{fill:var(--rose);stroke:var(--rose-d);stroke-width:3}}
 @keyframes tblpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}
 .nfm{display:none;margin:20px auto;max-width:420px;padding:16px 22px;background:rgba(143,92,60,.08);border:1px solid rgba(185,122,82,.34);border-radius:2px;color:var(--rose-d);font-style:italic;font-size:clamp(12px,2.8vw,14px)}
 .nfm.s{display:block;animation:shk .42s ease}
