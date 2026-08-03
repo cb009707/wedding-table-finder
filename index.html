@@ -291,6 +291,11 @@ input{font-family:inherit}
 .rnum{font-family:var(--fd);font-size:clamp(52px,13vw,90px);color:var(--gold);line-height:1;margin:6px 0 17px;position:relative;z-index:1;text-shadow:0 0 34px rgba(138,154,78,.36);animation:nf 2.8s ease-in-out infinite;will-change:transform}
 @keyframes nf{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 .rw{font-family:var(--fb);font-style:italic;font-size:clamp(13px,3.3vw,17px);color:var(--champ);opacity:.76;position:relative;z-index:1}
+.rcfp{display:inline-flex;align-items:center;gap:6px;margin-top:18px;padding:10px 22px;font-family:var(--fu);font-size:10.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-l);background:rgba(212,223,163,.08);border:1px solid rgba(212,223,163,.5);border-radius:2px;cursor:pointer;transition:background .3s,color .3s,transform .2s;position:relative;z-index:1;touch-action:manipulation}
+.rcfp:hover{background:linear-gradient(135deg,var(--gold-d),var(--gold));color:#fff;transform:translateY(-2px)}
+/* floor-plan seat highlight */
+.tbl-hl{animation:tblpulse 1.3s ease-in-out 3;transform-box:fill-box;transform-origin:center;filter:drop-shadow(0 0 6px var(--gold)) drop-shadow(0 0 16px var(--gold-l))}
+@keyframes tblpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}
 .nfm{display:none;margin:20px auto;max-width:420px;padding:16px 22px;background:rgba(143,92,60,.08);border:1px solid rgba(185,122,82,.34);border-radius:2px;color:var(--rose-d);font-style:italic;font-size:clamp(12px,2.8vw,14px)}
 .nfm.s{display:block;animation:shk .42s ease}
 @keyframes shk{0%,100%{transform:translateX(0)}25%,75%{transform:translateX(-7px)}50%{transform:translateX(7px)}}
@@ -368,6 +373,22 @@ input{font-family:inherit}
 .mcard ul{list-style:none}
 .mcard li{font-family:var(--fb);font-style:italic;color:rgba(224,229,196,.85);font-size:clamp(12px,2.8vw,14.5px);line-height:1.5;padding:5px 0 5px 15px;position:relative}
 .mcard li::before{content:'✦';position:absolute;left:0;top:8px;color:var(--gold);font-size:8px}
+
+/* =====================================
+   WEDDING GROUP
+===================================== */
+.wpg{padding:clamp(32px,6.5vw,68px) clamp(12px,3.5vw,54px);background:linear-gradient(180deg,var(--cream) 0%,var(--ivory) 100%);text-align:center;position:relative}
+.wpg::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('DSC_8986.jpg');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
+.wpcouple{margin-bottom:4px}
+.wplbl{font-family:var(--fu);font-size:clamp(9px,2vw,11px);font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold-d);margin-bottom:6px}
+.wpcnames{font-family:var(--fd);font-size:clamp(26px,6.5vw,44px);color:var(--br);letter-spacing:1.5px}
+.wpamp{font-family:var(--fb);font-style:italic;color:var(--rose);margin:0 12px;font-size:1.05em}
+.wpgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:26px;max-width:920px;margin-left:auto;margin-right:auto}
+.wpcard{background:#fff;border-radius:3px;padding:clamp(18px,4vw,26px);box-shadow:0 3px 16px rgba(0,0,0,.052);border-top:3px solid var(--gold);text-align:center;transition:transform .25s,box-shadow .25s}
+.wpcard:hover{transform:translateY(-3px);box-shadow:0 7px 28px rgba(138,154,78,.12)}
+.wpcard h3{font-family:var(--fd);color:var(--br);font-size:clamp(14px,3.4vw,17px);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(138,154,78,.16)}
+.wpcard ul{list-style:none}
+.wpcard li{font-family:var(--fb);font-style:italic;color:var(--br-m);font-size:clamp(13px,3vw,15.5px);line-height:1.6;padding:3px 0}
 
 /* =====================================
    SCHEDULE
@@ -470,6 +491,9 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
         <span class="ni" aria-hidden="true">🕰️</span><span>Schedule</span>
       </button>
       <button class="nb" id="n4" onclick="go('s4',4)">
+        <span class="ni" aria-hidden="true">💍</span><span>Wedding Group</span>
+      </button>
+      <button class="nb" id="n5" onclick="go('s5',5)">
         <span class="ni" aria-hidden="true">🗺️</span><span>Floor Plan</span>
       </button>
     </nav>
@@ -514,6 +538,7 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
         <div class="rnum" id="rt"></div>
         <div class="odv" style="max-width:90px;margin:0 auto 11px"><span class="odvd">◆</span></div>
         <div class="rw">We are so glad you're here ✦</div>
+        <div><button class="rcfp" id="rcfpBtn" type="button">View on Floor Plan →</button></div>
       </div>
       <div class="nfm" id="nf" role="alert" aria-live="assertive">
         We couldn't find your name — please check spelling or speak with our coordinator.
@@ -681,8 +706,46 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
     </div>
   </section>
 
+  <!-- WEDDING GROUP -->
+  <section id="s4" class="sec" aria-label="Wedding Group">
+    <div class="sbanner">
+      <img class="sbimg" src="DSC_8986.jpg" alt="" loading="lazy" decoding="async">
+      <div class="sbov">
+        <div class="sbtag">Standing By Our Side</div>
+        <div class="sbtitle">Wedding Group</div>
+      </div>
+      <div class="sbfade sbfade-cream"></div>
+    </div>
+    <div class="wpg">
+      <div class="wpcouple">
+        <div class="wplbl">The Bride &amp; Groom</div>
+        <div class="wpcnames">Frances<span class="wpamp">&amp;</span>Romesh</div>
+      </div>
+      <div class="odv"><span class="odvd">◆</span></div>
+      <p class="ss">The wonderful people celebrating alongside us</p>
+      <div class="wpgrid">
+        <div class="wpcard">
+          <h3>Bridesmaids</h3>
+          <ul><li>Sheneli Jayaweera</li><li>Aisha Perera</li></ul>
+        </div>
+        <div class="wpcard">
+          <h3>Best Men</h3>
+          <ul><li>Sachin Subasinghe</li><li>Horesh Maddumage</li></ul>
+        </div>
+        <div class="wpcard">
+          <h3>Flower Girls</h3>
+          <ul><li>Ariyana Jayaweera</li><li>Elisa Jayaweera</li></ul>
+        </div>
+        <div class="wpcard">
+          <h3>Page Boys</h3>
+          <ul><li>Denush Barnett</li><li>Logan Oralando</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FLOOR PLAN -->
-  <section id="s4" class="sec" aria-label="Floor Plan">
+  <section id="s5" class="sec" aria-label="Floor Plan">
     <div class="sbanner">
       <img class="sbimg" src="DSC_3458.jpg" alt="" loading="lazy" decoding="async">
       <div class="sbov">
@@ -704,9 +767,9 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 </g>
 <path d="M118 58 Q140 58 140 80" fill="none" stroke="var(--gold-d)" stroke-width="1.4"/>
 <path d="M478 58 Q456 58 456 80" fill="none" stroke="var(--gold-d)" stroke-width="1.4"/>
-<rect x="24" y="120" width="52" height="185" fill="var(--blush)" fill-opacity=".35" stroke="var(--gold-d)" stroke-width="1.4"/>
-<text x="50" y="212" text-anchor="middle" font-family="var(--fu)" font-size="10.5" font-weight="600" letter-spacing=".5" fill="var(--br-m)" transform="rotate(-90 50 212)">HEAD TABLE · 6 PAX</text>
-<g>
+<g id="tbl-head"><rect x="24" y="120" width="52" height="185" fill="var(--blush)" fill-opacity=".35" stroke="var(--gold-d)" stroke-width="1.4"/>
+<text x="50" y="212" text-anchor="middle" font-family="var(--fu)" font-size="10.5" font-weight="600" letter-spacing=".5" fill="var(--br-m)" transform="rotate(-90 50 212)">HEAD TABLE · 6 PAX</text></g>
+<g id="tbl-30">
       <circle cx="90" cy="100" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="90" y="105" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">30</text>
     </g>
@@ -714,23 +777,23 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 <text x="278" y="100" text-anchor="middle" font-family="var(--fb)" font-style="italic" font-size="15" fill="var(--br-m)">Settee Back</text>
 <g transform="rotate(-18 430 145)"><rect x="330" y="118" width="200" height="56" fill="var(--rose)" fill-opacity=".22" stroke="var(--gold-d)" stroke-width="1.4"/><text x="430" y="140" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">Band</text><text x="430" y="158" text-anchor="middle" font-family="var(--fu)" font-size="10" letter-spacing="1" fill="var(--br-m)">24 × 8</text></g>
 <g transform="rotate(-18 370 220)"><rect x="270" y="193" width="200" height="54" fill="var(--rose)" fill-opacity=".14" stroke="var(--gold-d)" stroke-width="1.4"/><text x="370" y="224" text-anchor="middle" font-family="var(--fb)" font-style="italic" font-size="14.5" fill="var(--br-m)">Dancing Floor</text></g>
-<g>
+<g id="tbl-31">
       <circle cx="536" cy="300" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="536" y="305" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">31</text>
     </g>
-<g>
+<g id="tbl-1">
       <circle cx="70" cy="258" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="70" y="263" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">1</text>
     </g>
-<g>
+<g id="tbl-2">
       <circle cx="130" cy="258" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="130" y="263" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">2</text>
     </g>
-<g>
+<g id="tbl-3">
       <circle cx="190" cy="258" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="190" y="263" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">3</text>
     </g>
-<g>
+<g id="tbl-4">
       <circle cx="250" cy="258" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="250" y="263" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">4</text>
     </g>
@@ -738,51 +801,51 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 <text x="30" y="330" text-anchor="middle" font-family="var(--fu)" font-size="9" fill="var(--br-l)">×</text>
 <path d="M18 344 L18 372 M18 358 L40 342 M18 358 L40 374" fill="none" stroke="var(--br-l)" stroke-width="1.3"/>
 <text x="30" y="388" text-anchor="middle" font-family="var(--fu)" font-size="9" fill="var(--br-l)">×</text>
-<g>
+<g id="tbl-5">
       <circle cx="70" cy="340" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="70" y="345" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">5</text>
     </g>
-<g>
+<g id="tbl-6">
       <circle cx="130" cy="340" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="130" y="345" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">6</text>
     </g>
-<g>
+<g id="tbl-7">
       <circle cx="190" cy="340" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="190" y="345" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">7</text>
     </g>
-<g>
+<g id="tbl-8">
       <circle cx="250" cy="340" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="250" y="345" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">8</text>
     </g>
-<g>
+<g id="tbl-9">
       <circle cx="70" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="70" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">9</text>
     </g>
-<g>
+<g id="tbl-10">
       <circle cx="130" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="130" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">10</text>
     </g>
-<g>
+<g id="tbl-11">
       <circle cx="190" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="190" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">11</text>
     </g>
-<g>
+<g id="tbl-12">
       <circle cx="250" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="250" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">12</text>
     </g>
-<g>
+<g id="tbl-23">
       <circle cx="340" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="340" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">23</text>
     </g>
-<g>
+<g id="tbl-24">
       <circle cx="400" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="400" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">24</text>
     </g>
-<g>
+<g id="tbl-25">
       <circle cx="460" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="460" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">25</text>
     </g>
-<g>
+<g id="tbl-26">
       <circle cx="520" cy="424" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="520" y="429" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">26</text>
     </g>
@@ -793,39 +856,39 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 <circle cx="430" cy="468" r="15" fill="none" stroke="var(--br-l)" stroke-width="1.2" stroke-dasharray="3,3"/>
 <circle cx="490" cy="468" r="15" fill="none" stroke="var(--br-l)" stroke-width="1.2" stroke-dasharray="3,3"/>
 <text x="556" y="472" text-anchor="start" font-family="var(--fu)" font-size="9.5" font-weight="600" fill="var(--br-m)">← PILLARS</text>
-<g>
+<g id="tbl-13">
   <ellipse cx="150" cy="512" rx="35" ry="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
   <text x="150" y="518" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">13</text>
 </g>
-<g>
+<g id="tbl-14">
       <circle cx="250" cy="512" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="250" y="517" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">14</text>
     </g>
-<g>
+<g id="tbl-27">
       <circle cx="370" cy="512" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="370" y="517" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">27</text>
     </g>
-<g>
+<g id="tbl-28">
       <circle cx="430" cy="512" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="430" y="517" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">28</text>
     </g>
-<g>
+<g id="tbl-29">
       <circle cx="490" cy="512" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="490" y="517" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">29</text>
     </g>
-<g>
+<g id="tbl-15">
       <circle cx="70" cy="566" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="70" y="571" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">15</text>
     </g>
-<g>
+<g id="tbl-16">
       <circle cx="130" cy="566" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="130" y="571" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">16</text>
     </g>
-<g>
+<g id="tbl-17">
       <circle cx="190" cy="566" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="190" y="571" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">17</text>
     </g>
-<g>
+<g id="tbl-18">
       <circle cx="250" cy="566" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="250" y="571" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">18</text>
     </g>
@@ -834,19 +897,19 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 <polygon points="431,555 449,555 440,573" fill="none" stroke="var(--gold-d)" stroke-width="1.4"/><line x1="440" y1="573" x2="440" y2="581" stroke="var(--gold-d)" stroke-width="1.4"/>
 <rect x="345" y="585" width="110" height="46" fill="var(--rose)" fill-opacity=".18" stroke="var(--gold-d)" stroke-width="1.4"/>
 <text x="400" y="613" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">Bar</text>
-<g>
+<g id="tbl-19">
       <circle cx="70" cy="624" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="70" y="629" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">19</text>
     </g>
-<g>
+<g id="tbl-20">
       <circle cx="130" cy="624" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="130" y="629" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">20</text>
     </g>
-<g>
+<g id="tbl-21">
       <circle cx="190" cy="624" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="190" y="629" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">21</text>
     </g>
-<g>
+<g id="tbl-22">
       <circle cx="250" cy="624" r="21" fill="var(--champ)" stroke="var(--gold-d)" stroke-width="1.6"/>
       <text x="250" y="629" text-anchor="middle" font-family="var(--fd)" font-size="15" fill="var(--br)">22</text>
     </g>
@@ -899,6 +962,12 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 
 // ── GUEST DATA (from the final table arrangement) ───────────
 const GUESTS=[
+{n:"Frances Alwis",t:"Head",p:1},
+{n:"Romesh Thomas",t:"Head",p:1},
+{n:"Sachin Subasinghe",t:"Head",p:1},
+{n:"Horesh Maddumage",t:"Head",p:1},
+{n:"Sheneli Jayaweera",t:"Head",p:1},
+{n:"Aisha Perera",t:"Head",p:1},
 {n:"Mrs. Maureen Thomas",t:1,p:1},
 {n:"Mr & Mrs Upul Nanayakkara & Family",t:1,p:4},
 {n:"Mr & Mrs Thilina Wanasinghe & Family",t:1,p:2},
@@ -1086,9 +1155,12 @@ const GUESTS=[
 ];
 const TOTAL_TABLES=31;
 
-// ── populate table dropdown (Table 1–31) ────────────────────
+// ── populate table dropdown (Head Table + Table 1–31) ───────
 (function buildFilters(){
   const sel=document.getElementById('tsel');
+  const oh=document.createElement('option');
+  oh.value='Head';oh.textContent='Head Table';
+  sel.appendChild(oh);
   for(let i=1;i<=TOTAL_TABLES;i++){
     const o=document.createElement('option');
     o.value=i;o.textContent='Table '+i;
@@ -1134,8 +1206,8 @@ function nxtS(){st=setTimeout(()=>{showS(cs+1);nxtS()},6200)}
 nxtS();
 
 // ── NAV ────────────────────────────────────────────────────
-const IDS=['s0','s1','s2','s3','s4'];
-const NBS=[0,1,2,3,4].map(i=>document.getElementById('n'+i));
+const IDS=['s0','s1','s2','s3','s4','s5'];
+const NBS=[0,1,2,3,4,5].map(i=>document.getElementById('n'+i));
 function go(id,i){
   IDS.forEach(s=>document.getElementById(s).classList.remove('a'));
   NBS.forEach((b,j)=>{b.classList.remove('a');b.removeAttribute('aria-current');
@@ -1171,13 +1243,14 @@ function matchIdx(q){
   for(let i=0;i<GUESTS.length;i++) if(GUESTS[i].n.toLowerCase().includes(q)) out.push(i);
   return out;
 }
+function tableLabel(t){return t==='Head' ? 'Head Table' : ('Table '+t);}
 function sgHTML(idxs){
   return idxs.map(i=>{
     const g=GUESTS[i];
     return `<div class="sgi" role="option" tabindex="0"
       onclick="pick(${i})"
       onkeydown="if(event.key==='Enter'||event.key===' ')pick(${i})"
-    ><span>${g.n}</span><span class="sgp">Table ${g.t}</span></div>`;
+    ><span>${g.n}</span><span class="sgp">${tableLabel(g.t)}</span></div>`;
   }).join('');
 }
 
@@ -1209,9 +1282,23 @@ siEl.addEventListener('keydown',function(e){
 function pick(i){const g=GUESTS[i];siEl.value=g.n;sgEl.classList.remove('s');showR(g)}
 function showR(g){
   document.getElementById('rn').textContent=g.n;
-  document.getElementById('rt').textContent='Table '+g.t;
+  document.getElementById('rt').textContent=tableLabel(g.t);
+  document.getElementById('rcfpBtn').onclick=()=>showOnFloorPlan(g.t);
   rcEl.classList.add('s');
   setTimeout(()=>rcEl.scrollIntoView({behavior:'smooth',block:'nearest'}),60);
+}
+function showOnFloorPlan(t){
+  const id='tbl-'+(t==='Head'?'head':t);
+  go('s5',5);
+  setTimeout(()=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.scrollIntoView({behavior:'smooth',block:'center'});
+    el.classList.remove('tbl-hl');
+    void el.getBBox&&el.getBBox(); // force reflow so the animation restarts if re-triggered
+    el.classList.add('tbl-hl');
+    setTimeout(()=>el.classList.remove('tbl-hl'),4200);
+  },300);
 }
 // close on outside tap — passive for scroll perf
 document.addEventListener('click',e=>{if(!e.target.closest('.swrap'))sgEl.classList.remove('s')},{passive:true});
@@ -1229,7 +1316,11 @@ function renderT(f='all'){
       TC[g.t].parties.push(g);
     });
   }
-  const keys=Object.keys(TC).sort((a,b)=>a-b);
+  const keys=Object.keys(TC).sort((a,b)=>{
+    if(a==='Head')return -1;
+    if(b==='Head')return 1;
+    return a-b;
+  });
   const fr=document.createDocumentFragment();
   let d=0;
   keys.forEach(t=>{
@@ -1238,7 +1329,7 @@ function renderT(f='all'){
     const c=document.createElement('div');
     c.className='tc';c.style.animationDelay=(d*.055)+'s';
     // single innerHTML write per card
-    c.innerHTML=`<div class="tch"><div class="tcn">Table ${t}</div><div class="tcb">${info.total} Guests</div></div><div class="gitms">${info.parties.map(g=>`<div class="gi"><div class="gd"></div><div class="gnm">${g.n}${g.p>1?' <span class="gpx">· '+g.p+'</span>':''}</div></div>`).join('')}</div>`;
+    c.innerHTML=`<div class="tch"><div class="tcn">${tableLabel(t)}</div><div class="tcb">${info.total} Guests</div></div><div class="gitms">${info.parties.map(g=>`<div class="gi"><div class="gd"></div><div class="gnm">${g.n}${g.p>1?' <span class="gpx">· '+g.p+'</span>':''}</div></div>`).join('')}</div>`;
     fr.appendChild(c);d++;
   });
   con.textContent=''; // faster than innerHTML=''
