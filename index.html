@@ -556,7 +556,7 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
   <!-- MENU -->
   <section id="s2" class="sec" aria-label="Wedding Menu">
     <div class="sbanner">
-      <img class="sbimg" src="DSC_9367.jpg" alt="" loading="lazy" decoding="async">
+      <img class="sbimg" src="DSC_9367.jpg" alt="" loading="lazy" decoding="async" style="object-position:68% 38%">
       <div class="sbov">
         <div class="sbtag">Bon Appétit</div>
         <div class="sbtitle">Wedding Menu</div>
@@ -885,6 +885,18 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 </div>
 
 <script>
+// ── PREFETCH remaining photos in idle time ──────────────────
+// The cover + first hero slide load eagerly for instant first paint.
+// Everything else is marked loading="lazy" so it doesn't compete with
+// them — but we still want it fully cached *before* the user taps a
+// tab, so it never shows partially loaded on first visit.
+(function(){
+  const REST=['DSC_9570.jpg','DSC_8986.jpg','DSC_9596.jpg','DSC_9367.jpg'];
+  function warm(){REST.forEach(src=>{const im=new Image();im.src=src;});}
+  if('requestIdleCallback' in window){requestIdleCallback(warm,{timeout:4000});}
+  else{setTimeout(warm,1200);}
+})();
+
 // ── GUEST DATA (from the final table arrangement) ───────────
 const GUESTS=[
 {n:"Mrs. Maureen Thomas",t:1,p:1},
