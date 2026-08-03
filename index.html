@@ -66,72 +66,60 @@ input{font-family:inherit}
 ===================================== */
 .cover{
   position:fixed;inset:0;
-  background:var(--dk);
-  display:flex;justify-content:center;align-items:center;
-  z-index:9000;overflow:hidden;
-  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px))
-          max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:center;
+  z-index:9000;
+  padding:max(20px,env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px))
+          max(30px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));
   transition:opacity .65s var(--ease),transform .65s var(--ease);
   will-change:opacity,transform;
 }
-/* dummy bride & groom background photos — replace URLs with real photos later */
-.coverbg{position:absolute;inset:0;display:flex;z-index:0}
-.cbgimg{flex:1;background-size:cover;background-position:center;filter:saturate(.8) brightness(.82)}
-.cbgimg-l{background-image:url('https://placehold.co/900x1600/2a1a12/f5e6d3?text=Groom+Photo')}
-.cbgimg-r{background-image:url('https://placehold.co/900x1600/3d2416/f5e6d3?text=Bride+Photo')}
+/* real engagement photo, full-bleed with a slow Ken-Burns drift */
+.coverbg{position:absolute;inset:-3%;z-index:0;background-image:url('DSC_3522.jpg');background-size:cover;background-position:center 22%;animation:kb 24s ease-in-out infinite alternate;will-change:transform}
+@keyframes kb{from{transform:scale(1) translate(0,0)}to{transform:scale(1.09) translate(-1%,-1%)}}
 .coverbg::after{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 80% at 40% 40%,rgba(42,26,18,.62) 0%,rgba(28,20,16,.84) 65%);
+  background:
+    linear-gradient(180deg,rgba(18,12,8,.32) 0%,rgba(18,12,8,.12) 22%,rgba(16,10,7,.38) 56%,rgba(12,8,6,.88) 82%,rgba(10,7,5,.97) 100%),
+    radial-gradient(ellipse 90% 60% at 50% 100%,rgba(10,7,5,.55) 0%,transparent 60%);
 }
 .cover::before,.cover::after{
   content:'';position:absolute;z-index:2;
-  width:clamp(100px,22vw,190px);height:clamp(100px,22vw,190px);
-  border:1px solid rgba(201,168,76,.2);pointer-events:none;
+  width:clamp(90px,20vw,170px);height:clamp(90px,20vw,170px);
+  border:1px solid rgba(232,213,163,.45);pointer-events:none;
 }
-.cover::before{top:14px;left:14px;border-right:none;border-bottom:none}
-.cover::after{bottom:14px;right:14px;border-left:none;border-top:none}
+.cover::before{top:22px;left:22px;border-right:none;border-bottom:none}
+.cover::after{bottom:22px;right:22px;border-left:none;border-top:none}
 .cover.hide{opacity:0;transform:scale(1.04);pointer-events:none}
 
-.card{
-  position:relative;z-index:1;
-  width:min(420px,92vw);
-  background:linear-gradient(155deg,#fffdf8 0%,#f9f2e6 55%,#f2e6d4 100%);
-  border-radius:3px;
-  padding:clamp(28px,7vw,56px) clamp(22px,6vw,50px);
-  text-align:center;overflow:hidden;
-  box-shadow:0 0 0 1px rgba(201,168,76,.42),0 0 0 7px rgba(201,168,76,.07),
-             0 24px 70px rgba(0,0,0,.52),inset 0 0 50px rgba(248,234,208,.3);
-  animation:cdin 1.3s var(--spring) both;
-}
-@keyframes cdin{from{opacity:0;transform:translateY(32px) scale(.94)}to{opacity:1;transform:none}}
-.card::before,.card::after{content:'✦';position:absolute;font-size:24px;color:var(--gold);opacity:.42;line-height:1}
-.card::before{top:11px;left:13px}.card::after{bottom:11px;right:13px}
-.cgt{position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-l),var(--gold),transparent)}
-.cgb{position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-l),var(--gold),transparent)}
-.cfloral{font-size:clamp(16px,5vw,24px);letter-spacing:7px;color:var(--rose);opacity:.5;margin-bottom:12px;animation:swy 5s ease-in-out infinite}
+.civ{position:relative;z-index:1;width:100%;max-width:460px;display:flex;flex-direction:column;align-items:center;text-align:center;animation:cdin 1.3s var(--spring) both}
+@keyframes cdin{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.cfloral{font-size:clamp(15px,4.5vw,21px);letter-spacing:7px;color:var(--gold-l);opacity:.85;margin-bottom:14px;text-shadow:0 2px 14px rgba(0,0,0,.4);animation:swy 5s ease-in-out infinite}
 @keyframes swy{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-4px) rotate(2deg)}}
-.clbl{font-family:var(--fu);font-size:clamp(8px,1.8vw,10px);font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold-d);margin-bottom:14px}
-.cnames{font-family:var(--fd);font-size:clamp(22px,5.8vw,42px);color:var(--br);letter-spacing:2px;line-height:1.15}
-.camp{display:block;font-family:var(--fb);font-style:italic;font-size:clamp(30px,8vw,54px);color:var(--rose);line-height:1;margin:-2px 0;animation:amp 3s ease-in-out infinite}
+.clbl{font-family:var(--fu);font-size:clamp(9px,2vw,11px);font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold-l);margin-bottom:16px;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.cnames{font-family:var(--fd);font-size:clamp(30px,8.2vw,54px);color:#fffdf8;letter-spacing:2px;line-height:1.12;text-shadow:0 4px 30px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.4)}
+.camp{display:block;font-family:var(--fb);font-style:italic;font-size:clamp(34px,9vw,60px);color:var(--gold-l);line-height:1;margin:1px 0;text-shadow:0 4px 24px rgba(0,0,0,.5);animation:amp 3s ease-in-out infinite}
 @keyframes amp{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
-.dhr{display:flex;align-items:center;gap:11px;margin:17px 0}
-.dhr::before{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-d))}
-.dhr::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--gold-d),transparent)}
-.dhrd{font-size:9px;color:var(--gold)}
-.cdate{font-family:var(--fb);font-style:italic;font-size:clamp(12px,3vw,17px);color:var(--br-m);margin-bottom:24px;letter-spacing:.3px}
+.dhr{display:flex;align-items:center;gap:12px;margin:20px 0}
+.dhr::before{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(232,213,163,.6))}
+.dhr::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(232,213,163,.6),transparent)}
+.dhrd{font-size:9px;color:var(--gold-l)}
+.cdate{font-family:var(--fb);font-style:italic;font-size:clamp(13px,3.2vw,18px);color:var(--champ);margin-bottom:30px;letter-spacing:.4px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
 .obtn{
-  background:linear-gradient(135deg,var(--gold-d),var(--gold),var(--gold-d));
-  background-size:220% 100%;color:#fff;
-  padding:clamp(12px,3vw,16px) clamp(28px,6.5vw,44px);
+  background:rgba(253,250,246,.06);
+  border:1px solid rgba(232,213,163,.55);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:var(--gold-l);
+  padding:clamp(13px,3vw,17px) clamp(30px,7vw,46px);
   border-radius:2px;font-family:var(--fu);
-  font-size:clamp(9px,2.2vw,11px);font-weight:600;letter-spacing:3px;text-transform:uppercase;
-  box-shadow:0 5px 20px rgba(201,168,76,.3),inset 0 1px 0 rgba(255,255,255,.2);
-  transition:background-position .4s,transform .25s var(--spring),box-shadow .25s;
-  touch-action:manipulation;min-height:48px;min-width:170px;
+  font-size:clamp(9px,2.2vw,11px);font-weight:600;letter-spacing:3.5px;text-transform:uppercase;
+  box-shadow:0 8px 30px rgba(0,0,0,.3);
+  transition:background .35s,color .35s,transform .25s var(--spring),box-shadow .25s,border-color .35s;
+  touch-action:manipulation;min-height:48px;min-width:180px;
   position:relative;overflow:hidden;will-change:transform;
 }
-.obtn::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.26),transparent);transform:translateX(-110%);transition:transform .55s}
-.obtn:hover{background-position:right center;transform:translateY(-2px);box-shadow:0 9px 26px rgba(201,168,76,.4)}
+.obtn::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:translateX(-110%);transition:transform .55s}
+.obtn:hover{background:linear-gradient(135deg,var(--gold-d),var(--gold));border-color:var(--gold);color:#fff;transform:translateY(-2px);box-shadow:0 12px 34px rgba(201,168,76,.35)}
 .obtn:hover::after{transform:translateX(110%)}
 .obtn:active{transform:translateY(0)}
 .obtn:disabled{opacity:.65;pointer-events:none}
@@ -147,7 +135,8 @@ input{font-family:inherit}
 ===================================== */
 .nav{
   position:sticky;top:0;z-index:200;
-  background:linear-gradient(135deg,var(--dk-m),var(--dk));
+  background:linear-gradient(135deg,rgba(45,31,24,.92),rgba(28,20,16,.92));
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   display:flex;
   border-bottom:1px solid rgba(201,168,76,.26);
   box-shadow:0 3px 18px rgba(0,0,0,.36);
@@ -192,12 +181,14 @@ input{font-family:inherit}
    HERO
 ===================================== */
 .hero{position:relative;height:clamp(290px,58vh,510px);overflow:hidden;contain:layout style}
-.sl{position:absolute;inset:0;opacity:0;transition:opacity 2s ease-in-out;will-change:opacity;background-size:cover;background-position:center}
+.sl{position:absolute;inset:0;opacity:0;transform:scale(1);transition:opacity 2s ease-in-out;will-change:opacity,transform;background-size:cover;background-position:center}
+.sl.a{animation:kbhero 6.2s linear forwards}
+@keyframes kbhero{from{transform:scale(1)}to{transform:scale(1.06)}}
 .sl.a{opacity:1}
-/* dummy bride & groom photos with dark overlay for legibility — swap URLs for real photos later */
-.sl:nth-child(1){background-image:linear-gradient(135deg,rgba(24,15,10,.6),rgba(24,15,10,.78)),url('https://placehold.co/1600x900/2a1a12/f5e6d3?text=Groom+%26+Bride')}
-.sl:nth-child(2){background-image:linear-gradient(160deg,rgba(20,13,9,.6),rgba(20,13,9,.78)),url('https://placehold.co/1600x900/3d2416/f5e6d3?text=Engagement+Photo')}
-.sl:nth-child(3){background-image:linear-gradient(135deg,rgba(26,17,11,.6),rgba(26,17,11,.78)),url('https://placehold.co/1600x900/422415/f5e6d3?text=Couple+Photo')}
+/* real engagement photos with a dark overlay for text legibility */
+.sl:nth-child(1){background-position:center 25%;background-image:linear-gradient(135deg,rgba(20,13,9,.68),rgba(20,13,9,.85)),url('DSC_3458.jpg')}
+.sl:nth-child(2){background-position:center 30%;background-image:linear-gradient(160deg,rgba(18,12,8,.68),rgba(18,12,8,.85)),url('DSC_9570.jpg')}
+.sl:nth-child(3){background-position:center 22%;background-image:linear-gradient(135deg,rgba(22,14,9,.68),rgba(22,14,9,.85)),url('DSC_8986.jpg')}
 .sl::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 15% 85%,rgba(201,168,76,.1) 0%,transparent 40%),radial-gradient(circle at 85% 15%,rgba(196,129,106,.1) 0%,transparent 40%)}
 .hov{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(14px,4vw,30px)}
 .ring{position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,.18);pointer-events:none;top:50%;left:50%;animation:rp 6s ease-in-out infinite;will-change:transform,opacity}
@@ -212,6 +203,20 @@ input{font-family:inherit}
 .hdate{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.8vw,16px);color:var(--champ);opacity:.8;letter-spacing:.7px;animation:fu 1s ease .36s both}
 @keyframes fu{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
 .hfade{position:absolute;bottom:0;left:0;right:0;height:68px;background:linear-gradient(to bottom,transparent,var(--ivory));z-index:3;pointer-events:none}
+
+/* =====================================
+   SECTION PHOTO BANNERS — real engagement photos as design elements
+===================================== */
+.sbanner{position:relative;height:clamp(140px,26vh,220px);overflow:hidden}
+.sbimg{position:absolute;inset:-3%;background-size:cover;background-position:center;animation:kb 26s ease-in-out infinite alternate;will-change:transform}
+.sbov{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 16px}
+.sbov::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,12,8,.32) 0%,rgba(16,10,7,.62) 100%);z-index:-1}
+.sbtag{font-family:var(--fu);font-size:clamp(8px,1.8vw,10px);font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold-l);opacity:.92;margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.sbtitle{font-family:var(--fd);font-size:clamp(24px,6vw,38px);color:#fffdf8;letter-spacing:2px;text-shadow:0 3px 20px rgba(0,0,0,.55)}
+.sbfade{position:absolute;bottom:0;left:0;right:0;height:56px;z-index:2;pointer-events:none}
+.sbfade-cream{background:linear-gradient(to bottom,transparent,var(--cream))}
+.sbfade-ivory{background:linear-gradient(to bottom,transparent,var(--ivory))}
+.sbfade-dark{background:linear-gradient(to bottom,transparent,var(--dk))}
 .sdots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:4;display:flex;gap:7px}
 .dot{
   width:28px;height:28px;border-radius:50%;
@@ -226,7 +231,7 @@ input{font-family:inherit}
    FIND TABLE
 ===================================== */
 .find{padding:clamp(32px,6.5vw,68px) clamp(14px,4vw,54px);background:linear-gradient(180deg,var(--ivory) 0%,var(--cream) 100%);text-align:center;position:relative}
-.find::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('https://placehold.co/1600x900/3d2416/f5e6d3?text=Bride+Photo');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
+.find::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('DSC_3522.jpg');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
 .sh{font-family:var(--fd);font-size:clamp(19px,4.8vw,34px);color:var(--br);letter-spacing:2px;margin-bottom:5px}
 .ss{font-family:var(--fb);font-style:italic;font-size:clamp(13px,3vw,17px);color:var(--br-l);margin-bottom:clamp(18px,4.5vw,34px)}
 .odv{display:flex;align-items:center;gap:13px;max-width:240px;margin:14px auto}
@@ -268,7 +273,9 @@ input{font-family:inherit}
 /* result */
 .rc{
   display:none;margin:26px auto 0;max-width:440px;
-  background:linear-gradient(135deg,var(--dk-m),var(--dk));
+  background:linear-gradient(135deg,rgba(45,31,24,.9),rgba(20,14,10,.94)),url('DSC_3522.jpg');
+  background-size:cover;background-position:center 25%;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   border-radius:3px;padding:clamp(26px,6vw,46px) clamp(18px,5vw,38px);
   text-align:center;
   box-shadow:0 13px 52px rgba(0,0,0,.22),0 0 0 1px rgba(201,168,76,.35);
@@ -291,7 +298,7 @@ input{font-family:inherit}
    GUEST LIST
 ===================================== */
 .gls{padding:clamp(32px,6.5vw,68px) clamp(12px,3.5vw,54px);background:linear-gradient(180deg,var(--cream) 0%,var(--ivory) 100%);position:relative}
-.gls::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('https://placehold.co/1600x900/2a1a12/f5e6d3?text=Groom+Photo');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
+.gls::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('DSC_9596.jpg');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
 .frow{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:24px auto;max-width:420px}
 .tsel-wrap{position:relative;flex:1;min-width:180px;max-width:260px}
 .tsel{
@@ -316,7 +323,8 @@ input{font-family:inherit}
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px;margin-top:18px;max-width:1100px;margin-left:auto;margin-right:auto}
 @media(min-width:768px){.tgrid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}}
 @media(min-width:1200px){.tgrid{grid-template-columns:repeat(3,1fr)}}
-.tc{background:#fff;border-radius:3px;padding:clamp(18px,4.5vw,28px);box-shadow:0 3px 16px rgba(0,0,0,.052);border-top:3px solid var(--gold);transition:transform .25s,box-shadow .25s}
+.tc{background:#fff;border-radius:3px;padding:clamp(18px,4.5vw,28px);box-shadow:0 3px 16px rgba(0,0,0,.052);border-top:3px solid var(--gold);transition:transform .25s,box-shadow .25s;opacity:0;animation:tcin .5s ease both}
+@keyframes tcin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .tc:hover{transform:translateY(-3px);box-shadow:0 7px 28px rgba(201,168,76,.12)}
 .tch{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:11px;border-bottom:1px solid rgba(201,168,76,.16);gap:7px}
 .tcn{font-family:var(--fd);font-size:clamp(14px,3.5vw,18px);color:var(--br)}
@@ -334,8 +342,8 @@ input{font-family:inherit}
    FLOOR PLAN
 ===================================== */
 .fps{padding:clamp(32px,6.5vw,68px) clamp(12px,3.5vw,54px);background:linear-gradient(180deg,var(--ivory) 0%,var(--cream) 100%);text-align:center;position:relative}
-.fps::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('https://placehold.co/1600x900/422415/f5e6d3?text=Couple+Photo');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
-.fpimg{max-width:640px;margin:26px auto;border-radius:3px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.12);border:1px solid rgba(201,168,76,.3);background:#fff;padding:clamp(10px,3vw,22px)}
+.fps::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('DSC_3458.jpg');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
+.fpimg{max-width:640px;margin:26px auto;border-radius:3px;overflow:hidden;box-shadow:0 14px 44px rgba(74,55,40,.16),0 0 0 1px rgba(201,168,76,.3);border:1px solid rgba(201,168,76,.3);background:#fff;padding:clamp(10px,3vw,22px)}
 .fpimg img{width:100%;display:block}
 .fpimg svg{width:100%;height:auto;display:block}
 .fplegend{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;max-width:640px;margin:16px auto 0;font-family:var(--fu);font-size:11px;letter-spacing:.5px;color:var(--br-m)}
@@ -350,10 +358,10 @@ input{font-family:inherit}
 .gals .sh{color:var(--champ)}.gals .ss{color:rgba(232,213,163,.55)}
 .gals .odv::before{background:linear-gradient(90deg,transparent,rgba(201,168,76,.45))}
 .gals .odv::after{background:linear-gradient(90deg,rgba(201,168,76,.45),transparent)}
-.gals::before{content:'';position:absolute;inset:0;z-index:0;background-image:url('https://placehold.co/1600x900/3d2416/f5e6d3?text=Bride+Photo');background-size:cover;background-position:center;opacity:.06;pointer-events:none}
+.gals::before{content:'';position:absolute;inset:0;z-index:0;background-image:url('DSC_9367.jpg');background-size:cover;background-position:center;opacity:.06;pointer-events:none}
 .gals>div{position:relative;z-index:1}
 .menugrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:26px;max-width:1100px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
-.mcard{background:rgba(255,255,255,.035);border:1px solid rgba(201,168,76,.24);border-radius:3px;padding:clamp(18px,4.2vw,24px);box-shadow:0 4px 18px rgba(0,0,0,.28);transition:transform .25s,box-shadow .25s}
+.mcard{background:rgba(255,255,255,.045);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(201,168,76,.24);border-radius:3px;padding:clamp(18px,4.2vw,24px);box-shadow:0 4px 18px rgba(0,0,0,.28);transition:transform .25s,box-shadow .25s}
 .mcard:hover{transform:translateY(-3px);box-shadow:0 9px 28px rgba(201,168,76,.16)}
 .mcard h3{font-family:var(--fd);color:var(--gold-l);font-size:clamp(14px,3.4vw,18px);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid rgba(201,168,76,.22)}
 .mcard ul{list-style:none}
@@ -364,7 +372,7 @@ input{font-family:inherit}
    SCHEDULE
 ===================================== */
 .schd{padding:clamp(32px,6.5vw,68px) clamp(12px,3.5vw,54px);background:linear-gradient(180deg,var(--ivory) 0%,var(--cream) 100%);position:relative}
-.schd::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('https://placehold.co/1600x900/2a1a12/f5e6d3?text=Groom+Photo');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
+.schd::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url('DSC_9570.jpg');background-size:cover;background-position:center;opacity:.05;pointer-events:none}
 .tl{position:relative;max-width:640px;margin:38px auto 46px;padding:0 14px}
 .tl::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--gold) 8%,var(--gold) 92%,transparent);transform:translateX(-50%)}
 @media(max-width:560px){.tl::before{left:17px;transform:none}}
@@ -387,7 +395,8 @@ input{font-family:inherit}
 .tmob{display:none;font-family:var(--fu);font-size:9px;font-weight:600;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-top:5px}
 @media(max-width:560px){.tmob{display:block}}
 .vcs{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;max-width:1080px;margin:0 auto}
-.vc{flex:1;min-width:250px;max-width:480px;background:linear-gradient(135deg,var(--dk-m),var(--dk));border-radius:3px;padding:clamp(22px,5vw,38px) clamp(20px,5vw,34px);text-align:center;box-shadow:0 9px 40px rgba(0,0,0,.18),0 0 0 1px rgba(201,168,76,.26);position:relative;overflow:hidden}
+.vc{flex:1;min-width:250px;max-width:480px;background:linear-gradient(135deg,rgba(45,31,24,.9),rgba(28,20,16,.9));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:3px;padding:clamp(22px,5vw,38px) clamp(20px,5vw,34px);text-align:center;box-shadow:0 9px 40px rgba(0,0,0,.18),0 0 0 1px rgba(201,168,76,.26);position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s}
+.vc:hover{transform:translateY(-3px);box-shadow:0 14px 48px rgba(201,168,76,.2),0 0 0 1px rgba(201,168,76,.4)}
 .vlbl{font-family:var(--fu);font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold-l);opacity:.7;margin-bottom:10px;position:relative;z-index:1}
 .vc::before{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .vi{font-size:clamp(32px,7.5vw,48px);margin-bottom:13px;animation:vf 3s ease-in-out infinite;will-change:transform}
@@ -414,8 +423,8 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
   .hand{font-size:clamp(16px,4vw,30px)}
 }
 @media(max-width:360px){
-  .card{padding:24px 16px}
-  .cnames{font-size:21px}
+  .civ{padding:0 8px}
+  .cnames{font-size:26px}
   .tgrid{grid-template-columns:1fr}
 }
 </style>
@@ -432,12 +441,8 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 
 <!-- COVER -->
 <div class="cover" id="cover" role="dialog" aria-modal="true" aria-label="Wedding Invitation">
-  <div class="coverbg" aria-hidden="true">
-    <div class="cbgimg cbgimg-l"></div>
-    <div class="cbgimg cbgimg-r"></div>
-  </div>
-  <div class="card">
-    <div class="cgt"></div><div class="cgb"></div>
+  <div class="coverbg" aria-hidden="true"></div>
+  <div class="civ">
     <div class="cfloral" aria-hidden="true">🌸 ✿ 🌸</div>
     <div class="clbl">You Are Cordially Invited To</div>
     <div class="cnames">Frances<span class="camp">&amp;</span>Romesh</div>
@@ -517,9 +522,16 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 
   <!-- GUEST LIST -->
   <section id="s1" class="sec" aria-label="Guest List">
+    <div class="sbanner">
+      <div class="sbimg" style="background-image:url('DSC_9596.jpg')"></div>
+      <div class="sbov">
+        <div class="sbtag">You Are Family</div>
+        <div class="sbtitle">Guest List</div>
+      </div>
+      <div class="sbfade sbfade-cream"></div>
+    </div>
     <div class="gls">
       <div style="text-align:center">
-        <h2 class="sh">Guest List</h2>
         <div class="odv"><span class="odvd">◆</span></div>
         <p class="ss">31 tables reserved in your honor</p>
         <input class="sinp" id="gs" type="text" placeholder="Search by name…"
@@ -540,9 +552,16 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 
   <!-- MENU -->
   <section id="s2" class="sec" aria-label="Wedding Menu">
+    <div class="sbanner">
+      <div class="sbimg" style="background-image:url('DSC_9367.jpg')"></div>
+      <div class="sbov">
+        <div class="sbtag">Bon Appétit</div>
+        <div class="sbtitle">Wedding Menu</div>
+      </div>
+      <div class="sbfade sbfade-dark"></div>
+    </div>
     <div class="gals">
       <div style="text-align:center">
-        <h2 class="sh">Wedding Menu</h2>
         <div class="odv"><span class="odvd">◆</span></div>
         <p class="ss">A feast prepared with love</p>
       </div>
@@ -625,9 +644,16 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 
   <!-- SCHEDULE -->
   <section id="s3" class="sec" aria-label="Wedding Schedule">
+    <div class="sbanner">
+      <div class="sbimg" style="background-image:url('DSC_9570.jpg')"></div>
+      <div class="sbov">
+        <div class="sbtag">An Evening To Remember</div>
+        <div class="sbtitle">Celebration Schedule</div>
+      </div>
+      <div class="sbfade sbfade-ivory"></div>
+    </div>
     <div class="schd">
       <div style="text-align:center">
-        <h2 class="sh">Celebration Schedule</h2>
         <div class="odv"><span class="odvd">◆</span></div>
         <p class="ss">An evening you will always remember</p>
       </div>
@@ -654,8 +680,15 @@ footer p{font-family:var(--fb);font-style:italic;font-size:clamp(11px,2.6vw,14px
 
   <!-- FLOOR PLAN -->
   <section id="s4" class="sec" aria-label="Floor Plan">
+    <div class="sbanner">
+      <div class="sbimg" style="background-image:url('DSC_3458.jpg')"></div>
+      <div class="sbov">
+        <div class="sbtag">Find Your Way</div>
+        <div class="sbtitle">Floor Plan</div>
+      </div>
+      <div class="sbfade sbfade-ivory"></div>
+    </div>
     <div class="fps">
-      <h2 class="sh">Floor Plan</h2>
       <div class="odv"><span class="odvd">◆</span></div>
       <p class="ss">31 tables arranged for our celebration</p>
       <div class="fpimg">
