@@ -107,6 +107,8 @@ button{cursor:pointer;border:none;background:none}
 .word{margin-top:30px;display:flex;flex-direction:column;gap:6px;align-items:center;letter-spacing:.06em}
 .word b{font-size:clamp(20px,5.4vw,23px);font-weight:500}
 .word span{font-size:17px}.word em{font-style:normal;font-size:15px;color:var(--ink-l)}
+.guest{font-family:var(--fs);font-size:clamp(30px,8.5vw,38px);line-height:1.25;color:var(--ras);margin-top:6px;max-width:100%;overflow-wrap:anywhere;letter-spacing:0}
+.guest:empty{display:none}
 .dots{width:230px;border-top:1px dotted var(--ink-l);margin:22px auto}
 .son{margin-top:16px;display:flex;flex-direction:column;gap:2px;letter-spacing:.06em}
 .son span{font-size:14px}.son b{font-size:19px;font-weight:400}
@@ -194,7 +196,7 @@ button{cursor:pointer;border:none;background:none}
     <svg class="orn rv" aria-hidden="true" width="26" height="38" viewBox="0 0 26 38" fill="none" stroke="#A30B4F" stroke-width="1.6" stroke-linecap="round" style="margin-top:0"><line x1="13" y1="2" x2="13" y2="36"/><line x1="4" y1="12" x2="22" y2="12"/></svg>
     <div class="quote rv" style="--d:.1s">“I have found the one whom my soul loves.”</div>
     <div class="song rv" style="--d:.15s">Song of Solomon 3:4</div>
-    <div class="word rv" style="--d:.25s"><b>Mr. &amp; Mrs. Nihal Fernando</b><span>request the pleasure of your company</span></div>
+<div class="word rv" style="--d:.25s"><b>Mr. &amp; Mrs. Nihal Fernando</b><span>request the pleasure of your company</span><div class="guest" id="guest"></div></div>
     <div class="rv" style="--d:.35s;margin-top:22px;font-size:clamp(16px,4.4vw,18px);letter-spacing:.06em;line-height:1.6">to witness the Holy Mass and bless the union of<br>their beloved daughter</div>
     <div class="son rv" style="--d:.45s"><span>SHEHANI, WITH DINOD</span><span style="margin-top:10px">son of</span><b>Mr. &amp; Mrs. Rathnayake</b></div>
   </section>
@@ -275,6 +277,11 @@ button{cursor:pointer;border:none;background:none}
   tick();setInterval(tick,1000);
 
   // reveal on scroll
+    // personalise from ?name=
+  try{
+    var g=new URLSearchParams(location.search).get('name');
+    if(g){document.getElementById('guest').textContent=g.trim().slice(0,60)}
+  }catch(e){}
   var io=null;
   function watch(){
     var els=document.querySelectorAll('.rv');
