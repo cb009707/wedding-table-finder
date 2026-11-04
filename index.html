@@ -111,7 +111,9 @@ button{cursor:pointer;border:none;background:none}
 .guest:empty{display:none}
 .dots{width:230px;border-top:1px dotted var(--ink-l);margin:22px auto}
 .son{margin-top:16px;display:flex;flex-direction:column;gap:2px;letter-spacing:.06em}
-.son span{font-size:14px}.son b{font-size:19px;font-weight:400}
+.son{align-items:center;text-align:center;gap:4px}.son span{font-size:17px}.son b{font-size:clamp(20px,5.4vw,23px);font-weight:500}
+.bn{font-family:var(--fs);font-size:clamp(38px,11vw,52px);line-height:1.15;color:var(--ras);margin-top:4px;white-space:nowrap;text-shadow:0 2px 16px rgba(163,11,79,.2)}
+.bn i{font-family:var(--fd);font-style:normal;font-size:.3em;font-weight:600;letter-spacing:.1em;margin:0 .35em;vertical-align:middle}
 
 /* countdown */
 .cd{background:var(--blush)}
@@ -144,10 +146,16 @@ button{cursor:pointer;border:none;background:none}
 
 /* rsvp + close */
 .rs{background:var(--blush)}
-.close{padding-bottom:84px}
-.cn{font-family:var(--fs);font-size:clamp(48px,14vw,60px);line-height:1.15;color:var(--ras)}
-.cn i{font-family:var(--fd);font-style:normal;font-size:.3em;font-weight:600;letter-spacing:.1em;margin:0 .5em;vertical-align:middle}
-.fam{margin-top:20px;font-size:14px;letter-spacing:.1em;color:var(--ink-m);line-height:1.8}
+.close{padding-bottom:84px;overflow:hidden}
+.cn{font-family:var(--fs);font-size:clamp(34px,10.5vw,54px);line-height:1.15;color:var(--ras);margin-top:12px;white-space:nowrap;text-shadow:0 2px 18px rgba(163,11,79,.22)}
+.cn i{font-family:var(--fd);font-style:normal;font-size:.3em;font-weight:600;letter-spacing:.1em;margin:0 .35em;vertical-align:middle}
+.pty{margin:40px auto 0;max-width:340px;padding:30px 22px 28px;border:1px solid var(--ras-l);border-radius:2px;background:rgba(255,255,255,.55)}
+.pty .pl{font-family:var(--fd);font-size:13px;letter-spacing:.3em;color:var(--ras)}
+.pty .pq{font-family:var(--fs);font-size:34px;line-height:1.25;color:var(--ras);margin-top:14px}
+.pty .pd{font-family:var(--fd);font-size:14px;letter-spacing:.06em;color:var(--ink);margin-top:18px;line-height:1.9}
+.pty .pd span{display:block;white-space:nowrap}
+.pty .pd span+span{margin-top:8px}
+.pty .btn{margin-top:26px}
 .cl{width:150px;aspect-ratio:604/900;margin:30px auto 0;background:var(--lily) center/contain no-repeat}
 
 @media(prefers-reduced-motion:reduce){
@@ -198,7 +206,7 @@ button{cursor:pointer;border:none;background:none}
     <div class="song rv" style="--d:.15s">Song of Solomon 3:4</div>
 <div class="word rv" style="--d:.25s"><b>Mr. &amp; Mrs. Nihal Fernando</b><span>request the pleasure of your company</span><div class="guest" id="guest"></div></div>
     <div class="rv" style="--d:.35s;margin-top:22px;font-size:clamp(16px,4.4vw,18px);letter-spacing:.06em;line-height:1.6">to witness the Holy Mass and bless the union of<br>their beloved daughter</div>
-    <div class="son rv" style="--d:.45s"><span>SHEHANI, WITH DINOD</span><span style="margin-top:10px">son of</span><b>Mr. &amp; Mrs. Rathnayake</b></div>
+    <div class="son rv" style="--d:.45s"><div class="bn">Shehani<i>with</i>Dinod</div><span style="margin-top:8px">son of</span><b>Mr. &amp; Mrs. Rathnayake</b></div>
   </section>
 
   <section class="sec cd">
@@ -254,7 +262,12 @@ button{cursor:pointer;border:none;background:none}
   <section class="sec close">
     <div class="sub rv" style="font-size:20px">With love and gratitude</div>
     <div class="cn rv" style="--d:.1s">Shehani<i>with</i>Dinod</div>
-    <div class="fam rv" style="--d:.2s">MR. &amp; MRS. NIHAL FERNANDO<br>MR. &amp; MRS. RATHNAYAKE</div>
+    <div class="pty rv" style="--d:.2s">
+      <div class="pl">AFTER THE MASS</div>
+      <div class="pq">Join us for the party!</div>
+      <div class="pd"><span>TUESDAY, 1 DECEMBER 2026</span><span>6.30 PM</span><span>EAGLES' LAGOON VIEW</span><span>BANQUET HALL, KATUNAYAKE</span></div>
+      <a class="btn pri" id="partyLink" href="party.html">View reception invite</a>
+    </div>
     <div class="cl rv" style="--d:.3s" role="img" aria-label="Pink lilies"></div>
   </section>
 </main>
@@ -280,7 +293,7 @@ button{cursor:pointer;border:none;background:none}
     // personalise from ?name=
   try{
     var g=new URLSearchParams(location.search).get('name');
-    if(g){document.getElementById('guest').textContent=g.trim().slice(0,60)}
+    if(g){g=g.trim().slice(0,60);document.getElementById('guest').textContent=g;document.getElementById('partyLink').href='party.html?name='+encodeURIComponent(g)}
   }catch(e){}
   var io=null;
   function watch(){
