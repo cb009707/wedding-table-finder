@@ -7,18 +7,22 @@
 <meta name="description" content="You are invited to the wedding reception of Shehani & Dinod — Tuesday, 1 December 2026, 6.30 PM, Eagles' Lagoon View Banquet Hall, Katunayake">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Cormorant+SC:wght@400;500;600&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Parisienne&family=Playfair+Display:wght@500&family=Tinos:wght@400;700&display=swap">
 <title>Shehani &amp; Dinod — Reception Invitation</title>
 <style>
+@font-face{font-family:"Amoresa";src:url("fonts/Amoresa.woff2") format("woff2"),url("fonts/Amoresa.ttf") format("truetype");font-display:swap}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --ras:#A30B4F;--ras-d:#7a0839;--ras-l:#e29ab8;
+  --ras:#A40A4A;--ras-d:#7a0839;--ras-l:#e29ab8;
   --blush:#F8E6EC;--pink:#E9C9D6;
-  --ivory:#FFFBF8;--ink:#3b2a30;--ink-m:#6b4a57;--ink-l:#7a5a66;
+  --ivory:#FFFBF8;--ink:#000000;--ink-m:#222222;--ink-l:#555555;
   --wine:#3a0b1f;
-  --fd:'Cormorant SC',Georgia,serif;
+  --fd:'Cinzel',Georgia,serif;
   --fb:'Cormorant Garamond',Georgia,serif;
-  --fs:'Pinyon Script',cursive;
+  --fs:'Parisienne',cursive;
+  --fn:'Amoresa','Great Vibes','Parisienne',cursive; /* couple names: Amoresa if fonts/Amoresa.ttf is added */
+  --fp:'Playfair Display',Georgia,serif;
+  --ft:'Times New Roman',Tinos,Times,serif;
   /* --lily is filled in by the script at the bottom (copied from index.html) */
   --tex:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .2 0 0 0 0 .3 0 0 0 .10 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
@@ -42,13 +46,13 @@ button{cursor:pointer;border:none;background:none}
 }
 .letter::before{content:'';position:absolute;inset:8px;border:1px solid var(--pink)}
 .letter small{font-size:11px;font-weight:600;letter-spacing:.3em;color:var(--ras)}
-.letter b{font-family:var(--fs);font-weight:400;font-size:clamp(30px,9vw,44px);color:var(--ras);line-height:1.15;margin-top:4px;text-align:center}
+.letter b{font-family:var(--fn);font-weight:400;font-size:clamp(30px,9vw,44px);color:var(--ras);line-height:1.15;margin-top:4px;text-align:center}
 .flapw{position:absolute;left:0;right:0;top:0;height:52%;z-index:3;transform-origin:top center;filter:drop-shadow(0 8px 8px rgba(122,8,57,.22));transition:transform 1s cubic-bezier(.4,0,.2,1) .25s,z-index 0s .5s}
 .flap{width:100%;height:100%;background:var(--tex),#EEC3D3;clip-path:polygon(0 0,100% 0,50% 100%)}
 .txt{position:absolute;z-index:2;left:0;right:0;bottom:15%;text-align:center;padding:0 24px;pointer-events:none}
 .txt small{display:block;font-size:clamp(11px,3vw,13px);font-weight:600;letter-spacing:.34em;color:var(--ras)}
 .txt b{display:block;font-family:var(--fs);font-weight:400;font-size:clamp(46px,14vw,64px);line-height:1.15;color:var(--ras);margin-top:2px}
-.txt b i{font-family:var(--fd);font-style:normal;font-weight:600;font-size:.3em;letter-spacing:.08em;margin:0 .5em;vertical-align:middle}
+.txt b i{font-family:var(--fp);font-style:normal;font-size:.36em;font-weight:500;letter-spacing:0;margin:0 .4em;vertical-align:middle}
 .txt span{display:block;font-size:clamp(12px,3.2vw,14px);letter-spacing:.2em;color:var(--ink-m);margin-top:6px}
 .tapl{position:absolute;z-index:4;left:0;right:0;top:calc(52% + 58px);text-align:center;font-size:12px;font-weight:600;letter-spacing:.3em;color:var(--ras-d);pointer-events:none;animation:blink 2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:.55}50%{opacity:1}}
@@ -61,7 +65,7 @@ button{cursor:pointer;border:none;background:none}
   transition:transform .35s ease,opacity .5s ease .1s;
 }
 .seal::before{content:'';position:absolute;inset:9%;border-radius:50%;border:1.5px solid rgba(255,255,255,.28);box-shadow:inset 0 1px 2px rgba(60,0,28,.5)}
-.seal::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(163,11,79,.5);animation:ping 2.2s ease-out infinite}
+.seal::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(164,10,74,.5);animation:ping 2.2s ease-out infinite}
 @keyframes ping{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.5);opacity:0}}
 .seal span{font-family:var(--fs);font-size:clamp(32px,9vw,40px);line-height:1;color:#6d0634;text-shadow:0 1px 0 rgba(255,255,255,.3),0 -1px 1px rgba(40,0,18,.45);padding-bottom:4px}
 .seal:hover{transform:translate(-50%,-50%) scale(1.05)}
@@ -94,10 +98,10 @@ button{cursor:pointer;border:none;background:none}
 .hl{width:112px;aspect-ratio:604/900;margin:0 auto 6px;background:var(--lily) center/contain no-repeat;animation:sway 6s ease-in-out infinite;transform-origin:50% 100%}
 @keyframes sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
 .names{display:flex;flex-direction:column;margin-top:10px}
-.n1,.n2{font-family:var(--fs);font-size:clamp(70px,21vw,92px);line-height:1.1;color:var(--ras)}
+.n1,.n2{font-family:var(--fn);font-size:clamp(70px,21vw,92px);line-height:1.1;color:var(--ras)}
 .n1{align-self:flex-start;margin-left:2px}.n2{align-self:flex-end;margin-right:2px}
-.nw{align-self:center;font-size:20px;font-weight:600;letter-spacing:.1em;color:var(--ras);line-height:1}
-.hd{margin-top:22px;font-size:clamp(15px,4.2vw,18px);font-weight:500;letter-spacing:.16em}
+.nw{align-self:center;font-family:var(--fp);font-size:22px;font-weight:500;letter-spacing:0;color:var(--ras);line-height:1}
+.hd{font-family:var(--ft);margin-top:22px;font-size:clamp(15px,4.2vw,18px);font-weight:500;letter-spacing:.16em}
 .scr{margin-top:34px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;letter-spacing:.3em;color:var(--ink-l)}
 .scr i{width:1px;height:34px;background:linear-gradient(var(--ras),transparent);animation:drip 2s ease-in-out infinite}
 @keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
@@ -123,8 +127,8 @@ button{cursor:pointer;border:none;background:none}
 .arch::before{content:'';position:absolute;inset:10px;border:1px solid rgba(226,154,184,.5);border-radius:160px 160px 0 0;pointer-events:none}
 .arch .lab{color:var(--ras-l)}
 .arch .big{font-family:var(--fs);font-size:clamp(56px,16vw,66px);line-height:1.1;color:#fff;margin-top:6px}
-.arch .mo{font-size:15px;font-weight:500;letter-spacing:.22em;margin-top:-2px}
-.arch .tm{margin-top:14px;font-size:20px;font-weight:500;letter-spacing:.1em}
+.arch .mo{font-family:var(--ft);font-size:20px;font-weight:500;letter-spacing:.3em;margin-top:-2px}
+.arch .tm{font-family:var(--ft);margin-top:14px;font-size:20px;font-weight:500;letter-spacing:.1em}
 .arch .ev{margin-top:4px;font-size:14px;letter-spacing:.18em;color:var(--ras-l)}
 .arch .al{position:absolute;bottom:-38px;left:50%;transform:translateX(-50%);width:190px;aspect-ratio:604/900;background:var(--lily) center/contain no-repeat}
 
@@ -134,7 +138,7 @@ button{cursor:pointer;border:none;background:none}
 .btns{display:flex;flex-direction:column;gap:12px;margin:28px auto 0;max-width:320px}
 .btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:12px 20px;border-radius:2px;font-size:14px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background .25s,transform .2s,color .25s}
 .btn svg{flex:0 0 auto}
-.btn.pri{background:var(--ras);color:#fff;box-shadow:0 8px 22px rgba(163,11,79,.26)}
+.btn.pri{background:var(--ras);color:#fff;box-shadow:0 8px 22px rgba(164,10,74,.26)}
 .btn.pri:hover{background:var(--ras-d);transform:translateY(-2px)}
 .btn.sec2{border:1px solid var(--ras);color:var(--ras);background:rgba(255,255,255,.5)}
 .btn.sec2:hover{background:var(--ras);color:#fff;transform:translateY(-2px)}
@@ -142,8 +146,12 @@ button{cursor:pointer;border:none;background:none}
 /* rsvp + close */
 .rs{background:var(--blush)}
 .close{padding-bottom:84px}
-.cn{font-family:var(--fs);font-size:clamp(48px,14vw,60px);line-height:1.15;color:var(--ras)}
-.cn i{font-family:var(--fd);font-style:normal;font-size:.3em;font-weight:600;letter-spacing:.1em;margin:0 .5em;vertical-align:middle}
+.back{display:inline-block;margin:18px 0 0;font-family:var(--fd);font-size:12px;letter-spacing:.2em;color:var(--ras);text-decoration:none;border-bottom:1px solid var(--ras-l);padding-bottom:2px}
+.back:hover{color:var(--ras-d)}
+.topbar{padding:16px 20px 0;text-align:left}
+.close .btns{margin-top:30px}
+.cn{font-family:var(--fn);font-size:clamp(48px,14vw,60px);line-height:1.15;color:var(--ras)}
+.cn i{font-family:var(--fp);font-style:normal;font-size:.36em;font-weight:500;letter-spacing:0;margin:0 .4em;vertical-align:middle}
 .cl{width:150px;aspect-ratio:604/900;margin:30px auto 0;background:var(--lily) center/contain no-repeat}
 
 @media(prefers-reduced-motion:reduce){
@@ -163,7 +171,7 @@ button{cursor:pointer;border:none;background:none}
     <polygon points="0,0 52,50 0,100" fill="#F2D2DD"/>
     <polygon points="100,0 48,50 100,100" fill="#F0CCD9"/>
     <polygon points="0,100 50,48 100,100" fill="#F8E3EA"/>
-    <g fill="none" stroke="rgba(163,11,79,.14)" stroke-width="1" vector-effect="non-scaling-stroke"><polyline points="0,0 52,50 0,100" vector-effect="non-scaling-stroke"/><polyline points="100,0 48,50 100,100" vector-effect="non-scaling-stroke"/><polyline points="0,100 50,48 100,100" vector-effect="non-scaling-stroke"/></g>
+    <g fill="none" stroke="rgba(164,10,74,.14)" stroke-width="1" vector-effect="non-scaling-stroke"><polyline points="0,0 52,50 0,100" vector-effect="non-scaling-stroke"/><polyline points="100,0 48,50 100,100" vector-effect="non-scaling-stroke"/><polyline points="0,100 50,48 100,100" vector-effect="non-scaling-stroke"/></g>
   </svg>
   <div class="txt" aria-hidden="true"><small>THE WEDDING RECEPTION</small><b>Shehani<i>with</i>Dinod</b><span>1 · DECEMBER · 2026</span></div>
   <div class="flapw"><div class="flap"></div></div>
@@ -175,6 +183,7 @@ button{cursor:pointer;border:none;background:none}
 
 <!-- INVITATION -->
 <main class="page" id="page">
+  <div class="topbar"><a class="back" id="backTop" href="index.html">&larr; Back to the Wedding Mass invitation</a></div>
 
   <section class="sec hero">
     <div class="hl rv" role="img" aria-label="Pink lilies"></div>
@@ -214,7 +223,7 @@ button{cursor:pointer;border:none;background:none}
     <div class="arch rv" style="--d:.1s">
       <div class="lab">WEDDING RECEPTION</div>
       <div class="big">1 December</div>
-      <div class="mo">TWO THOUSAND TWENTY-SIX</div>
+      <div class="mo">2026</div>
       <div class="tm">TUESDAY · 6.30 PM</div>
       <div class="ev">RECEPTION PARTY</div>
       <div class="al" role="img" aria-label="Pink lilies"></div>
@@ -250,6 +259,7 @@ button{cursor:pointer;border:none;background:none}
   <section class="sec close">
     <div class="sub rv" style="font-size:20px">With love and gratitude</div>
     <div class="cn rv" style="--d:.1s">Shehani<i>with</i>Dinod</div>
+    <div class="btns rv" style="--d:.2s"><a class="btn sec2" id="backBtn" href="index.html">&larr; Back to the Wedding Mass invite</a></div>
     <div class="cl rv" style="--d:.3s" role="img" aria-label="Pink lilies"></div>
   </section>
 </main>
@@ -275,7 +285,7 @@ button{cursor:pointer;border:none;background:none}
   // personalise from ?name=
   try{
     var g=new URLSearchParams(location.search).get('name');
-    if(g){document.getElementById('guest').textContent=g.trim().slice(0,60)}
+    if(g){g=g.trim().slice(0,60);document.getElementById('guest').textContent=g;var bk='index.html?name='+encodeURIComponent(g);document.getElementById('backTop').href=bk;document.getElementById('backBtn').href=bk}
   }catch(e){}
 
   // reception: Tue 1 Dec 2026, 6.30 PM Sri Lanka time (UTC+05:30) = 13:00 UTC
